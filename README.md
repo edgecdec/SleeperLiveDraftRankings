@@ -10,6 +10,7 @@
 1) Put your csv in the same directory as this file (or replace the example csv file)
 2) Go to EditMe.py and change the 'DRAFT_ID' to be the ID of your draft in browser.
 3) Change the name of the CSV file if applicable
+4) Run 'RunMe.py'
 
 
 ### Notes
