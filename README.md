@@ -10,7 +10,8 @@
 1) Put your csv in the same directory as this file (or replace the example csv file)
 2) Go to EditMe.py and change the 'DRAFT_ID' to be the ID of your draft in browser.
 3) Change the name of the CSV file if applicable
-4) Run 'RunMe.py'
+4) Run 'RunMe.py' when it is your pick
+    1) You will have to re-run it each time it is your turn to pick
 
 
 ### Notes
@@ -20,3 +21,4 @@
 3) If you created your own csv file or get it from another site, you will need to rename your columns to match the first 4 columns in the example csv ('Overall Rank', 'Name', 'Team', 'Position')
     1) All other column names will be ignored, so if there are extras that is fine
 4) You may need to install pandas with pip (for help see [this](https://www.google.com/search?q=install+pandas+with+pip&oq=install+pandas+with+pip&aqs=chrome..69i57.4908j0j4&sourceid=chrome&ie=UTF-8))
+5) I found this easiest to run in PyCharm, but any editor or the command line should be sufficient
