@@ -3,9 +3,9 @@ from Rankings.RankingsUtil import *
 from Rankings.Constants import *
 from EditMe import *
 
-def printBestAvailable():
-    playerRankings = parseCSV(FILE_NAME)
-    playersDrafted = getPlayersDrafted(DRAFT_ID)
+def printBestAvailable(fileName=FILE_NAME, draftID=DRAFT_ID):
+    playerRankings = parseCSV(fileName)
+    playersDrafted = getPlayersDrafted(draftID)
 
 
     for i in range(len(playerRankings) - 1, -1, -1):
