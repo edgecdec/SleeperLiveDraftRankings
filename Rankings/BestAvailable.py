@@ -16,12 +16,15 @@ def printBestAvailable():
                 playerRankings.remove(item)
                 break
 
-    printTopXPlayersForPos(POS_QB, playerRankings, 5)
-    printTopXPlayersForPos(POS_RB, playerRankings, 5)
-    printTopXPlayersForPos(POS_WR, playerRankings, 5)
-    printTopXPlayersForPos(POS_TE, playerRankings, 5)
-    printTopXPlayersForPos(POS_K, playerRankings, 5)
+    # BY POSITION RANKINGS
+    printTopXPlayersForPositions([POS_QB], playerRankings, 5)
+    printTopXPlayersForPositions([POS_RB], playerRankings, 5)
+    printTopXPlayersForPositions([POS_WR], playerRankings, 5)
+    printTopXPlayersForPositions([POS_TE], playerRankings, 5)
+    printTopXPlayersForPositions([POS_K], playerRankings, 5)
 
-    print("\nTop 10 Overall")
-    for i in range(min(10, len(playerRankings))):
-        print(playerRankings[i])
+    # FLEX RANKINGS
+    printTopXPlayersForPositions([POS_RB, POS_WR, POS_TE], playerRankings, 10)
+
+    #ALL RANKINGS
+    printTopXPlayersForPositions([POS_QB, POS_RB, POS_WR, POS_TE, POS_K], playerRankings, 10)

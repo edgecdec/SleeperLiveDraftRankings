@@ -1,13 +1,14 @@
 import requests
 from Rankings.PlayerRankings import Player
 
-def printTopXPlayersForPos(pos, playerRankings, count=5):
-    print(f"\nTop {count} {pos}s")
+def printTopXPlayersForPositions(positions, playerRankings, count=5):
+    positionsStr = '/'.join(positions)
+    print(f"\nTop {count} {positionsStr}s")
     i = 0
     posCount = 0
     while posCount < count and i < len(playerRankings):
         # print(playerRankings[i].pos)
-        if playerRankings[i].pos == pos:
+        if playerRankings[i].pos in positions:
             print(playerRankings[i])
             posCount += 1
         i += 1
