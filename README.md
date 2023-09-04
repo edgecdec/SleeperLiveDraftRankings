@@ -16,7 +16,7 @@
 
 ### Notes
 1) This works on mock drafts, so I recommend trying it there first
-    1) [Example mock draft](https://sleeper.com/draft/nfl/871324733034102784) that the code runs on before being edited
+    1) [Example mock draft](https://sleeper.com/draft/nfl/998363469428686848) that the code runs on before being edited
 2) Does not currently support DST (they will be skipped but shouldn't break the code)
 3) If you created your own csv file or get it from another site, you will need to rename your columns to match the first 4 columns in the example csv ('Overall Rank', 'Name', 'Team', 'Position')
     1) All other column names will be ignored, so if there are extras that is fine
