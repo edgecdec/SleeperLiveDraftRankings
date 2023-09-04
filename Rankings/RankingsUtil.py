@@ -36,3 +36,12 @@ def remove_numbers_from_string(input_string):
     # Use regular expression to remove all numbers from the input string
     result_string = re.sub(r'\d+', '', input_string)
     return result_string
+
+def addNewLineSpacing(numNewLines=10):
+    for i in range(numNewLines):
+        print()
+
+def printTopAvailablePlayersMessage():
+    print("#############################")
+    print("### TOP AVAILABLE PLAYERS ###")
+    print("#############################")
