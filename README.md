@@ -2,7 +2,7 @@
 ### See what players you have ranked highest remaining in your draft.
 
 ## Build Your Rankings
-1) Go to [this cheatsheet creation website](https://www.cheatsheetking.com/Cheatsheets/Edit)
+1) Go to [this cheatsheet creation website](https://www.cheatsheetking.com/Cheatsheets/Edit?position=Top200)
 2) Modify the 'top 200' list to your liking
 3) When finished, click the 'export' button
 

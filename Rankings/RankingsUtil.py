@@ -1,4 +1,5 @@
 import requests
+import re
 from Rankings.PlayerRankings import Player
 
 def printTopXPlayersForPositions(positions, playerRankings, count=5):
@@ -30,3 +31,8 @@ def getPlayersDrafted(draftID):
         playersDrafted.append(Player(name, team, pos, -1))
 
     return playersDrafted
+
+def remove_numbers_from_string(input_string):
+    # Use regular expression to remove all numbers from the input string
+    result_string = re.sub(r'\d+', '', input_string)
+    return result_string
