@@ -23,7 +23,6 @@ def printBestAvailableHelper(fileName, draftID):
     playerRankings = parseCSV(fileName)
     playersDrafted = getPlayersDrafted(draftID)
 
-
     for i in range(len(playerRankings) - 1, -1, -1):
         for item in playersDrafted:
             if item == playerRankings[i]:
@@ -40,5 +39,5 @@ def printBestAvailableHelper(fileName, draftID):
     # FLEX RANKINGS
     printTopXPlayersForPositions([POS_RB, POS_WR, POS_TE], playerRankings, 10)
 
-    #ALL RANKINGS
+    # ALL RANKINGS
     printTopXPlayersForPositions([POS_QB, POS_RB, POS_WR, POS_TE, POS_K], playerRankings, 10)
