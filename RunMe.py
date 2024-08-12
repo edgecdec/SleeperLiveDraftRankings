@@ -2,4 +2,3 @@
 from Rankings.BestAvailable import printBestAvailable
 
 printBestAvailable()
-
