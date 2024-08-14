@@ -24,6 +24,7 @@ class Player:
         name = name.replace('GABRIEL', 'GABE')
         name = name.replace('\'', '')
         name = name.replace('JR', '')
+        name = name.replace('SR', '')
         name = name.replace('.', '')
         name = name.replace(' ', '')
         name = name.replace('/', '')
