@@ -16,6 +16,19 @@ FIELD_POSITION = 'Position'
 
 YEAR_2024 = "2024"
 
+MONTH_JANUARY = "January"
+MONTH_FEBRUARY = "February"
+MONTH_MARCH = "March"
+MONTH_APRIL = "April"
+MONTH_MAY = "May"
+MONTH_JUNE = "June"
+MONTH_JULY = "July"
+MONTH_AUGUST = "August"
+MONTH_September = "September"
+MONTH_October = "October"
+MONTH_November = "November"
+MONTH_December = "December"
+
 CURRENT_YEAR = YEAR_2024
 
 RANKINGS_OUTPUT_DIRECTORY = "Rankings/PopulatedFromSites/"

@@ -2,6 +2,8 @@ class Player:
     def __init__(self, name, team, pos, rank):
         if team == '':
             team = 'FA'
+        if str(team).lower() == 'nan':
+            team = "N/A"
         self.name = name
         self.team = team
         self.pos = pos
@@ -14,7 +16,7 @@ class Player:
         return f"{self.rank}) {name} {self.pos} {team}"
 
     def __eq__(self, other):
-        return self.checkNameSame(other.name) and self.team == other.team and self.pos == other.pos
+        return self.checkNameSame(other.name) and (self.team == other.team or self.team == "N/A" or other.team == "N/A") and self.pos == other.pos
 
     def removeWeirdChars(self, name):
         name = name.replace('III', '')
