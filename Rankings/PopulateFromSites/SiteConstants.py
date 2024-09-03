@@ -12,6 +12,15 @@ THE_SCORE_DYNASTY_ARTICLE_IDS = {
     }
 }
 
+THE_SCORE_SALARY_CAP_ARTICLE_IDS = {
+    YEAR_2024: {
+            POS_QB: 2939503,
+            POS_RB: 2939502,
+            POS_WR: 2939501,
+            POS_TE: 2939500
+    }
+}
+
 THE_SCORE_DYNASTY_POSITION_HEADERS = {
     POS_QB: ["RK", "Player", "1QB", "2QB"],
     POS_RB: ["Rk", "Player", "PPR"],
