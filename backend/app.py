@@ -17,7 +17,9 @@ from Rankings.RankingsUtil import getPlayersDrafted, printTopXPlayersForPosition
 from Rankings.Constants import POS_QB, POS_RB, POS_WR, POS_TE, POS_K, RANKINGS_OUTPUT_DIRECTORY
 from Rankings.PlayerRankings import Player
 from Rankings.RankingsManager import RankingsManager
-from EditMe import DRAFT_ID, FILE_NAME
+# Legacy EditMe.py removed - using RankingsManager for file selection
+DEFAULT_DRAFT_ID = None  # Will be set via API
+LEGACY_FILE_NAME = 'Rankings.csv'  # Legacy fallback, prefer RankingsManager
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for React frontend
@@ -25,52 +27,7 @@ CORS(app)  # Enable CORS for React frontend
 # Initialize rankings manager
 rankings_manager = RankingsManager()
 
-# Auto-initialize rankings on startup
-def initialize_default_rankings():
-    """Initialize default rankings if none exist"""
-    try:
-        # Check if main rankings file exists
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        main_rankings_path = os.path.join(base_dir, FILE_NAME)
-        
-        print(f"🔍 Checking for rankings file: {main_rankings_path}")
-        
-        if not os.path.exists(main_rankings_path):
-            print("📊 No main rankings file found, looking for existing rankings...")
-            
-            # Look for any existing FantasyPros file to copy as default
-            rankings_dir = os.path.join(base_dir, 'Rankings', 'PopulatedFromSites')
-            
-            if os.path.exists(rankings_dir):
-                # Priority order for default rankings
-                default_files = [
-                    'FantasyPros_Rankings_half_ppr_superflex_v2.csv',
-                    'FantasyPros_Rankings_ppr_superflex_v2.csv', 
-                    'FantasyPros_Rankings_half_ppr_standard_v2.csv',
-                    'FantasyPros_Rankings.csv'
-                ]
-                
-                for filename in default_files:
-                    source_path = os.path.join(rankings_dir, filename)
-                    if os.path.exists(source_path):
-                        shutil.copy2(source_path, main_rankings_path)
-                        print(f"✅ Initialized rankings with {filename}")
-                        return
-                        
-                print("⚠️  No suitable FantasyPros rankings files found")
-            else:
-                print(f"⚠️  Rankings directory not found: {rankings_dir}")
-        else:
-            print(f"✅ Main rankings file exists: {FILE_NAME}")
-            
-    except Exception as e:
-        print(f"⚠️  Error initializing rankings: {e}")
-
-# Initialize on startup
-try:
-    initialize_default_rankings()
-except Exception as e:
-    print(f"⚠️  Failed to initialize rankings: {e}")
+print("🚀 Using RankingsManager for rankings selection")
 
 class SleeperAPI:
     """Helper class for Sleeper API calls"""
@@ -302,17 +259,172 @@ class SleeperAPI:
         print(f"🏈 Redraft league detected: no dynasty/keeper indicators found")
         return False
 
+# ============================================================================
+# RANKINGS SERVICE - Clean helper functions for rankings management
+# ============================================================================
+
+class RankingsService:
+    """Service class for managing rankings data and format detection"""
+    
+    def __init__(self, draft_api_instance):
+        self.draft_api = draft_api_instance
+        self.rankings_manager = rankings_manager
+    
+    def get_effective_format(self, league_info=None):
+        """
+        Determine the effective rankings format to use.
+        Returns: (scoring_format, league_type, is_manual, source)
+        """
+        if self.draft_api.manual_rankings_override:
+            scoring_format, league_type = self.draft_api.manual_rankings_override
+            print(f"🎯 Using manual rankings override: {scoring_format} {league_type}")
+            return scoring_format, league_type, True, "manual"
+        else:
+            if not league_info:
+                raise ValueError("league_info is required for auto-detection when no manual override is set")
+            scoring_format, league_type = SleeperAPI.detect_league_format(league_info)
+            print(f"🤖 Auto-detected league format: {scoring_format} {league_type}")
+            return scoring_format, league_type, False, "auto"
+    
+    def load_rankings_data(self, scoring_format, league_type):
+        """
+        Load rankings data for the specified format.
+        Returns: (rankings_list, rankings_dict, rankings_filename)
+        """
+        rankings_filename = self.rankings_manager.get_rankings_filename(scoring_format, league_type)
+        
+        # Try multiple possible locations for the rankings file
+        possible_paths = [
+            os.path.join(RANKINGS_OUTPUT_DIRECTORY, rankings_filename),
+            os.path.join('..', 'Rankings', RANKINGS_OUTPUT_DIRECTORY, rankings_filename),
+            os.path.join('..', RANKINGS_OUTPUT_DIRECTORY, rankings_filename)
+        ]
+        
+        rankings_file = None
+        for path in possible_paths:
+            if os.path.exists(path):
+                rankings_file = path
+                break
+        
+        if not rankings_file:
+            print(f"⚠️ Rankings file not found: {rankings_filename}")
+            return [], {}, rankings_filename
+        
+        try:
+            print(f"📊 Using rankings file: {rankings_filename}")
+            rankings_list = parseCSV(rankings_file)
+            rankings_dict = self._convert_to_dict_format(rankings_list)
+            return rankings_list, rankings_dict, rankings_filename
+        except Exception as e:
+            print(f"Error loading rankings: {e}")
+            return [], {}, rankings_filename
+    
+    def _convert_to_dict_format(self, rankings_list):
+        """Convert rankings list to dictionary format for player lookups"""
+        rankings_dict = {}
+        for player in rankings_list:
+            rankings_dict[player.name.lower().strip()] = {
+                'rank': player.rank,
+                'tier': getattr(player, 'tier', 1),
+                'original_name': player.name
+            }
+        return rankings_dict
+    
+    def get_current_rankings(self, league_info=None):
+        """
+        Main entry point for getting current rankings data.
+        Returns complete rankings information with both formats.
+        """
+        # Get effective format
+        scoring_format, league_type, is_manual, source = self.get_effective_format(league_info)
+        
+        # Load rankings data
+        rankings_list, rankings_dict, rankings_filename = self.load_rankings_data(scoring_format, league_type)
+        
+        return {
+            'rankings_list': rankings_list,      # For main draft endpoint
+            'rankings_dict': rankings_dict,      # For My Roster endpoint
+            'scoring_format': scoring_format,
+            'league_type': league_type,
+            'is_manual': is_manual,
+            'source': source,
+            'rankings_filename': rankings_filename
+        }
+
+# ============================================================================
+# LEAGUE SERVICE - Clean helper functions for league information
+# ============================================================================
+
+class LeagueService:
+    """Service class for managing league information and context"""
+    
+    @staticmethod
+    def get_league_info_from_draft(draft_id):
+        """Get league information from a draft ID"""
+        try:
+            draft_info = SleeperAPI.get_draft_info(draft_id)
+            if not draft_info:
+                return None
+            
+            league_id = draft_info.get('league_id')
+            if not league_id:
+                return None
+                
+            return SleeperAPI.get_league_info(league_id)
+        except Exception as e:
+            print(f"Error getting league info from draft {draft_id}: {e}")
+            return None
+    
+    @staticmethod
+    def get_league_info_direct(league_id):
+        """Get league information directly from league ID"""
+        try:
+            return SleeperAPI.get_league_info(league_id)
+        except Exception as e:
+            print(f"Error getting league info for {league_id}: {e}")
+            return None
+    
+    @staticmethod
+    def get_league_context(draft_id=None, league_id=None):
+        """
+        Get league context from either draft_id or league_id.
+        Returns league_info or None if not found.
+        """
+        if draft_id:
+            return LeagueService.get_league_info_from_draft(draft_id)
+        elif league_id:
+            return LeagueService.get_league_info_direct(league_id)
+        else:
+            raise ValueError("Either draft_id or league_id must be provided")
+
+# ============================================================================
+# INITIALIZE SERVICES
+# ============================================================================
+
+# These will be initialized after DraftAPI is created
+rankings_service = None
+league_service = LeagueService()
+
 class DraftAPI:
     def __init__(self):
+        """Initialize DraftAPI with default settings"""
         self.last_update = None
         self.cached_data = None
         self.cache_duration = 30  # 30 seconds cache
-        self.current_draft_id = DRAFT_ID  # Default from EditMe.py
+        self.current_draft_id = DEFAULT_DRAFT_ID  # Will be set via API
         self.manual_rankings_override = None  # Store manual ranking selection
         self.override_file = 'manual_rankings_override.json'  # Persistence file
         
         # Load manual override from file if it exists
         self._load_manual_override()
+        
+        # Initialize rankings service
+        global rankings_service
+        rankings_service = RankingsService(self)
+        
+        print(f"📊 Default Draft ID: {self.current_draft_id}")
+        if self.manual_rankings_override:
+            print(f"🎯 Loaded manual override: {self.manual_rankings_override}")
     
     def _load_manual_override(self):
         """Load manual override from file"""
@@ -467,23 +579,16 @@ class DraftAPI:
         
         try:
             # Get draft info to determine league settings
-            print(f"🔍 DEBUG: Getting draft info for {self.current_draft_id}")
-            draft_info = SleeperAPI.get_draft_info(self.current_draft_id)
-            if not draft_info:
-                return {'error': 'Draft not found'}
+            print(f"🔍 DEBUG: Getting league context for draft {self.current_draft_id}")
             
-            league_id = draft_info.get('league_id')
-            print(f"🔍 DEBUG: Draft belongs to league {league_id}")
-            league_info = SleeperAPI.get_league_info(league_id) if league_id else None
+            # Get league context using helper service
+            league_info = league_service.get_league_context(draft_id=self.current_draft_id)
+            if not league_info:
+                return {'error': 'League information not found'}
             
-            # Get current rankings using centralized method
-            rankings_result = self.get_current_rankings_data(league_info)
-            rankings_data = rankings_result['rankings_data']
-            scoring_format = rankings_result['scoring_format']
-            league_type = rankings_result['league_type']
-            
-            # Use the rankings data from centralized method
-            player_rankings = rankings_data
+            # Get current rankings using clean helper service
+            rankings_result = rankings_service.get_current_rankings(league_info)
+            player_rankings = rankings_result['rankings_list']
             
             # Check if this is a dynasty/keeper league
             is_dynasty_keeper = SleeperAPI.is_dynasty_or_keeper_league(league_info)
@@ -563,7 +668,7 @@ class DraftAPI:
                 'league_name': league_info.get('name') if league_info else 'Unknown',
                 'last_updated': datetime.now().isoformat(),
                 'draft_id': self.current_draft_id,
-                'draft_info': draft_info
+                'draft_info': SleeperAPI.get_draft_info(self.current_draft_id)  # Get draft info for completeness
             }
             
             self.last_update = current_time
@@ -863,16 +968,18 @@ def get_my_roster(league_id):
         # Get all players data
         all_players = SleeperAPI.get_all_players()
         
-        # Get rankings data using centralized method
+        # Get rankings data using clean helper services
         try:
-            # Get league info for format detection
-            league_info = SleeperAPI.get_league_info(league_id)
+            # Get league context using helper service
+            league_info = league_service.get_league_context(league_id=league_id)
+            if not league_info:
+                return jsonify({'error': 'League information not found'}), 404
             
-            # Use centralized rankings method
-            rankings_result = draft_api.get_current_rankings_data(league_info)
+            # Get current rankings using clean helper service
+            rankings_result = rankings_service.get_current_rankings(league_info)
             rankings_data = rankings_result['rankings_dict']  # Use dictionary format for My Roster
             
-            print(f"📊 My Roster using: {rankings_result['scoring_format']} {rankings_result['league_type']} ({'manual' if rankings_result['is_manual'] else 'auto'})")
+            print(f"📊 My Roster using: {rankings_result['scoring_format']} {rankings_result['league_type']} ({rankings_result['source']})")
             
         except Exception as e:
             print(f"Error loading rankings for My Roster: {e}")
@@ -1094,39 +1201,25 @@ def get_current_rankings_format():
     try:
         draft_id = request.args.get('draft_id', draft_api.current_draft_id)
         
-        # Get draft and league info
-        draft_info = SleeperAPI.get_draft_info(draft_id)
-        if not draft_info:
-            return jsonify({'error': 'Draft not found'}), 404
+        # Get league context using helper service
+        league_info = league_service.get_league_context(draft_id=draft_id)
+        if not league_info:
+            return jsonify({'error': 'League information not found'}), 404
         
-        league_id = draft_info.get('league_id')
-        league_info = SleeperAPI.get_league_info(league_id) if league_id else None
+        # Get current format using clean helper service
+        rankings_result = rankings_service.get_current_rankings(league_info)
         
-        # Determine current format (manual override or auto-detected)
-        if draft_api.manual_rankings_override:
-            scoring_format, league_type = draft_api.manual_rankings_override
-            is_manual = True
-            source = 'manual'
-        else:
-            scoring_format, league_type = SleeperAPI.detect_league_format(league_info)
-            is_manual = False
-            source = 'auto-detected'
+        return jsonify({
+            'success': True,
+            'scoring_format': rankings_result['scoring_format'],
+            'league_type': rankings_result['league_type'],
+            'is_manual': rankings_result['is_manual'],
+            'source': rankings_result['source'],
+            'rankings_filename': rankings_result['rankings_filename']
+        })
         
-        # Get filename
-        rankings_filename = rankings_manager.get_rankings_filename(scoring_format, league_type)
-        
-        # Try multiple possible locations for the rankings file
-        possible_paths = [
-            os.path.join(RANKINGS_OUTPUT_DIRECTORY, rankings_filename),  # backend/PopulatedFromSites/
-            os.path.join('..', 'Rankings', RANKINGS_OUTPUT_DIRECTORY, rankings_filename),  # Rankings/PopulatedFromSites/
-            os.path.join('..', RANKINGS_OUTPUT_DIRECTORY, rankings_filename)  # PopulatedFromSites/
-        ]
-        
-        rankings_file = None
-        for path in possible_paths:
-            if os.path.exists(path):
-                rankings_file = path
-                break
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
         
         file_exists = rankings_file is not None
         
@@ -1295,7 +1388,7 @@ def get_settings():
     """Get current draft settings"""
     return jsonify({
         'draft_id': draft_api.current_draft_id,
-        'file_name': FILE_NAME,
+        'file_name': 'RankingsManager',  # Using RankingsManager instead of legacy file
         'refresh_interval': 30
     })
 
@@ -1311,8 +1404,8 @@ def health_check():
 
 if __name__ == '__main__':
     print("🚀 Starting Fantasy Football Draft API...")
-    print(f"📊 Default Draft ID: {DRAFT_ID}")
-    print(f"📁 Rankings File: {FILE_NAME}")
+    print(f"📊 Default Draft ID: {DEFAULT_DRAFT_ID}")
+    print(f"📁 Rankings File: Using RankingsManager")
     print("🌐 API will be available at http://localhost:5001")
     
     app.run(debug=True, host='0.0.0.0', port=5001)
