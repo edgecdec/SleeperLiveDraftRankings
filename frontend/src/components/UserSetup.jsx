@@ -1,30 +1,63 @@
-import React, { useState } from 'react';
-import { Search, User, Trophy, Calendar, Users, Zap, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Search, User, Trophy, Calendar, Users, Zap, AlertCircle, Crown, RefreshCw } from 'lucide-react';
 import useUserLeagues from '../hooks/useUserLeagues';
+import useUrlParams from '../hooks/useUrlParams';
 
-const UserSetup = ({ onDraftSelected }) => {
-  const [username, setUsername] = useState('');
-  const [selectedSeason, setSelectedSeason] = useState('2025');
+const UserSetup = () => {
+  const navigate = useNavigate();
+  const { username: urlUsername, season: urlSeason } = useUrlParams();
+  
+  const [username, setUsername] = useState(urlUsername || '');
+  const [selectedSeason, setSelectedSeason] = useState(urlSeason || '2025');
   const { user, leagues, loading, error, fetchUserLeagues } = useUserLeagues();
+
+  // Auto-fetch leagues if username is in URL
+  useEffect(() => {
+    if (urlUsername && urlUsername.trim()) {
+      console.log('UserSetup: Auto-searching for user from URL:', urlUsername);
+      setUsername(urlUsername);
+      fetchUserLeagues(urlUsername, urlSeason || '2025');
+    }
+  }, [urlUsername, urlSeason, fetchUserLeagues]);
+
+  // Auto-search when season changes (if we already have a username)
+  useEffect(() => {
+    if (username && username.trim() && selectedSeason) {
+      console.log('UserSetup: Auto-searching due to season change:', { username, selectedSeason });
+      fetchUserLeagues(username.trim(), selectedSeason);
+    }
+  }, [selectedSeason, fetchUserLeagues]); // Only trigger when selectedSeason changes
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (username.trim()) {
+      // Update URL and fetch leagues
+      const userUrl = selectedSeason !== '2025' 
+        ? `/user/${username.trim()}?season=${selectedSeason}`
+        : `/user/${username.trim()}`;
+      
+      navigate(userUrl);
       fetchUserLeagues(username.trim(), selectedSeason);
     }
   };
 
   const handleDraftSelect = (league, draft) => {
-    onDraftSelected({
-      draftId: draft.draft_id,
-      leagueId: league.league_id,
-      leagueName: league.name,
-      draftType: draft.type,
-      status: draft.status,
-      username: username,
-      user: user,
-      leagues: leagues
-    });
+    // Navigate to draft view with full URL context
+    const draftUrl = `/sleeper/league/${league.league_id}/draft/${draft.draft_id}?user=${username}`;
+    navigate(draftUrl);
+  };
+
+  const handleSeasonChange = (newSeason) => {
+    setSelectedSeason(newSeason);
+    
+    // Update URL if we have a username
+    if (username && username.trim()) {
+      const userUrl = newSeason !== '2025' 
+        ? `/user/${username.trim()}?season=${newSeason}`
+        : `/user/${username.trim()}`;
+      navigate(userUrl, { replace: true }); // Use replace to avoid cluttering history
+    }
   };
 
   const getDraftStatusColor = (status) => {
@@ -43,6 +76,81 @@ const UserSetup = ({ onDraftSelected }) => {
       case 'pre_draft': return '⏳';
       default: return '❓';
     }
+  };
+
+  const getDraftStatusPriority = (status) => {
+    switch (status) {
+      case 'drafting': return 1; // Highest priority
+      case 'pre_draft': return 2; // Medium priority
+      case 'complete': return 3; // Lowest priority
+      default: return 4; // Unknown status last
+    }
+  };
+
+  const getLeagueCardClasses = (league) => {
+    const hasActiveDraft = league.drafts && league.drafts.some(draft => draft.status === 'drafting');
+    const baseClasses = 'card transition-all duration-300';
+    
+    if (hasActiveDraft) {
+      return `${baseClasses} border-2 border-red-500 draft-active`;
+    }
+    
+    return baseClasses;
+  };
+
+  const sortLeaguesByDraftStatus = (leagues) => {
+    return [...leagues].sort((a, b) => {
+      // Get the highest priority draft status for each league
+      const getLeaguePriority = (league) => {
+        if (!league.drafts || league.drafts.length === 0) return 4;
+        
+        const priorities = league.drafts.map(draft => getDraftStatusPriority(draft.status));
+        return Math.min(...priorities); // Get the highest priority (lowest number)
+      };
+      
+      const priorityA = getLeaguePriority(a);
+      const priorityB = getLeaguePriority(b);
+      
+      return priorityA - priorityB;
+    });
+  };
+
+  const isDynastyOrKeeperLeague = (league) => {
+    // Check league settings for dynasty/keeper indicators
+    const settings = league.settings || {};
+    
+    // Dynasty league type
+    if (settings.type === 2) return true;
+    
+    // Has taxi squad (dynasty feature)
+    if (settings.taxi_slots > 0) return true;
+    
+    // Check for ACTUAL keepers being used (more conservative approach)
+    // Only consider it a keeper league if max_keepers > 1 to avoid false positives
+    // from default Sleeper settings (max_keepers = 1)
+    if (settings.max_keepers > 1) return true;
+    
+    // Check previous league ID with additional context
+    // Having a previous league ID alone doesn't guarantee dynasty/keeper
+    // It could just be annual league continuation
+    if (league.previous_league_id) {
+      // Only consider dynasty/keeper if combined with other indicators
+      if (settings.max_keepers > 1 || settings.taxi_slots > 0 || settings.type === 2) {
+        return true;
+      }
+      // Otherwise, likely just annual redraft continuation
+    }
+    
+    // Check draft metadata for dynasty scoring
+    if (league.drafts && league.drafts.length > 0) {
+      const draft = league.drafts[0];
+      if (draft.metadata && draft.metadata.scoring_type && 
+          draft.metadata.scoring_type.includes('dynasty')) {
+        return true;
+      }
+    }
+    
+    return false;
   };
 
   return (
@@ -86,7 +194,7 @@ const UserSetup = ({ onDraftSelected }) => {
                 <select
                   id="season"
                   value={selectedSeason}
-                  onChange={(e) => setSelectedSeason(e.target.value)}
+                  onChange={(e) => handleSeasonChange(e.target.value)}
                   className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   disabled={loading}
                 >
@@ -149,11 +257,24 @@ const UserSetup = ({ onDraftSelected }) => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Select a League & Draft</h3>
             
-            {leagues.map((league) => (
-              <div key={league.league_id} className="card">
+            {sortLeaguesByDraftStatus(leagues).map((league) => (
+              <div key={league.league_id} className={getLeagueCardClasses(league)}>
                 <div className="mb-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-lg font-medium text-gray-900 dark:text-white">{league.name}</h4>
+                    <div className="flex items-center space-x-3">
+                      <h4 className="text-lg font-medium text-gray-900 dark:text-white">{league.name}</h4>
+                      {isDynastyOrKeeperLeague(league) ? (
+                        <div className="flex items-center space-x-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 rounded-full text-xs font-medium">
+                          <Crown className="w-3 h-3" />
+                          <span>Dynasty/Keeper</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center space-x-1 px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-xs font-medium">
+                          <RefreshCw className="w-3 h-3" />
+                          <span>Redraft</span>
+                        </div>
+                      )}
+                    </div>
                     <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
                       <Users className="w-4 h-4" />
                       <span>{league.total_rosters} teams</span>

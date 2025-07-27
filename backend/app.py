@@ -325,7 +325,7 @@ class RankingsService:
         for player in rankings_list:
             rankings_dict[player.name.lower().strip()] = {
                 'rank': player.rank,
-                'tier': getattr(player, 'tier', 1),
+                'tier': player.tier,
                 'original_name': player.name
             }
         return rankings_dict
@@ -525,7 +525,7 @@ class DraftAPI:
                     # Create a key that matches our player matching logic
                     rankings_dict[player.name.lower().strip()] = {
                         'rank': player.rank,
-                        'tier': getattr(player, 'tier', 1),
+                        'tier': player.tier,
                         'original_name': player.name
                     }
             else:
@@ -594,9 +594,9 @@ class DraftAPI:
             is_dynasty_keeper = SleeperAPI.is_dynasty_or_keeper_league(league_info)
             rostered_players = set()
             
-            if is_dynasty_keeper and league_id:
+            if is_dynasty_keeper and league_info.get('league_id'):
                 # Get all rostered players to exclude from rankings
-                rosters = SleeperAPI.get_league_rosters(league_id)
+                rosters = SleeperAPI.get_league_rosters(league_info.get('league_id'))
                 all_players = SleeperAPI.get_all_players()
                 
                 # Collect all rostered player IDs
@@ -654,7 +654,7 @@ class DraftAPI:
                     'position': player.pos,
                     'team': player.team,
                     'rank': player.rank,
-                    'tier': getattr(player, 'tier', 1)
+                    'tier': player.tier
                 })
             
             self.cached_data = {
@@ -728,7 +728,7 @@ class DraftAPI:
                 return ranking_info
         
         # Default if not found
-        return {'rank': 999, 'tier': 10}
+        return {'rank': 999, 'tier': 999}
 
     def _get_nickname_variations(self, name):
         """Get common nickname variations for a player name"""
@@ -834,7 +834,7 @@ class DraftAPI:
                     'team': player.team,
                     'rank': player.rank,  # Original absolute rank from CSV
                     'target_rank': pos_count + 1,  # Position among remaining players in this section
-                    'tier': getattr(player, 'tier', 1)
+                    'tier': player.tier
                 })
                 pos_count += 1
             i += 1

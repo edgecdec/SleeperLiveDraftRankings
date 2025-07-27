@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, Trophy, Users, Calendar, Zap, Crown } from 'lucide-react';
+import { ChevronDown, Trophy, Users, Calendar, Zap, Crown, RefreshCw } from 'lucide-react';
 
 const LeagueSelector = ({ currentDraft, leagues, onDraftChange, onBackToSetup }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,14 +29,24 @@ const LeagueSelector = ({ currentDraft, leagues, onDraftChange, onBackToSetup })
     // Dynasty league type
     if (settings.type === 2) return true;
     
-    // Has keepers
-    if (settings.max_keepers > 0) return true;
-    
     // Has taxi squad (dynasty feature)
     if (settings.taxi_slots > 0) return true;
     
-    // Has previous league ID (continuation)
-    if (league.previous_league_id) return true;
+    // Check for ACTUAL keepers being used (more conservative approach)
+    // Only consider it a keeper league if max_keepers > 1 to avoid false positives
+    // from default Sleeper settings (max_keepers = 1)
+    if (settings.max_keepers > 1) return true;
+    
+    // Check previous league ID with additional context
+    // Having a previous league ID alone doesn't guarantee dynasty/keeper
+    // It could just be annual league continuation
+    if (league.previous_league_id) {
+      // Only consider dynasty/keeper if combined with other indicators
+      if (settings.max_keepers > 1 || settings.taxi_slots > 0 || settings.type === 2) {
+        return true;
+      }
+      // Otherwise, likely just annual redraft continuation
+    }
     
     // Check draft metadata for dynasty scoring
     if (league.drafts && league.drafts.length > 0) {
@@ -48,6 +58,43 @@ const LeagueSelector = ({ currentDraft, leagues, onDraftChange, onBackToSetup })
     }
     
     return false;
+  };
+
+  const getDraftStatusPriority = (status) => {
+    switch (status) {
+      case 'drafting': return 1; // Highest priority
+      case 'pre_draft': return 2; // Medium priority
+      case 'complete': return 3; // Lowest priority
+      default: return 4; // Unknown status last
+    }
+  };
+
+  const getLeagueItemClasses = (league) => {
+    const hasActiveDraft = league.drafts && league.drafts.some(draft => draft.status === 'drafting');
+    const baseClasses = 'border-b border-gray-100 dark:border-gray-700 last:border-b-0 transition-all duration-300';
+    
+    if (hasActiveDraft) {
+      return `${baseClasses} bg-red-50 dark:bg-red-900/10 border-l-4 border-l-red-500 draft-active-dropdown`;
+    }
+    
+    return baseClasses;
+  };
+
+  const sortLeaguesByDraftStatus = (leagues) => {
+    return [...leagues].sort((a, b) => {
+      // Get the highest priority draft status for each league
+      const getLeaguePriority = (league) => {
+        if (!league.drafts || league.drafts.length === 0) return 4;
+        
+        const priorities = league.drafts.map(draft => getDraftStatusPriority(draft.status));
+        return Math.min(...priorities); // Get the highest priority (lowest number)
+      };
+      
+      const priorityA = getLeaguePriority(a);
+      const priorityB = getLeaguePriority(b);
+      
+      return priorityA - priorityB;
+    });
   };
 
   const handleDraftSelect = (league, draft) => {
@@ -112,16 +159,21 @@ const LeagueSelector = ({ currentDraft, leagues, onDraftChange, onBackToSetup })
             </div>
 
             <div className="max-h-80 overflow-y-auto">
-              {leagues.map((league) => (
-                <div key={league.league_id} className="border-b border-gray-100 dark:border-gray-700 last:border-b-0">
+              {sortLeaguesByDraftStatus(leagues).map((league) => (
+                <div key={league.league_id} className={getLeagueItemClasses(league)}>
                   <div className="p-3">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center space-x-2">
                         <h4 className="text-sm font-medium text-gray-900 dark:text-white">{league.name}</h4>
-                        {isDynastyOrKeeperLeague(league) && (
+                        {isDynastyOrKeeperLeague(league) ? (
                           <div className="flex items-center space-x-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 rounded-full text-xs font-medium">
                             <Crown className="w-3 h-3" />
                             <span>Dynasty/Keeper</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center space-x-1 px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-xs font-medium">
+                            <RefreshCw className="w-3 h-3" />
+                            <span>Redraft</span>
                           </div>
                         )}
                       </div>

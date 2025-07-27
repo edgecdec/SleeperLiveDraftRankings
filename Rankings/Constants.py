@@ -13,6 +13,7 @@ FIELD_OVERALL_RANK = 'Overall Rank'
 FIELD_NAME = 'Name'
 FIELD_TEAM = 'Team'
 FIELD_POSITION = 'Position'
+FIELD_TIER = 'Tier'
 
 YEAR_2024 = "2024"
 

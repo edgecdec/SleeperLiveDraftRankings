@@ -173,15 +173,22 @@ const MyRoster = ({ leagueId, username, draftId, isVisible = true, lastUpdated, 
     const starterCounts = rosterData.roster_settings.starter_counts;
     const benchSlots = rosterData.roster_settings?.bench_slots || 0;
     const allPlayers = [];
+    const seenPlayerIds = new Set(); // Frontend safeguard against duplicates
     
-    // Collect all players with their position and rank
+    // Collect all players with their position and rank, deduplicating by player_id
     if (rosterData.positions) {
       Object.entries(rosterData.positions).forEach(([position, players]) => {
         players.forEach(player => {
-          allPlayers.push({
-            ...player,
-            originalPosition: position
-          });
+          // Skip if we've already seen this player_id
+          if (!seenPlayerIds.has(player.player_id)) {
+            allPlayers.push({
+              ...player,
+              originalPosition: position
+            });
+            seenPlayerIds.add(player.player_id);
+          } else {
+            console.log(`MyRoster Frontend: Skipped duplicate player ${player.name} (${player.player_id})`);
+          }
         });
       });
     }
