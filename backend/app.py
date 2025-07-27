@@ -6,6 +6,7 @@ import os
 import time
 import shutil
 import requests
+import json
 from datetime import datetime
 
 # Add the parent directory to the path so we can import existing modules
@@ -262,15 +263,68 @@ class DraftAPI:
         self.cached_data = None
         self.cache_duration = 30  # 30 seconds cache
         self.current_draft_id = DRAFT_ID  # Default from EditMe.py
+        self.manual_rankings_override = None  # Store manual ranking selection
+        self.override_file = 'manual_rankings_override.json'  # Persistence file
+        
+        # Load manual override from file if it exists
+        self._load_manual_override()
+    
+    def _load_manual_override(self):
+        """Load manual override from file"""
+        try:
+            if os.path.exists(self.override_file):
+                with open(self.override_file, 'r') as f:
+                    data = json.load(f)
+                    # Handle both None/null and list data
+                    if data and isinstance(data, list) and len(data) == 2:
+                        self.manual_rankings_override = tuple(data)
+                        print(f"🔄 Loaded manual override: {self.manual_rankings_override}")
+                    else:
+                        self.manual_rankings_override = None
+        except Exception as e:
+            print(f"⚠️  Error loading manual override: {e}")
+            self.manual_rankings_override = None
+    
+    def _save_manual_override(self):
+        """Save manual override to file"""
+        try:
+            with open(self.override_file, 'w') as f:
+                json.dump(list(self.manual_rankings_override) if self.manual_rankings_override else None, f)
+        except Exception as e:
+            print(f"⚠️  Error saving manual override: {e}")
     
     def set_draft_id(self, draft_id):
         """Set the current draft ID and clear cache"""
         self.current_draft_id = draft_id
         self.cached_data = None
         self.last_update = None
+        # Clear manual override when switching drafts
+        self.manual_rankings_override = None
+        self._save_manual_override()
+    
+    def set_manual_rankings(self, scoring_format, league_type):
+        """Set manual rankings override"""
+        self.manual_rankings_override = (scoring_format, league_type)
+        self._save_manual_override()
+        # Clear cache to force refresh with new rankings
+        self.cached_data = None
+        self.last_update = None
+        print(f"🎯 Set manual rankings override: {scoring_format} {league_type}")
+    
+    def clear_manual_rankings(self):
+        """Clear manual rankings override (return to auto-detection)"""
+        self.manual_rankings_override = None
+        self._save_manual_override()
+        # Clear cache to force refresh with auto-detected rankings
+        self.cached_data = None
+        self.last_update = None
+        print(f"🤖 Cleared manual rankings override, returning to auto-detection")
     
     def get_draft_data(self, draft_id=None):
         """Get current draft data with caching"""
+        print(f"🔍 DEBUG: get_draft_data called with draft_id={draft_id}")
+        print(f"🔍 DEBUG: manual_rankings_override={self.manual_rankings_override}")
+        
         if draft_id:
             self.set_draft_id(draft_id)
         
@@ -291,8 +345,15 @@ class DraftAPI:
             league_id = draft_info.get('league_id')
             league_info = SleeperAPI.get_league_info(league_id) if league_id else None
             
-            # Detect appropriate rankings format based on league settings
-            scoring_format, league_type = SleeperAPI.detect_league_format(league_info)
+            # Determine which rankings to use
+            if self.manual_rankings_override:
+                # Use manual override
+                scoring_format, league_type = self.manual_rankings_override
+                print(f"🎯 Using manual rankings override: {scoring_format} {league_type}")
+            else:
+                # Auto-detect based on league settings
+                scoring_format, league_type = SleeperAPI.detect_league_format(league_info)
+                print(f"🤖 Auto-detected league format: {scoring_format} {league_type}")
             
             # Get the appropriate rankings file
             rankings_filename = rankings_manager.get_rankings_filename(scoring_format, league_type)
@@ -573,7 +634,7 @@ class DraftAPI:
         
         return players
 
-# Initialize the API
+# Initialize the API (single instance)
 draft_api = DraftAPI()
 
 @app.route('/api/user/<username>')
@@ -941,8 +1002,15 @@ def get_current_rankings_format():
         league_id = draft_info.get('league_id')
         league_info = SleeperAPI.get_league_info(league_id) if league_id else None
         
-        # Detect format
-        scoring_format, league_type = SleeperAPI.detect_league_format(league_info)
+        # Determine current format (manual override or auto-detected)
+        if draft_api.manual_rankings_override:
+            scoring_format, league_type = draft_api.manual_rankings_override
+            is_manual = True
+            source = 'manual'
+        else:
+            scoring_format, league_type = SleeperAPI.detect_league_format(league_info)
+            is_manual = False
+            source = 'auto-detected'
         
         # Get filename
         rankings_filename = rankings_manager.get_rankings_filename(scoring_format, league_type)
@@ -968,7 +1036,10 @@ def get_current_rankings_format():
             'filename': rankings_filename,
             'file_exists': file_exists,
             'file_path': rankings_file if file_exists else None,
-            'league_name': league_info.get('name') if league_info else 'Unknown'
+            'league_name': league_info.get('name') if league_info else 'Unknown',
+            'is_manual': is_manual,
+            'source': source,
+            'format_key': f'{scoring_format}_{league_type}'
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -1029,34 +1100,48 @@ def select_rankings():
                 scoring = '_'.join(parts[:-1])  # e.g., "half_ppr"
                 format_type = parts[-1]         # e.g., "superflex"
                 
-                # Get rankings for this format
-                rankings = rankings_manager.get_rankings(scoring, format_type)
-                if rankings is not None:
-                    # Copy to main rankings file
-                    filename = rankings_manager.get_rankings_filename(scoring, format_type)
-                    source_path = os.path.join(RANKINGS_OUTPUT_DIRECTORY, filename)
-                    dest_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), FILE_NAME)
-                    
-                    if os.path.exists(source_path):
-                        shutil.copy2(source_path, dest_path)
-                        return jsonify({'success': True, 'message': f'Selected {scoring} {format_type} rankings'})
-                    else:
-                        return jsonify({'error': f'Rankings file not found: {filename}'}), 404
+                # Set manual override in DraftAPI
+                draft_api.set_manual_rankings(scoring, format_type)
+                
+                # Verify the rankings file exists
+                filename = rankings_manager.get_rankings_filename(scoring, format_type)
+                
+                # Try multiple possible locations for the rankings file
+                possible_paths = [
+                    os.path.join(RANKINGS_OUTPUT_DIRECTORY, filename),
+                    os.path.join('..', 'Rankings', RANKINGS_OUTPUT_DIRECTORY, filename),
+                    os.path.join('..', RANKINGS_OUTPUT_DIRECTORY, filename)
+                ]
+                
+                rankings_file = None
+                for path in possible_paths:
+                    if os.path.exists(path):
+                        rankings_file = path
+                        break
+                
+                if rankings_file:
+                    return jsonify({
+                        'success': True, 
+                        'message': f'Selected {scoring} {format_type} rankings',
+                        'format': f'{scoring}_{format_type}',
+                        'file': filename
+                    })
                 else:
-                    return jsonify({'error': f'Could not load {scoring} {format_type} rankings'}), 404
+                    return jsonify({'error': f'Rankings file not found: {filename}'}), 404
             else:
                 return jsonify({'error': 'Invalid format key'}), 400
                 
         elif ranking_type == 'custom':
-            # Load custom rankings
-            rankings = rankings_manager._load_custom_rankings(ranking_id)
-            if rankings is not None:
-                # Save to main rankings file
-                dest_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), FILE_NAME)
-                rankings.to_csv(dest_path, index=False)
-                return jsonify({'success': True, 'message': f'Selected custom rankings: {ranking_id}'})
-            else:
-                return jsonify({'error': f'Could not load custom rankings: {ranking_id}'}), 404
+            # Handle custom rankings (if implemented)
+            return jsonify({'error': 'Custom rankings not yet implemented'}), 501
+        elif ranking_type == 'auto':
+            # Clear manual override to return to auto-detection
+            draft_api.clear_manual_rankings()
+            return jsonify({
+                'success': True,
+                'message': 'Switched to automatic league detection',
+                'format': 'auto'
+            })
         else:
             return jsonify({'error': 'Invalid ranking type'}), 400
             
@@ -1122,8 +1207,7 @@ def health_check():
         'timestamp': datetime.now().isoformat()
     })
 
-# Initialize draft API after class definition
-draft_api = DraftAPI()
+# DraftAPI instance already initialized above
 
 if __name__ == '__main__':
     print("🚀 Starting Fantasy Football Draft API...")
