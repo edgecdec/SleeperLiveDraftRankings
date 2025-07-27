@@ -223,38 +223,67 @@ class SleeperAPI:
     
     @staticmethod
     def is_dynasty_or_keeper_league(league_info):
-        """Determine if a league is dynasty or keeper based on league settings"""
+        """Determine if a league is dynasty or keeper based on league settings and actual usage"""
         if not league_info:
             return False
         
         settings = league_info.get('settings', {})
+        league_id = league_info.get('league_id')
         
         # Check for dynasty indicators
         league_type = settings.get('type', 0)
         if league_type == 2:  # Dynasty league type
-            return True
-        
-        # Check for keeper indicators
-        max_keepers = settings.get('max_keepers', 0)
-        if max_keepers > 0:
+            print(f"🏰 Dynasty league detected: type={league_type}")
             return True
         
         # Check for taxi squad (dynasty feature)
         taxi_slots = settings.get('taxi_slots', 0)
         if taxi_slots > 0:
+            print(f"🚕 Dynasty league detected: taxi_slots={taxi_slots}")
             return True
         
         # Check if there's a previous league ID (continuation)
         if league_info.get('previous_league_id'):
+            print(f"🔗 Dynasty/Keeper league detected: has previous_league_id")
             return True
+        
+        # Check for ACTUAL keepers being used (not just max_keepers setting)
+        max_keepers = settings.get('max_keepers', 0)
+        if max_keepers > 0 and league_id:
+            # Check if any rosters actually have keepers
+            try:
+                rosters = SleeperAPI.get_league_rosters(league_id)
+                actual_keepers = 0
+                for roster in rosters:
+                    keepers = roster.get('keepers', [])
+                    if keepers and len(keepers) > 0:
+                        actual_keepers += len(keepers)
+                
+                if actual_keepers > 0:
+                    print(f"🔒 Keeper league detected: {actual_keepers} actual keepers found")
+                    return True
+                else:
+                    print(f"📝 Not a keeper league: max_keepers={max_keepers} but 0 actual keepers")
+                    
+            except Exception as e:
+                print(f"⚠️ Error checking keepers: {e}")
+                # Fallback: if we can't check actual keepers and max_keepers > 1, assume it's a keeper league
+                if max_keepers > 1:
+                    print(f"🔒 Keeper league assumed: max_keepers={max_keepers} (couldn't verify actual keepers)")
+                    return True
         
         # Check draft metadata for dynasty scoring
         draft_id = league_info.get('draft_id')
         if draft_id:
-            draft_info = SleeperAPI.get_draft_info(draft_id)
-            if draft_info and draft_info.get('metadata', {}).get('scoring_type', '').startswith('dynasty'):
-                return True
+            try:
+                draft_info = SleeperAPI.get_draft_info(draft_id)
+                if draft_info and draft_info.get('metadata', {}).get('scoring_type', '').startswith('dynasty'):
+                    print(f"🏰 Dynasty league detected: draft metadata indicates dynasty")
+                    return True
+            except Exception as e:
+                print(f"⚠️ Error checking draft metadata: {e}")
         
+        print(f"🏈 Redraft league detected: no dynasty/keeper indicators found")
         return False
 
 class DraftAPI:
@@ -295,12 +324,11 @@ class DraftAPI:
     
     def set_draft_id(self, draft_id):
         """Set the current draft ID and clear cache"""
+        # Don't clear manual override when switching drafts - it should persist
+        # Manual override is a user preference, not draft-specific
         self.current_draft_id = draft_id
         self.cached_data = None
         self.last_update = None
-        # Clear manual override when switching drafts
-        self.manual_rankings_override = None
-        self._save_manual_override()
     
     def set_manual_rankings(self, scoring_format, league_type):
         """Set manual rankings override"""
@@ -322,9 +350,6 @@ class DraftAPI:
     
     def get_draft_data(self, draft_id=None):
         """Get current draft data with caching"""
-        print(f"🔍 DEBUG: get_draft_data called with draft_id={draft_id}")
-        print(f"🔍 DEBUG: manual_rankings_override={self.manual_rankings_override}")
-        
         if draft_id:
             self.set_draft_id(draft_id)
         
@@ -862,8 +887,30 @@ def get_my_roster(league_id):
                     'tier': rank_info['tier']
                 })
         
-        # Combine rostered and drafted players
-        all_players_list = roster_players + drafted_players
+        # Combine rostered and drafted players, avoiding duplicates
+        # Create a set to track player IDs we've already processed
+        seen_player_ids = set()
+        all_players_list = []
+        
+        print(f"MyRoster Debug: Found {len(drafted_players)} drafted players, {len(roster_players)} roster players")
+        
+        # Add drafted players first (they have more recent status)
+        for player in drafted_players:
+            if player['player_id'] not in seen_player_ids:
+                all_players_list.append(player)
+                seen_player_ids.add(player['player_id'])
+                print(f"MyRoster Debug: Added drafted player {player['name']} ({player['player_id']})")
+        
+        # Add rostered players only if they weren't already drafted this draft
+        for player in roster_players:
+            if player['player_id'] not in seen_player_ids:
+                all_players_list.append(player)
+                seen_player_ids.add(player['player_id'])
+                print(f"MyRoster Debug: Added roster player {player['name']} ({player['player_id']})")
+            else:
+                print(f"MyRoster Debug: Skipped duplicate player {player['name']} ({player['player_id']})")
+        
+        print(f"MyRoster Debug: Final player count: {len(all_players_list)}")
         
         # Group by position
         positions = {}
