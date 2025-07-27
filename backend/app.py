@@ -230,25 +230,39 @@ class SleeperAPI:
         settings = league_info.get('settings', {})
         league_id = league_info.get('league_id')
         
+        print(f"🔍 DEBUG: Checking dynasty/keeper for league {league_id}")
+        print(f"🔍 DEBUG: League settings: {settings}")
+        
         # Check for dynasty indicators
         league_type = settings.get('type', 0)
+        print(f"🔍 DEBUG: League type = {league_type}")
         if league_type == 2:  # Dynasty league type
             print(f"🏰 Dynasty league detected: type={league_type}")
             return True
         
         # Check for taxi squad (dynasty feature)
         taxi_slots = settings.get('taxi_slots', 0)
+        print(f"🔍 DEBUG: Taxi slots = {taxi_slots}")
         if taxi_slots > 0:
             print(f"🚕 Dynasty league detected: taxi_slots={taxi_slots}")
             return True
         
         # Check if there's a previous league ID (continuation)
-        if league_info.get('previous_league_id'):
-            print(f"🔗 Dynasty/Keeper league detected: has previous_league_id")
-            return True
+        # Only consider this dynasty/keeper if it also has other indicators
+        prev_league = league_info.get('previous_league_id')
+        max_keepers = settings.get('max_keepers', 0)
+        print(f"🔍 DEBUG: Previous league ID = {prev_league}")
+        print(f"🔍 DEBUG: Max keepers = {max_keepers}")
+        if prev_league:
+            # Having a previous league ID alone doesn't guarantee dynasty/keeper
+            # Check if there are actual keepers or other dynasty indicators
+            if max_keepers > 1 or taxi_slots > 0 or league_type == 2:
+                print(f"🔗 Dynasty/Keeper league detected: has previous_league_id with other indicators")
+                return True
+            else:
+                print(f"📝 Previous league found but no keeper/dynasty indicators - likely annual redraft continuation")
         
         # Check for ACTUAL keepers being used (not just max_keepers setting)
-        max_keepers = settings.get('max_keepers', 0)
         if max_keepers > 0 and league_id:
             # Check if any rosters actually have keepers
             try:
@@ -259,6 +273,7 @@ class SleeperAPI:
                     if keepers and len(keepers) > 0:
                         actual_keepers += len(keepers)
                 
+                print(f"🔍 DEBUG: Actual keepers found = {actual_keepers}")
                 if actual_keepers > 0:
                     print(f"🔒 Keeper league detected: {actual_keepers} actual keepers found")
                     return True
@@ -274,6 +289,7 @@ class SleeperAPI:
         
         # Check draft metadata for dynasty scoring
         draft_id = league_info.get('draft_id')
+        print(f"🔍 DEBUG: Draft ID = {draft_id}")
         if draft_id:
             try:
                 draft_info = SleeperAPI.get_draft_info(draft_id)
@@ -330,6 +346,80 @@ class DraftAPI:
         self.cached_data = None
         self.last_update = None
     
+    def get_current_rankings_format(self, league_info=None):
+        """
+        Centralized method to determine which rankings format to use.
+        Checks manual override first, then falls back to auto-detection.
+        
+        Args:
+            league_info: League information for auto-detection (optional if manual override is set)
+            
+        Returns:
+            tuple: (scoring_format, league_type, is_manual)
+        """
+        if self.manual_rankings_override:
+            # Use manual override
+            scoring_format, league_type = self.manual_rankings_override
+            print(f"🎯 Using manual rankings override: {scoring_format} {league_type}")
+            return scoring_format, league_type, True
+        else:
+            # Auto-detect based on league settings
+            if not league_info:
+                raise ValueError("league_info is required for auto-detection when no manual override is set")
+            scoring_format, league_type = SleeperAPI.detect_league_format(league_info)
+            print(f"🤖 Auto-detected league format: {scoring_format} {league_type}")
+            return scoring_format, league_type, False
+    
+    def get_current_rankings_data(self, league_info=None):
+        """
+        Centralized method to get the current rankings data.
+        Uses manual override if set, otherwise auto-detects format.
+        
+        Args:
+            league_info: League information for auto-detection
+            
+        Returns:
+            dict: Rankings data with player information
+        """
+        # Get the current format
+        scoring_format, league_type, is_manual = self.get_current_rankings_format(league_info)
+        
+        # Get the appropriate rankings file
+        rankings_filename = rankings_manager.get_rankings_filename(scoring_format, league_type)
+        
+        # Load rankings data
+        rankings_data = {}
+        try:
+            # Try multiple possible locations for the rankings file
+            possible_paths = [
+                os.path.join(RANKINGS_OUTPUT_DIRECTORY, rankings_filename),  # backend/PopulatedFromSites/
+                os.path.join('..', 'Rankings', RANKINGS_OUTPUT_DIRECTORY, rankings_filename),  # Rankings/PopulatedFromSites/
+                os.path.join('..', RANKINGS_OUTPUT_DIRECTORY, rankings_filename)  # PopulatedFromSites/
+            ]
+            
+            rankings_file = None
+            for path in possible_paths:
+                if os.path.exists(path):
+                    rankings_file = path
+                    break
+            
+            if rankings_file:
+                print(f"📊 Using rankings file: {rankings_filename}")
+                rankings_data = parseCSV(rankings_file)
+            else:
+                print(f"⚠️ Rankings file not found: {rankings_filename}")
+                
+        except Exception as e:
+            print(f"Error loading rankings: {e}")
+            
+        return {
+            'rankings_data': rankings_data,
+            'scoring_format': scoring_format,
+            'league_type': league_type,
+            'is_manual': is_manual,
+            'rankings_filename': rankings_filename
+        }
+
     def set_manual_rankings(self, scoring_format, league_type):
         """Set manual rankings override"""
         self.manual_rankings_override = (scoring_format, league_type)
@@ -353,60 +443,36 @@ class DraftAPI:
         if draft_id:
             self.set_draft_id(draft_id)
         
+        print(f"🔍 DEBUG: get_draft_data called with draft_id={draft_id}, current_draft_id={self.current_draft_id}")
+        
         current_time = time.time()
         
         # Return cached data if still valid
         if (self.cached_data and self.last_update and 
             current_time - self.last_update < self.cache_duration and
             self.cached_data.get('draft_id') == self.current_draft_id):
+            print(f"🔍 DEBUG: Returning cached data for draft {self.current_draft_id}")
             return self.cached_data
         
         try:
             # Get draft info to determine league settings
+            print(f"🔍 DEBUG: Getting draft info for {self.current_draft_id}")
             draft_info = SleeperAPI.get_draft_info(self.current_draft_id)
             if not draft_info:
                 return {'error': 'Draft not found'}
             
             league_id = draft_info.get('league_id')
+            print(f"🔍 DEBUG: Draft belongs to league {league_id}")
             league_info = SleeperAPI.get_league_info(league_id) if league_id else None
             
-            # Determine which rankings to use
-            if self.manual_rankings_override:
-                # Use manual override
-                scoring_format, league_type = self.manual_rankings_override
-                print(f"🎯 Using manual rankings override: {scoring_format} {league_type}")
-            else:
-                # Auto-detect based on league settings
-                scoring_format, league_type = SleeperAPI.detect_league_format(league_info)
-                print(f"🤖 Auto-detected league format: {scoring_format} {league_type}")
+            # Get current rankings using centralized method
+            rankings_result = self.get_current_rankings_data(league_info)
+            rankings_data = rankings_result['rankings_data']
+            scoring_format = rankings_result['scoring_format']
+            league_type = rankings_result['league_type']
             
-            # Get the appropriate rankings file
-            rankings_filename = rankings_manager.get_rankings_filename(scoring_format, league_type)
-            
-            # Try multiple possible locations for the rankings file
-            possible_paths = [
-                os.path.join(RANKINGS_OUTPUT_DIRECTORY, rankings_filename),  # backend/PopulatedFromSites/
-                os.path.join('..', 'Rankings', RANKINGS_OUTPUT_DIRECTORY, rankings_filename),  # Rankings/PopulatedFromSites/
-                os.path.join('..', RANKINGS_OUTPUT_DIRECTORY, rankings_filename)  # PopulatedFromSites/
-            ]
-            
-            rankings_file = None
-            for path in possible_paths:
-                if os.path.exists(path):
-                    rankings_file = path
-                    break
-            
-            # Fallback to Rankings.csv if specific format not found
-            if not rankings_file:
-                parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-                rankings_file = os.path.join(parent_dir, FILE_NAME)
-                print(f"⚠️  Specific rankings not found, falling back to: {rankings_file}")
-            
-            if not os.path.exists(rankings_file):
-                return {'error': f'Rankings file not found: {rankings_file}'}
-            
-            print(f"📊 Using rankings file: {os.path.basename(rankings_file)}")
-            player_rankings = parseCSV(rankings_file)
+            # Use the rankings data from centralized method
+            player_rankings = rankings_data
             
             # Check if this is a dynasty/keeper league
             is_dynasty_keeper = SleeperAPI.is_dynasty_or_keeper_league(league_info)
@@ -786,44 +852,20 @@ def get_my_roster(league_id):
         # Get all players data
         all_players = SleeperAPI.get_all_players()
         
-        # Get rankings data to determine starter priority
-        rankings_data = {}
+        # Get rankings data using centralized method
         try:
-            # Get league info to determine appropriate rankings format
+            # Get league info for format detection
             league_info = SleeperAPI.get_league_info(league_id)
-            scoring_format, league_type = SleeperAPI.detect_league_format(league_info)
             
-            # Get the appropriate rankings file
-            rankings_filename = rankings_manager.get_rankings_filename(scoring_format, league_type)
+            # Use centralized rankings method
+            rankings_result = draft_api.get_current_rankings_data(league_info)
+            rankings_data = rankings_result['rankings_data']
             
-            # Try multiple possible locations for the rankings file
-            possible_paths = [
-                os.path.join(RANKINGS_OUTPUT_DIRECTORY, rankings_filename),  # backend/PopulatedFromSites/
-                os.path.join('..', 'Rankings', RANKINGS_OUTPUT_DIRECTORY, rankings_filename),  # Rankings/PopulatedFromSites/
-                os.path.join('..', RANKINGS_OUTPUT_DIRECTORY, rankings_filename)  # PopulatedFromSites/
-            ]
+            print(f"📊 My Roster using: {rankings_result['scoring_format']} {rankings_result['league_type']} ({'manual' if rankings_result['is_manual'] else 'auto'})")
             
-            rankings_file = None
-            for path in possible_paths:
-                if os.path.exists(path):
-                    rankings_file = path
-                    break
-            
-            # Fallback to Rankings.csv if specific format not found
-            if not rankings_file:
-                parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-                rankings_file = os.path.join(parent_dir, FILE_NAME)
-            
-            player_rankings = parseCSV(rankings_file)
-            for player in player_rankings:
-                # Create a key that matches our player matching logic
-                rankings_data[player.name.lower().strip()] = {
-                    'rank': player.rank,
-                    'tier': getattr(player, 'tier', 1),
-                    'original_name': player.name
-                }
         except Exception as e:
-            print(f"Error loading rankings: {e}")
+            print(f"Error loading rankings for My Roster: {e}")
+            rankings_data = {}
         
         # Create a temporary DraftAPI instance for name matching
         temp_draft_api = DraftAPI()
