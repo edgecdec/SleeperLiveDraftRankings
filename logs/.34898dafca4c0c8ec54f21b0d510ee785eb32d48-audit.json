@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/logs/.34898dafca4c0c8ec54f21b0d510ee785eb32d48-audit.json",
+    "files": [
+        {
+            "date": 1753606281833,
+            "name": "/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/logs/mcp-puppeteer-2025-07-27.log",
+            "hash": "94e087d041f4d062207f419470440a679132dbe407d2f9cdbb350639ab988d21"
+        }
+    ],
+    "hashType": "sha256"
+}

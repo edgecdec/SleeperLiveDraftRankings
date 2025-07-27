@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Build outputs
+frontend/build/
+frontend/dist/
+*.pyc
+__pycache__/
+
+# Logs
+logs/
+*.log
+backend.log
+
+# Environment files
+.env
+.env.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Rankings data (generated files)
+PopulatedFromSites/
+Rankings/PopulatedFromSites/
+Rankings_backup.csv
+
+# Documentation (keep main README)
+ADVANCED_RANKINGS.md
+BUILD_EXE.bat
+DISTRIBUTION_GUIDE.md
+FANTASYPROS_SCRAPER.md
+HOW_TO_BUILD_EXE.md
+INTEGRATED_SYSTEM_README.md
+REACT_FRONTEND.md
+FantasyDraftAssistant.spec
+
+# Temporary files
+*.tmp
+*.temp
