@@ -379,7 +379,7 @@ class DraftAPI:
             league_info: League information for auto-detection
             
         Returns:
-            dict: Rankings data with player information
+            dict: Rankings data with both list and dictionary formats
         """
         # Get the current format
         scoring_format, league_type, is_manual = self.get_current_rankings_format(league_info)
@@ -388,7 +388,8 @@ class DraftAPI:
         rankings_filename = rankings_manager.get_rankings_filename(scoring_format, league_type)
         
         # Load rankings data
-        rankings_data = {}
+        rankings_list = []
+        rankings_dict = {}
         try:
             # Try multiple possible locations for the rankings file
             possible_paths = [
@@ -405,7 +406,16 @@ class DraftAPI:
             
             if rankings_file:
                 print(f"📊 Using rankings file: {rankings_filename}")
-                rankings_data = parseCSV(rankings_file)
+                rankings_list = parseCSV(rankings_file)
+                
+                # Convert to dictionary format for backward compatibility
+                for player in rankings_list:
+                    # Create a key that matches our player matching logic
+                    rankings_dict[player.name.lower().strip()] = {
+                        'rank': player.rank,
+                        'tier': getattr(player, 'tier', 1),
+                        'original_name': player.name
+                    }
             else:
                 print(f"⚠️ Rankings file not found: {rankings_filename}")
                 
@@ -413,7 +423,8 @@ class DraftAPI:
             print(f"Error loading rankings: {e}")
             
         return {
-            'rankings_data': rankings_data,
+            'rankings_data': rankings_list,  # List format for main draft endpoint
+            'rankings_dict': rankings_dict,  # Dictionary format for My Roster endpoint
             'scoring_format': scoring_format,
             'league_type': league_type,
             'is_manual': is_manual,
@@ -859,7 +870,7 @@ def get_my_roster(league_id):
             
             # Use centralized rankings method
             rankings_result = draft_api.get_current_rankings_data(league_info)
-            rankings_data = rankings_result['rankings_data']
+            rankings_data = rankings_result['rankings_dict']  # Use dictionary format for My Roster
             
             print(f"📊 My Roster using: {rankings_result['scoring_format']} {rankings_result['league_type']} ({'manual' if rankings_result['is_manual'] else 'auto'})")
             
