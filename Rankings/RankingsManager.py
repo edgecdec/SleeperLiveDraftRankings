@@ -56,6 +56,30 @@ class RankingsManager:
         self._ensure_custom_directory()
         self._load_custom_metadata()
         
+        # Initialize last_update_time based on existing files if not set
+        self._initialize_update_time()
+        
+    def _initialize_update_time(self):
+        """Initialize last_update_time based on existing rankings files"""
+        if self.last_update_time is not None:
+            return  # Already set
+        
+        # Find the most recent rankings file
+        most_recent_time = None
+        for scoring_format in self.available_formats:
+            for league_type in self.available_formats[scoring_format]:
+                filename = self.available_formats[scoring_format][league_type]
+                filepath = f"{RANKINGS_OUTPUT_DIRECTORY}{filename}"
+                
+                if os.path.exists(filepath):
+                    file_time = datetime.fromtimestamp(os.path.getmtime(filepath))
+                    if most_recent_time is None or file_time > most_recent_time:
+                        most_recent_time = file_time
+        
+        if most_recent_time:
+            self.last_update_time = most_recent_time
+            print(f"📅 Initialized last_update_time from existing files: {most_recent_time}")
+    
     def _ensure_custom_directory(self):
         """Ensure custom rankings directory exists"""
         if not os.path.exists(CUSTOM_RANKINGS_DIRECTORY):
@@ -535,10 +559,21 @@ class RankingsManager:
     
     def get_update_status(self) -> Dict:
         """Get current update status"""
+        # Get total players from current rankings
+        total_players = 0
+        try:
+            # Try to get current rankings to count players
+            current_rankings = self.get_rankings()
+            if current_rankings is not None:
+                total_players = len(current_rankings)
+        except:
+            total_players = 0
+        
         return {
             'update_in_progress': self.update_in_progress,
             'last_update_time': self.last_update_time.isoformat() if self.last_update_time else None,
             'needs_update': self.should_update_rankings(),
+            'total_players': total_players,
             'available_formats': self.get_available_formats()
         }
 
