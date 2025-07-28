@@ -106,14 +106,14 @@ class RankingsManager:
         except Exception as e:
             print(f"⚠️  Error saving custom metadata: {e}")
     
-    def upload_custom_rankings(self, file_path: str, display_name: str, 
+    def upload_custom_rankings(self, file_obj, display_name: str, 
                              description: str = "", scoring_format: str = "custom", 
                              league_type: str = "custom") -> Dict:
         """
         Upload and validate custom rankings file
         
         Args:
-            file_path: Path to the uploaded file
+            file_obj: Flask FileStorage object or file path string
             display_name: User-friendly name for the rankings
             description: Optional description
             scoring_format: Scoring format (for organization)
@@ -123,23 +123,57 @@ class RankingsManager:
             Dict with success status and details
         """
         try:
-            # Validate file exists
-            if not os.path.exists(file_path):
-                return {'success': False, 'error': 'File not found'}
-            
-            # Validate CSV format
-            validation_result = self._validate_rankings_file(file_path)
-            if not validation_result['valid']:
-                return {'success': False, 'error': validation_result['error']}
-            
-            # Generate unique filename
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            safe_name = secure_filename(display_name.replace(' ', '_'))
-            filename = f"custom_{safe_name}_{timestamp}.csv"
-            destination_path = os.path.join(CUSTOM_RANKINGS_DIRECTORY, filename)
-            
-            # Copy file to custom directory
-            shutil.copy2(file_path, destination_path)
+            # Handle both FileStorage objects and file paths
+            if hasattr(file_obj, 'filename'):
+                # It's a FileStorage object from Flask
+                temp_path = None
+                try:
+                    # Create temporary file to validate
+                    import tempfile
+                    temp_fd, temp_path = tempfile.mkstemp(suffix='.csv')
+                    file_obj.save(temp_path)
+                    os.close(temp_fd)
+                    
+                    # Validate CSV format using temporary file
+                    validation_result = self._validate_rankings_file(temp_path)
+                    if not validation_result['valid']:
+                        return {'success': False, 'error': validation_result['error']}
+                    
+                    # Generate unique filename
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    safe_name = secure_filename(display_name.replace(' ', '_'))
+                    filename = f"custom_{safe_name}_{timestamp}.csv"
+                    destination_path = os.path.join(CUSTOM_RANKINGS_DIRECTORY, filename)
+                    
+                    # Copy validated file to custom directory
+                    shutil.copy2(temp_path, destination_path)
+                    
+                finally:
+                    # Clean up temporary file
+                    if temp_path and os.path.exists(temp_path):
+                        os.unlink(temp_path)
+                        
+            else:
+                # It's a file path string (legacy support)
+                file_path = str(file_obj)
+                
+                # Validate file exists
+                if not os.path.exists(file_path):
+                    return {'success': False, 'error': 'File not found'}
+                
+                # Validate CSV format
+                validation_result = self._validate_rankings_file(file_path)
+                if not validation_result['valid']:
+                    return {'success': False, 'error': validation_result['error']}
+                
+                # Generate unique filename
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                safe_name = secure_filename(display_name.replace(' ', '_'))
+                filename = f"custom_{safe_name}_{timestamp}.csv"
+                destination_path = os.path.join(CUSTOM_RANKINGS_DIRECTORY, filename)
+                
+                # Copy file to custom directory
+                shutil.copy2(file_path, destination_path)
             
             # Create metadata entry
             file_id = f"custom_{timestamp}_{safe_name}"

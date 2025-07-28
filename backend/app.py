@@ -343,6 +343,8 @@ def upload_custom_rankings():
         # Get metadata from form
         scoring_format = request.form.get('scoring_format', 'half_ppr')
         league_type = request.form.get('league_type', 'standard')
+        display_name = request.form.get('display_name', file.filename.replace('.csv', ''))
+        description = request.form.get('description', f'Custom rankings uploaded from {file.filename}')
         
         # Validate format parameters
         format_id = f"{scoring_format}_{league_type}"
@@ -356,7 +358,7 @@ def upload_custom_rankings():
         
         # Process upload
         result = rankings_manager.upload_custom_rankings(
-            file, scoring_format, league_type
+            file, display_name, description, scoring_format, league_type
         )
         
         if result.get('success'):
