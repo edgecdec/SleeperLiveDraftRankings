@@ -25,7 +25,7 @@ This directory contains comprehensive documentation for the Fantasy Football Dra
 ### 1. Quick Start
 ```bash
 # Start the API server
-python3 app_new.py
+python3 app.py
 
 # Test health endpoint
 curl http://localhost:5001/api/health
@@ -141,7 +141,7 @@ GET /api/draft/{draft_id}
 pip install -r requirements.txt
 
 # Start development server
-python3 app_new.py
+python3 app.py
 
 # API will be available at http://localhost:5001
 ```

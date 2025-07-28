@@ -72,7 +72,7 @@ DraftService      # Draft data processing and player filtering
 ### **Directory Layout**
 ```
 backend/
-├── app_new.py              # Main Flask application (NEW refactored version)
+├── app.py                  # Main Flask application (refactored version)
 ├── app.py                  # Legacy monolithic version (DEPRECATED)
 ├── config.py               # Configuration and constants
 ├── services/               # Business logic services
@@ -97,7 +97,7 @@ frontend/
 ```
 
 ### **Key Files for AI Agents**
-- **app_new.py**: Main application entry point (USE THIS, not app.py)
+- **app.py**: Main application entry point (current version)
 - **services/*.py**: Core business logic (modify these for new features)
 - **routes/*.py**: API endpoints (add new endpoints here)
 - **API_DOCUMENTATION.md**: Complete API reference
@@ -152,7 +152,7 @@ except Exception as e:
 1. **Identify Service**: Which service handles this functionality?
 2. **Add Business Logic**: Implement in appropriate service class
 3. **Create Route**: Add route handler in appropriate routes file
-4. **Register Blueprint**: Ensure blueprint is registered in app_new.py
+4. **Register Blueprint**: Ensure blueprint is registered in app.py
 5. **Test**: Use Postman collection or cURL commands
 
 ### **Modifying Rankings Logic**
@@ -330,7 +330,7 @@ def _names_match(self, name1, name2):
 
 ### **1. File Structure Confusion**
 - ❌ **DON'T** modify `app.py` (legacy monolithic file)
-- ✅ **DO** use `app_new.py` (refactored service-oriented version)
+- ✅ **DO** use `app.py` (refactored service-oriented version)
 - ❌ **DON'T** add business logic to route handlers
 - ✅ **DO** implement logic in service classes
 
@@ -398,14 +398,14 @@ Understand Business Logic → Implement Changes → Test with API
 ### **Must-Read Files (in order)**
 1. **This file** - Domain knowledge and patterns
 2. **API_DOCUMENTATION.md** - Complete API reference
-3. **app_new.py** - Application structure
+3. **app.py** - Application structure
 4. **services/rankings_service.py** - Core business logic
 5. **REFACTORING_PLAN.md** - Architecture decisions
 
 ### **Quick Reference Commands**
 ```bash
 # Start development server
-python3 app_new.py
+python3 app.py
 
 # Test basic functionality
 curl http://localhost:5001/api/health

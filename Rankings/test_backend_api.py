@@ -120,7 +120,7 @@ def main():
         print("   Check that the React component includes a 'Tier' column in the table.")
     else:
         print("\n❌ Backend API issues found. Start the Flask server:")
-        print("   cd /path/to/backend && python3 app_integrated.py")
+        print("   cd /path/to/backend && python3 app.py")
     
     return 0 if (api_working and custom_working) else 1
 

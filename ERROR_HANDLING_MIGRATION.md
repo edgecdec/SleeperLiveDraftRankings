@@ -47,7 +47,7 @@ def my_endpoint():
 - ✅ `routes/draft_routes_updated.py` - Draft routes with error handling  
 - ✅ `routes/rankings_routes_updated.py` - Rankings routes with error handling
 - ✅ `services/sleeper_api_updated.py` - Sleeper API with error handling
-- ✅ `app_fully_updated.py` - Main application with full integration
+- ✅ `app.py` - Main application with full integration
 
 ### **Frontend Integration:**
 - ✅ `components/ToastExample.jsx` - Integration example
@@ -67,7 +67,7 @@ cp services/error_service.py services/error_middleware.py ./services/
 cp routes/*_updated.py ./routes/
 
 # 3. Update main application
-cp app_fully_updated.py ./app.py
+cp app.py ./app.py
 
 # 4. Update service files
 cp services/sleeper_api_updated.py ./services/sleeper_api.py
@@ -250,7 +250,7 @@ const handleApiCall = async () => {
 ### **Backend Testing**
 ```bash
 # 1. Start the updated server
-python app_fully_updated.py
+python app.py
 
 # 2. Test health check
 curl http://localhost:5001/api/health

@@ -30,7 +30,7 @@ System shows available players ranked by value → User makes informed draft pic
 
 ### **Current State (Post-Refactoring)**
 ```
-app_new.py (MAIN) ← Use this, not app.py
+app.py (MAIN) ← Use this, not old versions
 ├── services/ (Business Logic)
 │   ├── sleeper_api.py      # External API calls
 │   ├── rankings_service.py # Player rankings logic
@@ -197,7 +197,7 @@ def _names_match(self, name1, name2):
 
 ### **1. File Confusion**
 - ❌ Modifying `app.py` (legacy file)
-- ✅ Use `app_new.py` (refactored version)
+- ✅ Use `app.py` (refactored version)
 
 ### **2. Architecture Violations**
 - ❌ Adding business logic to route handlers
@@ -317,7 +317,7 @@ curl http://localhost:5001/api/rankings/current-format?draft_id=1255160696186880
 2. **AI_AGENT_GUIDE.md** - Comprehensive development guide
 3. **API_DOCUMENTATION.md** - Complete API reference
 4. **services/rankings_service.py** - Core business logic
-5. **app_new.py** - Application structure
+5. **app.py** - Application structure
 
 ---
 
@@ -325,7 +325,7 @@ curl http://localhost:5001/api/rankings/current-format?draft_id=1255160696186880
 
 ```bash
 # Start development
-python3 app_new.py
+python3 app.py
 
 # Test core functionality
 curl http://localhost:5001/api/health

@@ -72,7 +72,7 @@ SleeperLiveDraftRankings/
 │   ├── PopulatedFromSites/         # Generated ranking files
 │   └── test_integration.py         # System tests
 ├── backend/
-│   ├── app_integrated.py           # Enhanced Flask application
+│   ├── app.py                     # Enhanced Flask application
 │   └── league_format_detector.py   # League format detection
 ├── frontend/
 │   └── src/components/
