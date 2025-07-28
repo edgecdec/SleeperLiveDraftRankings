@@ -129,9 +129,14 @@ class RankingsManager:
             filename = f"custom_{safe_name}_{timestamp}.csv"
             destination_path = os.path.join(CUSTOM_RANKINGS_DIRECTORY, filename)
             
+            # Track original filename for metadata
+            original_filename = None
+            validation_result = None
+            
             # Handle both FileStorage objects and file paths
             if hasattr(file_obj, 'filename'):
                 # It's a FileStorage object from Flask
+                original_filename = file_obj.filename
                 temp_path = None
                 try:
                     # Create temporary file to validate
@@ -156,6 +161,7 @@ class RankingsManager:
             else:
                 # It's a file path string (legacy support)
                 file_path = str(file_obj)
+                original_filename = os.path.basename(file_path)
                 
                 # Validate file exists
                 if not os.path.exists(file_path):
@@ -181,7 +187,7 @@ class RankingsManager:
                 'upload_time': datetime.now().isoformat(),
                 'file_size': os.path.getsize(destination_path),
                 'player_count': validation_result['player_count'],
-                'original_filename': os.path.basename(file_path)
+                'original_filename': original_filename
             }
             
             # Save metadata
