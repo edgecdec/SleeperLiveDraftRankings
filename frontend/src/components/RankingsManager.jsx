@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Settings, X } from 'lucide-react';
 
 // Custom hook
@@ -38,12 +38,36 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [deleteRankingId, setDeleteRankingId] = useState(null);
 
+  // Ref for modal focus
+  const modalRef = useRef(null);
+
   // Fetch data when component opens
   useEffect(() => {
     if (isOpen) {
       fetchAllData();
     }
   }, [isOpen, fetchAllData]);
+
+  // Focus modal when it opens
+  useEffect(() => {
+    if (isOpen && modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, [isOpen]);
+
+  // Handle escape key to close modal
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [isOpen, onClose]);
 
   // Debug log
   useEffect(() => {
@@ -218,13 +242,20 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] mx-4 flex flex-col">
+    <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-[9999]">
+      <div 
+        ref={modalRef}
+        tabIndex={-1}
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] mx-4 flex flex-col focus:outline-none"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rankings-manager-title"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-600">
           <div className="flex items-center space-x-3">
             <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Rankings Manager</h2>
+            <h2 id="rankings-manager-title" className="text-xl font-semibold text-gray-900 dark:text-white">Rankings Manager</h2>
           </div>
           <button
             onClick={onClose}
