@@ -86,28 +86,9 @@ def get_available_formats():
                 ]
             )), 404
         
-        # Enhance format data with file existence checks
-        enhanced_formats = []
-        for format_info in formats:
-            format_id = format_info.get('id', '')
-            
-            # Check if file exists
-            if '_' in format_id:
-                parts = format_id.split('_')
-                if len(parts) >= 2:
-                    scoring = '_'.join(parts[:-1])
-                    league_type = parts[-1]
-                    filename = f"FantasyPros_Rankings_{scoring}_{league_type}.csv"
-                    file_path = os.path.join(RANKINGS_OUTPUT_DIRECTORY, filename)
-                    format_info['file_exists'] = os.path.exists(file_path)
-                    format_info['filename'] = filename
-            
-            enhanced_formats.append(format_info)
-        
-        return jsonify({
-            'formats': enhanced_formats,
-            'total_formats': len(enhanced_formats)
-        })
+        # formats is already a properly structured dictionary from RankingsManager
+        # No need to enhance or modify it - just return it directly
+        return jsonify(formats)
         
     except Exception as e:
         return jsonify(internal_error(
