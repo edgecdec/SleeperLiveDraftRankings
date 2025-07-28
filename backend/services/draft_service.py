@@ -222,12 +222,29 @@ class DraftService:
             if not sleeper_player:
                 continue
             
-            sleeper_name = sleeper_player.get('full_name', '').strip()
             sleeper_pos = sleeper_player.get('position', '').strip().upper()
+            
+            # Handle DST position mapping
+            if sleeper_pos == 'DEF':
+                sleeper_pos = 'DST'
             
             # Only check players with matching positions
             if sleeper_pos != player_pos:
                 continue
+            
+            # Get sleeper player name with special handling for DST
+            if sleeper_player.get('position') == 'DEF':
+                # For DST, construct name from first_name + last_name (e.g., "Cincinnati Bengals")
+                first_name = sleeper_player.get('first_name', '')
+                last_name = sleeper_player.get('last_name', '')
+                if first_name and last_name:
+                    sleeper_name = f"{first_name} {last_name}".strip()
+                else:
+                    # Fallback to team abbreviation if names not available
+                    team = sleeper_player.get('team', player_id)
+                    sleeper_name = f"{team} Defense".strip()
+            else:
+                sleeper_name = sleeper_player.get('full_name', '').strip()
             
             # Direct name match (case insensitive)
             if player_name.lower() == sleeper_name.lower():

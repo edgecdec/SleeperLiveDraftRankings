@@ -2,9 +2,9 @@
 > fantasy-draft-frontend@1.0.0 start
 > react-scripts start
 
-(node:87520) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(node:66698) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-(node:87520) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(node:66698) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
 Starting the development server...
 
 Compiled successfully!
@@ -19,1615 +19,251 @@ To create a production build, use npm run build.
 
 webpack compiled successfully
 Compiling...
+Compiled successfully!
+webpack compiled successfully
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753656272678 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNRESET).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753656272677 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNRESET).
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
 Compiled with warnings.
 
 [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:    'Download' is defined but never used                                                                             no-unused-vars
-  Line 22:10:  'currentFormat' is assigned a value but never used                                                               no-unused-vars
-  Line 22:25:  'setCurrentFormat' is assigned a value but never used                                                            no-unused-vars
-  Line 43:6:   React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+src/constants/positions.js
+  Line 9:3:   'ShieldCheck' is defined but never used  no-unused-vars
+  Line 10:3:  'Shuffle' is defined but never used      no-unused-vars
+  Line 11:3:  'Repeat' is defined but never used       no-unused-vars
 
 Search for the keywords to learn more about each warning.
 To ignore, add // eslint-disable-next-line to the line before.
 
 WARNING in [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:    'Download' is defined but never used                                                                             no-unused-vars
-  Line 22:10:  'currentFormat' is assigned a value but never used                                                               no-unused-vars
-  Line 22:25:  'setCurrentFormat' is assigned a value but never used                                                            no-unused-vars
-  Line 43:6:   React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+src/constants/positions.js
+  Line 9:3:   'ShieldCheck' is defined but never used  no-unused-vars
+  Line 10:3:  'Shuffle' is defined but never used      no-unused-vars
+  Line 11:3:  'Repeat' is defined but never used       no-unused-vars
 
 webpack compiled with 1 warning
 Compiling...
-Failed to compile.
-
-[eslint] 
-src/components/RankingsManager.jsx
-  Line 51:9:  'fetchCurrentFormat' is not defined  no-undef
-
-Search for the keywords to learn more about each error.
-WARNING in [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:    'Download' is defined but never used                                                                             no-unused-vars
-  Line 22:10:  'currentFormat' is assigned a value but never used                                                               no-unused-vars
-  Line 22:25:  'setCurrentFormat' is assigned a value but never used                                                            no-unused-vars
-  Line 43:6:   React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in [eslint] 
-src/components/RankingsManager.jsx
-  Line 51:9:  'fetchCurrentFormat' is not defined  no-undef
-
-Search for the keywords to learn more about each error.
-
-webpack compiled with 1 error and 1 warning
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
 Compiling...
 Compiled with warnings.
 
 [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:    'Download' is defined but never used                                                                             no-unused-vars
-  Line 22:10:  'currentFormat' is assigned a value but never used                                                               no-unused-vars
-  Line 43:6:   React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+src/contexts/SettingsContext.jsx
+  Line 48:9:  'toggleDebugMode' is assigned a value but never used  no-unused-vars
 
 Search for the keywords to learn more about each warning.
 To ignore, add // eslint-disable-next-line to the line before.
 
 WARNING in [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:    'Download' is defined but never used                                                                             no-unused-vars
-  Line 22:10:  'currentFormat' is assigned a value but never used                                                               no-unused-vars
-  Line 43:6:   React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+src/contexts/SettingsContext.jsx
+  Line 48:9:  'toggleDebugMode' is assigned a value but never used  no-unused-vars
 
 webpack compiled with 1 warning
 Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
+Compiled successfully!
+webpack compiled successfully
 Compiling...
 Compiled with warnings.
 
 [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used                    no-unused-vars
+  Line 2:43:  'Bug' is defined but never used                        no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used             no-unused-vars
+  Line 8:56:  'debugModeEnabled' is assigned a value but never used  no-unused-vars
+  Line 8:74:  'toggleDebugMode' is assigned a value but never used   no-unused-vars
 
 Search for the keywords to learn more about each warning.
 To ignore, add // eslint-disable-next-line to the line before.
 
 WARNING in [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used                    no-unused-vars
+  Line 2:43:  'Bug' is defined but never used                        no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used             no-unused-vars
+  Line 8:56:  'debugModeEnabled' is assigned a value but never used  no-unused-vars
+  Line 8:74:  'toggleDebugMode' is assigned a value but never used   no-unused-vars
 
 webpack compiled with 1 warning
 Compiling...
 Compiled with warnings.
 
 [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
 
 Search for the keywords to learn more about each warning.
 To ignore, add // eslint-disable-next-line to the line before.
 
 WARNING in [eslint] 
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/DraftView.jsx
+  Line 15:10:  'useSettings' is defined but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/DraftView.jsx
+  Line 15:10:  'useSettings' is defined but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/DraftView.jsx
+  Line 20:11:  'debugModeEnabled' is assigned a value but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/DraftView.jsx
+  Line 20:11:  'debugModeEnabled' is assigned a value but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/components/DebugInfo.jsx
+  Line 2:39:  'X' is defined but never used  no-unused-vars
+
+src/components/SettingsModal.jsx
+  Line 2:24:  'Monitor' is defined but never used         no-unused-vars
+  Line 7:36:  'theme' is assigned a value but never used  no-unused-vars
 
 webpack compiled with 1 warning
 Proxy error: Could not proxy request /api/draft/refresh?draft_id=1206334507662200832 from localhost:3000 to http://localhost:5001.
 See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNRESET).
 
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
 Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
 See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNRESET).
 
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753646840673 from localhost:3000 to http://localhost:5001.
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
 See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNRESET).
 
-Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753647020896 from localhost:3000 to http://localhost:5001.
-See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNRESET).
-
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Proxy error: Could not proxy request /api/draft/refresh?draft_id=1206334507662200832 from localhost:3000 to http://localhost:5001.
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
 See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
 
 Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
 See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
 
-Proxy error: Could not proxy request /api/draft/refresh?draft_id=1206334507662200832 from localhost:3000 to http://localhost:5001.
-See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
-
 Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
 See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
 
-Proxy error: Could not proxy request /api/draft/refresh?draft_id=1206334507662200832 from localhost:3000 to http://localhost:5001.
-See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
-
-Compiling...
-Failed to compile.
-
-[eslint] 
-src/components/LeagueSelector.jsx
-  Line 138:30:  'RefreshCw' is not defined  react/jsx-no-undef
-
-Search for the keywords to learn more about each error.
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in [eslint] 
-src/components/LeagueSelector.jsx
-  Line 138:30:  'RefreshCw' is not defined  react/jsx-no-undef
-
-Search for the keywords to learn more about each error.
-
-webpack compiled with 1 error and 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 2:67:  'Crown' is defined but never used      no-unused-vars
-  Line 2:74:  'RefreshCw' is defined but never used  no-unused-vars
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 2:67:  'Crown' is defined but never used      no-unused-vars
-  Line 2:74:  'RefreshCw' is defined but never used  no-unused-vars
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 2:67:  'Crown' is defined but never used                             no-unused-vars
-  Line 2:74:  'RefreshCw' is defined but never used                         no-unused-vars
-  Line 48:9:  'isDynastyOrKeeperLeague' is assigned a value but never used  no-unused-vars
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 2:67:  'Crown' is defined but never used                             no-unused-vars
-  Line 2:74:  'RefreshCw' is defined but never used                         no-unused-vars
-  Line 48:9:  'isDynastyOrKeeperLeague' is assigned a value but never used  no-unused-vars
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Proxy error: Could not proxy request /api/draft/refresh?draft_id=1206334507662200832 from localhost:3000 to http://localhost:5001.
-See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNRESET).
-
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Failed to compile.
-
-[eslint] 
-src/App.jsx
-  Line 25:97:  'draftId' is not defined  no-undef
-
-Search for the keywords to learn more about each error.
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in [eslint] 
-src/App.jsx
-  Line 25:97:  'draftId' is not defined  no-undef
-
-Search for the keywords to learn more about each error.
-
-webpack compiled with 1 error and 1 warning
-Compiling...
-Failed to compile.
-
-[eslint] 
-src/App.jsx
-  Line 25:97:  'draftId' is not defined  no-undef
-
-Search for the keywords to learn more about each error.
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 21:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in [eslint] 
-src/App.jsx
-  Line 25:97:  'draftId' is not defined  no-undef
-
-Search for the keywords to learn more about each error.
-
-webpack compiled with 1 error and 1 warning
-Compiling...
-Failed to compile.
-
-[eslint] 
-src/App.jsx
-  Line 25:97:  'draftId' is not defined  no-undef
-
-src/components/DraftView.jsx
-  Line 128:3:   React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
-  Line 146:20:  'onRefresh' is not defined                                                                                                                                                                   no-undef
-  Line 150:18:  'userLeagues' is not defined                                                                                                                                                                 no-undef
-  Line 151:24:  'onDraftChange' is not defined                                                                                                                                                               no-undef
-  Line 152:24:  'onBackToSetup' is not defined                                                                                                                                                               no-undef
-  Line 153:19:  'username' is not defined                                                                                                                                                                    no-undef
-  Line 162:19:  'username' is not defined                                                                                                                                                                    no-undef
-  Line 182:48:  'onRefresh' is not defined                                                                                                                                                                   no-undef
-  Line 194:18:  'userLeagues' is not defined                                                                                                                                                                 no-undef
-  Line 196:19:  'username' is not defined                                                                                                                                                                    no-undef
-
-Search for the keywords to learn more about each error.
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 21:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in [eslint] 
-src/App.jsx
-  Line 25:97:  'draftId' is not defined  no-undef
-
-src/components/DraftView.jsx
-  Line 128:3:   React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
-  Line 146:20:  'onRefresh' is not defined                                                                                                                                                                   no-undef
-  Line 150:18:  'userLeagues' is not defined                                                                                                                                                                 no-undef
-  Line 151:24:  'onDraftChange' is not defined                                                                                                                                                               no-undef
-  Line 152:24:  'onBackToSetup' is not defined                                                                                                                                                               no-undef
-  Line 153:19:  'username' is not defined                                                                                                                                                                    no-undef
-  Line 162:19:  'username' is not defined                                                                                                                                                                    no-undef
-  Line 182:48:  'onRefresh' is not defined                                                                                                                                                                   no-undef
-  Line 194:18:  'userLeagues' is not defined                                                                                                                                                                 no-undef
-  Line 196:19:  'username' is not defined                                                                                                                                                                    no-undef
-
-Search for the keywords to learn more about each error.
-
-webpack compiled with 1 error and 1 warning
-Compiling...
-Failed to compile.
-
-[eslint] 
-src/App.jsx
-  Line 25:97:  'draftId' is not defined  no-undef
-
-src/components/DraftView.jsx
-  Line 128:3:  React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
-
-Search for the keywords to learn more about each error.
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 21:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in [eslint] 
-src/App.jsx
-  Line 25:97:  'draftId' is not defined  no-undef
-
-src/components/DraftView.jsx
-  Line 128:3:  React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
-
-Search for the keywords to learn more about each error.
-
-webpack compiled with 1 error and 1 warning
-Compiling...
-Failed to compile.
-
-[eslint] 
-src/components/DraftView.jsx
-  Line 128:3:  React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
-
-Search for the keywords to learn more about each error.
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 21:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in [eslint] 
-src/components/DraftView.jsx
-  Line 128:3:  React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
-
-Search for the keywords to learn more about each error.
-
-webpack compiled with 1 error and 1 warning
-Compiling...
-Failed to compile.
-
-[eslint] 
-src/components/DraftView.jsx
-Syntax error: Identifier 'handleRosterToggle' has already been declared. (155:8) (155:8)
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 21:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in ./src/components/DraftView.jsx
-Module build failed (from ./node_modules/babel-loader/lib/index.js):
-SyntaxError: /Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/src/components/DraftView.jsx: Identifier 'handleRosterToggle' has already been declared. (155:8)
-
-  153 |
-  154 |   // Handle roster toggle with smooth UX
-> 155 |   const handleRosterToggle = () => {
-      |         ^
-  156 |     setIsRosterOpen(prev => !prev);
-  157 |   };
-  158 |
-    at constructor (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:367:19)
-    at FlowParserMixin.raise (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:6627:19)
-    at FlowScopeHandler.checkRedeclarationInScope (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:1644:19)
-    at FlowScopeHandler.declareName (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:1610:12)
-    at FlowScopeHandler.declareName (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:1711:11)
-    at FlowParserMixin.declareNameFromIdentifier (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:7591:16)
-    at FlowParserMixin.checkIdentifier (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:7587:12)
-    at FlowParserMixin.checkLVal (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:7526:12)
-    at FlowParserMixin.parseVarId (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13412:10)
-    at FlowParserMixin.parseVarId (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3504:11)
-    at FlowParserMixin.parseVar (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13383:12)
-    at FlowParserMixin.parseVarStatement (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13230:10)
-    at FlowParserMixin.parseStatementContent (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2946:24)
-    at FlowParserMixin.parseStatementListItem (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12747:17)
-    at FlowParserMixin.parseBlockOrModuleBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13316:61)
-    at FlowParserMixin.parseBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
-    at FlowParserMixin.parseBlock (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13297:10)
-    at FlowParserMixin.parseFunctionBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12101:24)
-    at /Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2920:63
-    at FlowParserMixin.forwardNoArrowParamsConversionAt (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3096:16)
-    at FlowParserMixin.parseFunctionBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2920:12)
-    at FlowParserMixin.parseArrowExpression (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12076:10)
-    at FlowParserMixin.parseParenAndDistinguishExpression (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11686:12)
-    at FlowParserMixin.parseParenAndDistinguishExpression (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3621:18)
-    at FlowParserMixin.parseExprAtom (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11326:23)
-    at FlowParserMixin.parseExprAtom (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:4794:20)
-    at FlowParserMixin.parseExprSubscripts (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11076:23)
-    at FlowParserMixin.parseUpdate (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11061:21)
-    at FlowParserMixin.parseMaybeUnary (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11041:23)
-    at FlowParserMixin.parseMaybeUnaryOrPrivate (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10894:61)
-    at FlowParserMixin.parseExprOps (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10899:23)
-    at FlowParserMixin.parseMaybeConditional (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10876:23)
-    at FlowParserMixin.parseMaybeAssign (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10826:21)
-    at FlowParserMixin.parseMaybeAssign (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3579:18)
-    at /Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10795:39
-    at FlowParserMixin.allowInAnd (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12422:16)
-    at FlowParserMixin.parseMaybeAssignAllowIn (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10795:17)
-    at FlowParserMixin.parseVar (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13384:91)
-    at FlowParserMixin.parseVarStatement (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13230:10)
-    at FlowParserMixin.parseStatementContent (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2946:24)
-    at FlowParserMixin.parseModuleItem (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12744:17)
-    at FlowParserMixin.parseBlockOrModuleBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13316:36)
-    at FlowParserMixin.parseBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
-    at FlowParserMixin.parseProgram (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12625:10)
-    at FlowParserMixin.parseTopLevel (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12615:25)
-    at FlowParserMixin.parseTopLevel (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3715:28)
-
-ERROR in [eslint] 
-src/components/DraftView.jsx
-  Line 155:8:  Parsing error: Identifier 'handleRosterToggle' has already been declared. (155:8)
-
-webpack compiled with 2 errors and 1 warning
-Compiling...
-Failed to compile.
-
-[eslint] 
-src/components/DraftView.jsx
-Syntax error: Identifier 'handleRosterToggle' has already been declared. (146:8) (146:8)
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 21:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in ./src/components/DraftView.jsx
-Module build failed (from ./node_modules/babel-loader/lib/index.js):
-SyntaxError: /Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/src/components/DraftView.jsx: Identifier 'handleRosterToggle' has already been declared. (146:8)
-
-  144 |
-  145 |   // Handle roster toggle with smooth UX
-> 146 |   const handleRosterToggle = () => {
-      |         ^
-  147 |     setIsRosterOpen(prev => !prev);
-  148 |   };
-  149 |
-    at constructor (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:367:19)
-    at FlowParserMixin.raise (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:6627:19)
-    at FlowScopeHandler.checkRedeclarationInScope (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:1644:19)
-    at FlowScopeHandler.declareName (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:1610:12)
-    at FlowScopeHandler.declareName (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:1711:11)
-    at FlowParserMixin.declareNameFromIdentifier (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:7591:16)
-    at FlowParserMixin.checkIdentifier (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:7587:12)
-    at FlowParserMixin.checkLVal (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:7526:12)
-    at FlowParserMixin.parseVarId (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13412:10)
-    at FlowParserMixin.parseVarId (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3504:11)
-    at FlowParserMixin.parseVar (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13383:12)
-    at FlowParserMixin.parseVarStatement (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13230:10)
-    at FlowParserMixin.parseStatementContent (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2946:24)
-    at FlowParserMixin.parseStatementListItem (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12747:17)
-    at FlowParserMixin.parseBlockOrModuleBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13316:61)
-    at FlowParserMixin.parseBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
-    at FlowParserMixin.parseBlock (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13297:10)
-    at FlowParserMixin.parseFunctionBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12101:24)
-    at /Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2920:63
-    at FlowParserMixin.forwardNoArrowParamsConversionAt (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3096:16)
-    at FlowParserMixin.parseFunctionBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2920:12)
-    at FlowParserMixin.parseArrowExpression (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12076:10)
-    at FlowParserMixin.parseParenAndDistinguishExpression (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11686:12)
-    at FlowParserMixin.parseParenAndDistinguishExpression (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3621:18)
-    at FlowParserMixin.parseExprAtom (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11326:23)
-    at FlowParserMixin.parseExprAtom (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:4794:20)
-    at FlowParserMixin.parseExprSubscripts (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11076:23)
-    at FlowParserMixin.parseUpdate (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11061:21)
-    at FlowParserMixin.parseMaybeUnary (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11041:23)
-    at FlowParserMixin.parseMaybeUnaryOrPrivate (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10894:61)
-    at FlowParserMixin.parseExprOps (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10899:23)
-    at FlowParserMixin.parseMaybeConditional (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10876:23)
-    at FlowParserMixin.parseMaybeAssign (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10826:21)
-    at FlowParserMixin.parseMaybeAssign (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3579:18)
-    at /Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10795:39
-    at FlowParserMixin.allowInAnd (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12422:16)
-    at FlowParserMixin.parseMaybeAssignAllowIn (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10795:17)
-    at FlowParserMixin.parseVar (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13384:91)
-    at FlowParserMixin.parseVarStatement (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13230:10)
-    at FlowParserMixin.parseStatementContent (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2946:24)
-    at FlowParserMixin.parseModuleItem (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12744:17)
-    at FlowParserMixin.parseBlockOrModuleBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13316:36)
-    at FlowParserMixin.parseBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
-    at FlowParserMixin.parseProgram (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12625:10)
-    at FlowParserMixin.parseTopLevel (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12615:25)
-    at FlowParserMixin.parseTopLevel (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3715:28)
-
-ERROR in [eslint] 
-src/components/DraftView.jsx
-  Line 146:8:  Parsing error: Identifier 'handleRosterToggle' has already been declared. (146:8)
-
-webpack compiled with 2 errors and 1 warning
-Compiling...
-Failed to compile.
-
-[eslint] 
-src/components/DraftView.jsx
-Syntax error: Identifier 'handleRosterToggle' has already been declared. (146:8) (146:8)
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 21:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-ERROR in ./src/components/DraftView.jsx
-Module build failed (from ./node_modules/babel-loader/lib/index.js):
-SyntaxError: /Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/src/components/DraftView.jsx: Identifier 'handleRosterToggle' has already been declared. (146:8)
-
-  144 |
-  145 |   // Handle roster toggle with smooth UX
-> 146 |   const handleRosterToggle = () => {
-      |         ^
-  147 |     setIsRosterOpen(prev => !prev);
-  148 |   };
-  149 |
-    at constructor (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:367:19)
-    at FlowParserMixin.raise (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:6627:19)
-    at FlowScopeHandler.checkRedeclarationInScope (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:1644:19)
-    at FlowScopeHandler.declareName (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:1610:12)
-    at FlowScopeHandler.declareName (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:1711:11)
-    at FlowParserMixin.declareNameFromIdentifier (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:7591:16)
-    at FlowParserMixin.checkIdentifier (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:7587:12)
-    at FlowParserMixin.checkLVal (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:7526:12)
-    at FlowParserMixin.parseVarId (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13412:10)
-    at FlowParserMixin.parseVarId (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3504:11)
-    at FlowParserMixin.parseVar (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13383:12)
-    at FlowParserMixin.parseVarStatement (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13230:10)
-    at FlowParserMixin.parseStatementContent (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2946:24)
-    at FlowParserMixin.parseStatementListItem (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12747:17)
-    at FlowParserMixin.parseBlockOrModuleBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13316:61)
-    at FlowParserMixin.parseBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
-    at FlowParserMixin.parseBlock (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13297:10)
-    at FlowParserMixin.parseFunctionBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12101:24)
-    at /Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2920:63
-    at FlowParserMixin.forwardNoArrowParamsConversionAt (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3096:16)
-    at FlowParserMixin.parseFunctionBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2920:12)
-    at FlowParserMixin.parseArrowExpression (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12076:10)
-    at FlowParserMixin.parseParenAndDistinguishExpression (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11686:12)
-    at FlowParserMixin.parseParenAndDistinguishExpression (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3621:18)
-    at FlowParserMixin.parseExprAtom (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11326:23)
-    at FlowParserMixin.parseExprAtom (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:4794:20)
-    at FlowParserMixin.parseExprSubscripts (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11076:23)
-    at FlowParserMixin.parseUpdate (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11061:21)
-    at FlowParserMixin.parseMaybeUnary (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:11041:23)
-    at FlowParserMixin.parseMaybeUnaryOrPrivate (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10894:61)
-    at FlowParserMixin.parseExprOps (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10899:23)
-    at FlowParserMixin.parseMaybeConditional (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10876:23)
-    at FlowParserMixin.parseMaybeAssign (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10826:21)
-    at FlowParserMixin.parseMaybeAssign (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3579:18)
-    at /Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10795:39
-    at FlowParserMixin.allowInAnd (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12422:16)
-    at FlowParserMixin.parseMaybeAssignAllowIn (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:10795:17)
-    at FlowParserMixin.parseVar (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13384:91)
-    at FlowParserMixin.parseVarStatement (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13230:10)
-    at FlowParserMixin.parseStatementContent (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
-    at FlowParserMixin.parseStatementLike (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:2946:24)
-    at FlowParserMixin.parseModuleItem (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12744:17)
-    at FlowParserMixin.parseBlockOrModuleBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13316:36)
-    at FlowParserMixin.parseBlockBody (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
-    at FlowParserMixin.parseProgram (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12625:10)
-    at FlowParserMixin.parseTopLevel (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:12615:25)
-    at FlowParserMixin.parseTopLevel (/Users/edeclan/FantasyFootballTest/SleeperLiveDraftRankings/frontend/node_modules/@babel/parser/lib/index.js:3715:28)
-
-ERROR in [eslint] 
-src/components/DraftView.jsx
-  Line 146:8:  Parsing error: Identifier 'handleRosterToggle' has already been declared. (146:8)
-
-webpack compiled with 2 errors and 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 21:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 21:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 22:6:  React Hook useEffect has a missing dependency: 'fetchUserLeagues'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 22:6:  React Hook useEffect has a missing dependency: 'fetchUserLeagues'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 30:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 30:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 30:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 51:9:  'handleSeasonChange' is assigned a value but never used                                                      no-unused-vars
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 30:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 51:9:  'handleSeasonChange' is assigned a value but never used                                                      no-unused-vars
-
-webpack compiled with 1 warning
-Compiling...
-Compiled with warnings.
-
-[eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 30:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-Search for the keywords to learn more about each warning.
-To ignore, add // eslint-disable-next-line to the line before.
-
-WARNING in [eslint] 
-src/components/MyRoster.jsx
-  Line 2:17:   'ChevronDown' is defined but never used                                                                             no-unused-vars
-  Line 2:30:   'ChevronUp' is defined but never used                                                                               no-unused-vars
-  Line 2:55:   'Star' is defined but never used                                                                                    no-unused-vars
-  Line 12:10:  'expandedPositions' is assigned a value but never used                                                              no-unused-vars
-  Line 22:6:   React Hook useEffect has a missing dependency: 'fetchRosterData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-  Line 88:9:   'togglePosition' is assigned a value but never used                                                                 no-unused-vars
-  Line 95:9:   'getPositionOrder' is assigned a value but never used                                                               no-unused-vars
-  Line 129:9:  'getStarterInfo' is assigned a value but never used                                                                 no-unused-vars
-
-src/components/RankingsManager.jsx
-  Line 5:3:   'Download' is defined but never used                                                                             no-unused-vars
-  Line 43:6:  React Hook useEffect has a missing dependency: 'fetchAllData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-src/components/UserSetup.jsx
-  Line 30:6:  React Hook useEffect has a missing dependency: 'username'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-
-webpack compiled with 1 warning

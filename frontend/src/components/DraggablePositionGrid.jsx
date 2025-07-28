@@ -2,30 +2,77 @@ import React, { useState, useEffect } from 'react';
 import DraggablePositionSection from './DraggablePositionSection';
 import { POSITION_COLORS } from '../constants/positions';
 
-const DraggablePositionGrid = ({ positions }) => {
-  const [sectionOrder, setSectionOrder] = useState([
-    'ALL',
-    'FLEX', 
-    'QB',
-    'RB',
-    'WR',
-    'TE',
-    'K'
-  ]);
+const DraggablePositionGrid = ({ positions, draftInfo }) => {
+  const [sectionOrder, setSectionOrder] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [dragIndex, setDragIndex] = useState(null);
 
-  // Load saved order from localStorage
+  // Generate dynamic position order based on league roster requirements
+  const generatePositionOrder = (draftInfo, positions) => {
+    const order = ['ALL']; // Always start with ALL
+    
+    if (!draftInfo?.settings) {
+      // Fallback to default order if no draft info
+      return ['ALL', 'FLEX', 'SUPER_FLEX', 'REC_FLEX', 'QB', 'RB', 'WR', 'TE', 'K', 'DST'];
+    }
+    
+    const settings = draftInfo.settings;
+    
+    // Add multi-position cards first (most positions together → fewer positions)
+    const flexPositions = [
+      { key: 'SUPER_FLEX', slots: settings.slots_super_flex, positionCount: 4 }, // QB/RB/WR/TE
+      { key: 'FLEX', slots: settings.slots_flex, positionCount: 3 }, // RB/WR/TE
+      { key: 'REC_FLEX', slots: 1, positionCount: 2 } // WR/TE (assuming leagues might have this)
+    ];
+    
+    flexPositions
+      .filter(pos => pos.slots > 0 && positions[pos.key] && positions[pos.key].length > 0)
+      .sort((a, b) => b.positionCount - a.positionCount) // Most positions first
+      .forEach(pos => order.push(pos.key));
+    
+    // Then add individual positions in roster order (typical draft importance)
+    const rosterPositions = [
+      { key: 'QB', slots: settings.slots_qb },
+      { key: 'RB', slots: settings.slots_rb },
+      { key: 'WR', slots: settings.slots_wr },
+      { key: 'TE', slots: settings.slots_te },
+      { key: 'K', slots: settings.slots_k },
+      { key: 'DST', slots: settings.slots_def }
+    ];
+    
+    rosterPositions
+      .filter(pos => pos.slots > 0 && positions[pos.key] && positions[pos.key].length > 0)
+      .forEach(pos => order.push(pos.key));
+    
+    return order;
+  };
+
+  // Update section order when draft info or positions change
   useEffect(() => {
+    const dynamicOrder = generatePositionOrder(draftInfo, positions);
+    
+    // Try to load saved order from localStorage
     const savedOrder = localStorage.getItem('positionSectionOrder');
     if (savedOrder) {
       try {
-        setSectionOrder(JSON.parse(savedOrder));
+        const parsedOrder = JSON.parse(savedOrder);
+        // Only use saved order if it contains the same positions as dynamic order
+        const dynamicSet = new Set(dynamicOrder);
+        const savedSet = new Set(parsedOrder);
+        const setsEqual = dynamicSet.size === savedSet.size && [...dynamicSet].every(x => savedSet.has(x));
+        
+        if (setsEqual) {
+          setSectionOrder(parsedOrder);
+          return;
+        }
       } catch (e) {
         console.warn('Failed to load saved position order:', e);
       }
     }
-  }, []);
+    
+    // Use dynamic order if no valid saved order
+    setSectionOrder(dynamicOrder);
+  }, [draftInfo, positions]);
 
   // Save order to localStorage
   const saveOrder = (newOrder) => {
@@ -84,8 +131,8 @@ const DraggablePositionGrid = ({ positions }) => {
         </p>
       </div>
 
-      {/* Draggable sections in 2-column grid on desktop */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Draggable sections in responsive grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {sectionOrder.map((sectionKey, index) => {
           const config = getSectionConfig(sectionKey);
           const sectionPlayers = positions[sectionKey] || [];
@@ -104,6 +151,7 @@ const DraggablePositionGrid = ({ positions }) => {
               onDrop={handleDrop}
               isDragging={isDragging}
               dragIndex={dragIndex}
+              allPositions={positions} // Pass all positions for tier calculation
             />
           );
         })}

@@ -3,13 +3,14 @@ import { Users, ChevronDown, ChevronUp, User, Shield, Star, Clock, Cross } from 
 import clsx from 'clsx';
 import { getPositionConfig } from '../constants/positions';
 
-const MyRoster = ({ leagueId, username, draftId, isVisible = true, lastUpdated, isSidebar = false }) => {
+const MyRoster = ({ leagueId, username, draftId, isVisible = true, lastUpdated, isSidebar = false, data }) => {
   console.log('MyRoster: Component rendered with props:', { leagueId, username, draftId, isVisible, isSidebar });
   
   const [rosterData, setRosterData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [expandedPositions, setExpandedPositions] = useState({});
+  const [lastRankingsVersion, setLastRankingsVersion] = useState(null);
 
   useEffect(() => {
     if (leagueId && username && isVisible) {
@@ -20,6 +21,35 @@ const MyRoster = ({ leagueId, username, draftId, isVisible = true, lastUpdated, 
       fetchRosterData();
     }
   }, [leagueId, username, draftId, isVisible, lastUpdated]);
+
+  // Listen for rankings changes from RankingsManager
+  useEffect(() => {
+    const handleRankingsChange = () => {
+      if (leagueId && username && isVisible) {
+        console.log('MyRoster: Rankings changed, refreshing roster data');
+        fetchRosterData();
+      }
+    };
+
+    window.addEventListener('rankingsChanged', handleRankingsChange);
+    return () => window.removeEventListener('rankingsChanged', handleRankingsChange);
+  }, [leagueId, username, isVisible]);
+
+  // Detect rankings changes from main draft data and refresh immediately
+  useEffect(() => {
+    if (data && data.rankings_version && lastRankingsVersion && 
+        data.rankings_version !== lastRankingsVersion && 
+        leagueId && username && isVisible) {
+      console.log('MyRoster: Rankings version changed, refreshing roster immediately', {
+        old: lastRankingsVersion,
+        new: data.rankings_version
+      });
+      fetchRosterData();
+    }
+    if (data && data.rankings_version) {
+      setLastRankingsVersion(data.rankings_version);
+    }
+  }, [data?.rankings_version, leagueId, username, isVisible]);
 
   // Clear data immediately when league changes
   useEffect(() => {

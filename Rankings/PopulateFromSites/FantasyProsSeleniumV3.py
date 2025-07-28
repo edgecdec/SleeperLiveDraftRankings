@@ -256,8 +256,8 @@ class FantasyProsSeleniumV3:
             # URL mapping for different scoring formats
             urls = {
                 'standard': 'https://www.fantasypros.com/nfl/rankings/superflex-cheatsheets.php',
-                'half_ppr': 'https://www.fantasypros.com/nfl/rankings/superflex-half-point-ppr-cheatsheets.php',
-                'ppr': 'https://www.fantasypros.com/nfl/rankings/superflex-ppr-cheatsheets.php'
+                'half_ppr': 'https://www.fantasypros.com/nfl/rankings/superflex-cheatsheets.php?scoring=half_ppr',
+                'ppr': 'https://www.fantasypros.com/nfl/rankings/superflex-cheatsheets.php?scoring=ppr'
             }
             
             url = urls.get(scoring_format, urls['half_ppr'])
@@ -303,24 +303,29 @@ class FantasyProsSeleniumV3:
                 
                 if updated_josh_rank and initial_josh_rank and updated_josh_rank != initial_josh_rank:
                     print(f"✓ Data changed! Josh Allen rank: {initial_josh_rank} → {updated_josh_rank}")
-                    return self.process_player_data(updated_data, scoring_format, True, tier_data)
+                    enhanced_data = self.append_kickers_and_dst_to_rankings(updated_data, scoring_format)
+                    return self.process_player_data(enhanced_data, scoring_format, True, tier_data)
                 elif updated_josh_rank and updated_josh_rank <= 15:
                     print(f"✓ Josh Allen ranked {updated_josh_rank} - looks like superflex data!")
-                    return self.process_player_data(updated_data, scoring_format, True, tier_data)
+                    enhanced_data = self.append_kickers_and_dst_to_rankings(updated_data, scoring_format)
+                    return self.process_player_data(enhanced_data, scoring_format, True, tier_data)
                 else:
                     print("⚠️  Data doesn't seem to have changed to superflex rankings")
                     
                     # Try alternative approaches
                     print("Trying alternative superflex detection methods...")
-                    alternative_data = self.try_alternative_superflex_methods()
+                    alternative_data = self.try_alternative_superflex_methods(url)
                     if alternative_data:
-                        return self.process_player_data(alternative_data, scoring_format, True, tier_data)
+                        enhanced_data = self.append_kickers_and_dst_to_rankings(alternative_data, scoring_format)
+                        return self.process_player_data(enhanced_data, scoring_format, True, tier_data)
                     
                     # Fall back to the updated data anyway
-                    return self.process_player_data(updated_data or initial_data, scoring_format, False, tier_data)
+                    enhanced_data = self.append_kickers_and_dst_to_rankings(updated_data or initial_data, scoring_format)
+                    return self.process_player_data(enhanced_data, scoring_format, False, tier_data)
             else:
                 print("⚠️  Could not click superflex tab, using default data")
-                return self.process_player_data(initial_data, scoring_format, False, tier_data)
+                enhanced_data = self.append_kickers_and_dst_to_rankings(initial_data, scoring_format)
+                return self.process_player_data(enhanced_data, scoring_format, False, tier_data)
                 
         except Exception as e:
             print(f"✗ Error during scraping: {e}")
@@ -471,17 +476,16 @@ class FantasyProsSeleniumV3:
         except:
             return False
     
-    def try_alternative_superflex_methods(self):
+    def try_alternative_superflex_methods(self, original_url):
         """Try alternative methods to get superflex data"""
         print("Trying to trigger superflex data update...")
         
-        # Try refreshing the page with position parameter
+        # Try refreshing the page with position parameter using original URL
         try:
-            current_url = self.driver.current_url
-            if '?' in current_url:
-                new_url = current_url + '&position=OP'
+            if '?' in original_url:
+                new_url = original_url + '&position=OP'
             else:
-                new_url = current_url + '?position=OP'
+                new_url = original_url + '?position=OP'
             
             print(f"Trying URL with position parameter: {new_url}")
             self.driver.get(new_url)
@@ -497,6 +501,112 @@ class FantasyProsSeleniumV3:
             print(f"URL parameter method failed: {e}")
         
         return None
+    
+    def get_kickers_and_dst(self, scoring_format='half_ppr'):
+        """Get kickers and DST rankings separately to append to main rankings"""
+        try:
+            print("🥅 Fetching kickers and DST rankings...")
+            
+            # Use the appropriate URL for the scoring format
+            base_urls = {
+                'standard': 'https://www.fantasypros.com/nfl/rankings/k.php',
+                'half_ppr': 'https://www.fantasypros.com/nfl/rankings/half-point-ppr-k.php', 
+                'ppr': 'https://www.fantasypros.com/nfl/rankings/ppr-k.php'
+            }
+            
+            dst_urls = {
+                'standard': 'https://www.fantasypros.com/nfl/rankings/dst.php',
+                'half_ppr': 'https://www.fantasypros.com/nfl/rankings/dst.php',  # DST doesn't change with scoring
+                'ppr': 'https://www.fantasypros.com/nfl/rankings/dst.php'
+            }
+            
+            kickers_and_dst = []
+            
+            # Get kickers
+            kicker_url = base_urls.get(scoring_format, base_urls['half_ppr'])
+            print(f"📊 Fetching kickers from: {kicker_url}")
+            
+            self.driver.get(kicker_url)
+            time.sleep(3)
+            
+            kicker_data = self.extract_player_data()
+            if kicker_data:
+                for player in kicker_data:
+                    if isinstance(player, dict):
+                        pos = player.get('player_position_id', '').strip()
+                        if pos == 'K':
+                            kickers_and_dst.append(player)
+                print(f"✅ Found {len([p for p in kickers_and_dst if p.get('player_position_id') == 'K'])} kickers")
+            
+            # Get DST
+            dst_url = dst_urls.get(scoring_format, dst_urls['half_ppr'])
+            print(f"🛡️  Fetching DST from: {dst_url}")
+            
+            self.driver.get(dst_url)
+            time.sleep(3)
+            
+            dst_data = self.extract_player_data()
+            if dst_data:
+                for player in dst_data:
+                    if isinstance(player, dict):
+                        pos = player.get('player_position_id', '').strip()
+                        if pos == 'DST':
+                            kickers_and_dst.append(player)
+                print(f"✅ Found {len([p for p in kickers_and_dst if p.get('player_position_id') == 'DST'])} DST")
+            
+            # Sort by original rank to maintain proper order
+            kickers_and_dst.sort(key=lambda x: x.get('rank_ecr', 999))
+            
+            print(f"📋 Total kickers and DST: {len(kickers_and_dst)}")
+            return kickers_and_dst
+            
+        except Exception as e:
+            print(f"⚠️  Error fetching kickers/DST: {e}")
+            return []
+    
+    def append_kickers_and_dst_to_rankings(self, main_data, scoring_format):
+        """Append kickers and DST to the end of the main rankings with proper ranking"""
+        try:
+            print("📎 Appending kickers and DST to end of rankings...")
+            
+            # Get kickers and DST data
+            kickers_and_dst = self.get_kickers_and_dst(scoring_format)
+            
+            if not kickers_and_dst:
+                print("⚠️  No kickers/DST data found, using main data only")
+                return main_data
+            
+            # Find the highest rank in main data
+            max_rank = 0
+            for player in main_data:
+                if isinstance(player, dict):
+                    rank = player.get('rank_ecr', 0)
+                    if rank > max_rank:
+                        max_rank = rank
+            
+            print(f"📍 Main rankings end at rank {max_rank}")
+            
+            # Re-rank kickers and DST to continue after main rankings
+            for i, player in enumerate(kickers_and_dst):
+                if isinstance(player, dict):
+                    # Assign new rank continuing from main data
+                    player['rank_ecr'] = max_rank + i + 1
+            
+            # Combine the data: main rankings first, then K/DST
+            combined_data = main_data + kickers_and_dst
+            
+            kicker_count = len([p for p in kickers_and_dst if p.get('player_position_id') == 'K'])
+            dst_count = len([p for p in kickers_and_dst if p.get('player_position_id') == 'DST'])
+            
+            print(f"✅ Combined rankings: {len(main_data)} main + {kicker_count} kickers + {dst_count} DST = {len(combined_data)} total")
+            print(f"📍 Kickers/DST rankings start at #{max_rank + 1}")
+            
+            return combined_data
+            
+        except Exception as e:
+            print(f"⚠️  Error appending kickers/DST: {e}, using main data only")
+            return main_data
+    
     
     def extract_player_data(self):
         """Extract player data from the page JavaScript"""
@@ -591,9 +701,18 @@ class FantasyProsSeleniumV3:
                 if not name or not pos:
                     continue
                 
-                # Skip DST for now
+                # Handle DST specially for Sleeper compatibility
                 if pos == 'DST':
-                    continue
+                    # For DST, use team_id as the player identifier for Sleeper
+                    # Sleeper expects DST IDs to be team abbreviations like "DEN", "SEA"
+                    team_abbr = player.get('player_team_id', '').strip()
+                    if team_abbr:
+                        # Override the player data for Sleeper compatibility
+                        player['sleeper_player_id'] = team_abbr  # Store original team abbr for Sleeper
+                        player['player_name'] = f"{name} DST"  # Ensure consistent naming
+                    else:
+                        # Skip DST without team abbreviation
+                        continue
                 
                 # Handle bye week
                 if bye is None or bye == '':

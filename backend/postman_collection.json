@@ -1,0 +1,208 @@
+{
+  "info": {
+    "name": "Fantasy Football Draft API",
+    "description": "Comprehensive API for managing fantasy football drafts, including player rankings, league information, draft tracking, and roster management.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5001",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "value": "edgecdec",
+      "type": "string"
+    },
+    {
+      "key": "league_id",
+      "value": "1255160696174284800",
+      "type": "string"
+    },
+    {
+      "key": "draft_id",
+      "value": "1255160696186880000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health & Status",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            },
+            "description": "Check API health and service status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users & Leagues",
+      "item": [
+        {
+          "name": "Get User Information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/{{username}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "{{username}}"]
+            },
+            "description": "Retrieve user information by Sleeper username"
+          }
+        },
+        {
+          "name": "Get User Leagues",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/{{username}}/leagues?season=2025",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "{{username}}", "leagues"],
+              "query": [
+                {
+                  "key": "season",
+                  "value": "2025"
+                }
+              ]
+            },
+            "description": "Retrieve all leagues for a specific user in a given season"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Drafts",
+      "item": [
+        {
+          "name": "Get Draft Information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/draft/{{draft_id}}/info",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "draft", "{{draft_id}}", "info"]
+            },
+            "description": "Retrieve detailed information about a specific draft"
+          }
+        },
+        {
+          "name": "Get Comprehensive Draft Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/draft/{{draft_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "draft", "{{draft_id}}"]
+            },
+            "description": "Retrieve comprehensive draft data including available players, rankings, and draft status"
+          }
+        },
+        {
+          "name": "Set Current Draft",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"draft_id\": \"{{draft_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/draft/set",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "draft", "set"]
+            },
+            "description": "Set the active draft ID for the session"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rankings",
+      "item": [
+        {
+          "name": "Get Current Rankings Format",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rankings/current-format?draft_id={{draft_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "rankings", "current-format"],
+              "query": [
+                {
+                  "key": "draft_id",
+                  "value": "{{draft_id}}"
+                }
+              ]
+            },
+            "description": "Get the current rankings format being used based on league settings"
+          }
+        },
+        {
+          "name": "Select Manual Rankings - PPR Superflex",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"fantasypros\",\n  \"id\": \"ppr_superflex\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rankings/select",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "rankings", "select"]
+            },
+            "description": "Select PPR scoring, superflex league rankings"
+          }
+        },
+        {
+          "name": "Switch to Auto-Detection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"auto\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rankings/select",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "rankings", "select"]
+            },
+            "description": "Switch back to automatic league format detection"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,940 @@
+openapi: 3.0.3
+info:
+  title: Fantasy Football Draft API
+  description: |
+    Comprehensive API for managing fantasy football drafts, including player rankings, 
+    league information, draft tracking, and roster management. Integrates with Sleeper 
+    Fantasy Football platform and supports multiple scoring formats and league types.
+  version: 1.0.0
+  contact:
+    name: Fantasy Football Draft API
+    url: https://github.com/your-repo/fantasy-football-draft-api
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:5001
+    description: Development server
+
+tags:
+  - name: Users & Leagues
+    description: User information and league management
+  - name: Drafts
+    description: Draft data and management
+  - name: Rankings
+    description: Player rankings and format management
+  - name: Rosters
+    description: Team roster management
+  - name: Health
+    description: API health and status
+
+paths:
+  /api/health:
+    get:
+      tags:
+        - Health
+      summary: Health check
+      description: Check API health and service status
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '500':
+          description: API is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/user/{username}:
+    get:
+      tags:
+        - Users & Leagues
+      summary: Get user information
+      description: Retrieve user information by Sleeper username
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: Sleeper username
+          schema:
+            type: string
+            example: edgecdec
+      responses:
+        '200':
+          description: User information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/user/{username}/leagues:
+    get:
+      tags:
+        - Users & Leagues
+      summary: Get user leagues
+      description: Retrieve all leagues for a specific user in a given season
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: Sleeper username
+          schema:
+            type: string
+            example: edgecdec
+        - name: season
+          in: query
+          required: false
+          description: NFL season year
+          schema:
+            type: string
+            default: "2025"
+            example: "2025"
+      responses:
+        '200':
+          description: User leagues retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLeaguesResponse'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/league/{league_id}/drafts:
+    get:
+      tags:
+        - Users & Leagues
+      summary: Get league drafts
+      description: Retrieve all drafts for a specific league
+      parameters:
+        - name: league_id
+          in: path
+          required: true
+          description: Sleeper league ID
+          schema:
+            type: string
+            example: "1255160696174284800"
+      responses:
+        '200':
+          description: League drafts retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Draft'
+
+  /api/draft/{draft_id}/info:
+    get:
+      tags:
+        - Drafts
+      summary: Get draft information
+      description: Retrieve detailed information about a specific draft
+      parameters:
+        - name: draft_id
+          in: path
+          required: true
+          description: Sleeper draft ID
+          schema:
+            type: string
+            example: "1255160696186880000"
+      responses:
+        '200':
+          description: Draft information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Draft'
+        '404':
+          description: Draft not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/draft/{draft_id}:
+    get:
+      tags:
+        - Drafts
+      summary: Get comprehensive draft data
+      description: Retrieve comprehensive draft data including available players, rankings, and draft status
+      parameters:
+        - name: draft_id
+          in: path
+          required: true
+          description: Sleeper draft ID
+          schema:
+            type: string
+            example: "1255160696186880000"
+      responses:
+        '200':
+          description: Draft data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftDataResponse'
+        '400':
+          description: Invalid draft ID or league information not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/draft:
+    get:
+      tags:
+        - Drafts
+      summary: Get current draft data
+      description: Retrieve data for the currently active draft
+      responses:
+        '200':
+          description: Current draft data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftDataResponse'
+        '400':
+          description: No active draft set
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/draft/set:
+    post:
+      tags:
+        - Drafts
+      summary: Set current draft
+      description: Set the active draft ID for the session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetDraftRequest'
+      responses:
+        '200':
+          description: Draft set successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetDraftResponse'
+        '400':
+          description: Missing draft_id parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/draft/status:
+    get:
+      tags:
+        - Drafts
+      summary: Get draft status
+      description: Get current draft status and available players with optional draft ID
+      parameters:
+        - name: draft_id
+          in: query
+          required: false
+          description: Sleeper draft ID
+          schema:
+            type: string
+            example: "1255160696186880000"
+      responses:
+        '200':
+          description: Draft status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftDataResponse'
+
+  /api/draft/refresh:
+    get:
+      tags:
+        - Drafts
+      summary: Refresh draft data
+      description: Force refresh of cached draft data
+      parameters:
+        - name: draft_id
+          in: query
+          required: false
+          description: Sleeper draft ID
+          schema:
+            type: string
+            example: "1255160696186880000"
+      responses:
+        '200':
+          description: Draft data refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftDataResponse'
+
+  /api/rankings/status:
+    get:
+      tags:
+        - Rankings
+      summary: Get rankings status
+      description: Retrieve current rankings status and metadata
+      responses:
+        '200':
+          description: Rankings status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RankingsStatusResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/rankings/formats:
+    get:
+      tags:
+        - Rankings
+      summary: Get available formats
+      description: Retrieve all available ranking formats
+      responses:
+        '200':
+          description: Available formats retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RankingsFormatsResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/rankings/current-format:
+    get:
+      tags:
+        - Rankings
+      summary: Get current rankings format
+      description: Get the current rankings format being used based on league settings
+      parameters:
+        - name: draft_id
+          in: query
+          required: false
+          description: Draft ID for format detection
+          schema:
+            type: string
+            example: "1255160696186880000"
+      responses:
+        '200':
+          description: Current format retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentFormatResponse'
+        '404':
+          description: League information not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/rankings/select:
+    post:
+      tags:
+        - Rankings
+      summary: Select rankings format
+      description: Select which rankings format to use (manual override or auto-detection)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/SelectRankingsRequest'
+                - $ref: '#/components/schemas/AutoRankingsRequest'
+      responses:
+        '200':
+          description: Rankings format selected successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectRankingsResponse'
+        '400':
+          description: Invalid format key or ranking type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Rankings file not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '501':
+          description: Custom rankings not implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/league/{league_id}/my-roster:
+    get:
+      tags:
+        - Rosters
+      summary: Get my roster
+      description: Retrieve the current user's roster for a league with starter/bench breakdown
+      parameters:
+        - name: league_id
+          in: path
+          required: true
+          description: Sleeper league ID
+          schema:
+            type: string
+            example: "1255160696174284800"
+        - name: username
+          in: query
+          required: true
+          description: Sleeper username
+          schema:
+            type: string
+            example: edgecdec
+        - name: draft_id
+          in: query
+          required: false
+          description: Draft ID to include current draft picks
+          schema:
+            type: string
+            example: "1255160696186880000"
+      responses:
+        '200':
+          description: Roster retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RosterResponse'
+        '400':
+          description: Missing username parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: League or user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: "123456789"
+        username:
+          type: string
+          example: "edgecdec"
+        display_name:
+          type: string
+          example: "EdgeCDec"
+        avatar:
+          type: string
+          example: "avatar_id"
+        metadata:
+          type: object
+          properties:
+            team_name:
+              type: string
+              example: "Team Name"
+
+    League:
+      type: object
+      properties:
+        league_id:
+          type: string
+          example: "1255160696174284800"
+        name:
+          type: string
+          example: "My Fantasy League"
+        status:
+          type: string
+          example: "in_season"
+        sport:
+          type: string
+          example: "nfl"
+        season:
+          type: string
+          example: "2025"
+        season_type:
+          type: string
+          example: "regular"
+        total_rosters:
+          type: integer
+          example: 12
+        scoring_settings:
+          type: object
+          properties:
+            rec:
+              type: number
+              example: 0.5
+            pass_td:
+              type: integer
+              example: 4
+        roster_positions:
+          type: array
+          items:
+            type: string
+          example: ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "K", "DEF", "BN", "BN", "BN", "BN", "BN", "BN"]
+        drafts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Draft'
+
+    Draft:
+      type: object
+      properties:
+        draft_id:
+          type: string
+          example: "1255160696186880000"
+        status:
+          type: string
+          example: "complete"
+        type:
+          type: string
+          example: "snake"
+        start_time:
+          type: integer
+          format: int64
+          example: 1693526400000
+        sport:
+          type: string
+          example: "nfl"
+        season:
+          type: string
+          example: "2025"
+        league_id:
+          type: string
+          example: "1255160696174284800"
+        metadata:
+          type: object
+          properties:
+            scoring_type:
+              type: string
+              example: "ppr"
+
+    Player:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Josh Allen"
+        position:
+          type: string
+          example: "QB"
+        team:
+          type: string
+          example: "BUF"
+        rank:
+          type: integer
+          example: 1
+        tier:
+          type: integer
+          example: 1
+        target_rank:
+          type: integer
+          example: 1
+
+    DraftDataResponse:
+      type: object
+      properties:
+        draft_id:
+          type: string
+          example: "1255160696186880000"
+        league_name:
+          type: string
+          example: "My Fantasy League"
+        is_dynasty_keeper:
+          type: boolean
+          example: false
+        last_updated:
+          type: string
+          format: date-time
+          example: "2025-01-27T21:00:00.000Z"
+        available_players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
+        positions:
+          type: object
+          properties:
+            QB:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            RB:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            WR:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            TE:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            K:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            FLEX:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            ALL:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+        total_available:
+          type: integer
+          example: 450
+        total_drafted:
+          type: integer
+          example: 34
+        total_rostered:
+          type: integer
+          example: 0
+        filtered_count:
+          type: integer
+          example: 0
+        draft_info:
+          $ref: '#/components/schemas/Draft'
+
+    UserLeaguesResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        leagues:
+          type: array
+          items:
+            $ref: '#/components/schemas/League'
+        season:
+          type: string
+          example: "2025"
+
+    RankingsStatusResponse:
+      type: object
+      properties:
+        last_updated:
+          type: string
+          format: date-time
+          example: "2025-01-27T21:00:00.000Z"
+        total_rankings:
+          type: integer
+          example: 6
+        available_formats:
+          type: array
+          items:
+            type: string
+          example: ["standard_standard", "half_ppr_superflex", "ppr_standard"]
+        current_format:
+          type: string
+          example: "half_ppr_superflex"
+        is_manual_override:
+          type: boolean
+          example: false
+
+    RankingsFormatsResponse:
+      type: object
+      properties:
+        formats:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: "half_ppr_superflex"
+              name:
+                type: string
+                example: "Half PPR - Superflex League"
+              scoring:
+                type: string
+                example: "half_ppr"
+              league_type:
+                type: string
+                example: "superflex"
+              description:
+                type: string
+                example: "0.5 PPR, superflex/2QB league"
+
+    CurrentFormatResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        scoring_format:
+          type: string
+          example: "half_ppr"
+        league_type:
+          type: string
+          example: "superflex"
+        is_manual:
+          type: boolean
+          example: false
+        source:
+          type: string
+          example: "auto"
+        rankings_filename:
+          type: string
+          example: "FantasyPros_Rankings_half_ppr_superflex.csv"
+
+    SelectRankingsRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [fantasypros, custom]
+          example: "fantasypros"
+        id:
+          type: string
+          example: "half_ppr_superflex"
+      required:
+        - type
+        - id
+
+    AutoRankingsRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [auto]
+          example: "auto"
+      required:
+        - type
+
+    SelectRankingsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Selected half_ppr superflex rankings"
+        format:
+          type: string
+          example: "half_ppr_superflex"
+        file:
+          type: string
+          example: "FantasyPros_Rankings_half_ppr_superflex.csv"
+
+    SetDraftRequest:
+      type: object
+      properties:
+        draft_id:
+          type: string
+          example: "1255160696186880000"
+      required:
+        - draft_id
+
+    SetDraftResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        draft_id:
+          type: string
+          example: "1255160696186880000"
+
+    RosterResponse:
+      type: object
+      properties:
+        league_id:
+          type: string
+          example: "1255160696174284800"
+        username:
+          type: string
+          example: "edgecdec"
+        roster_id:
+          type: integer
+          example: 1
+        total_players:
+          type: integer
+          example: 16
+        drafted_this_draft:
+          type: integer
+          example: 0
+        roster_settings:
+          type: object
+          properties:
+            starter_counts:
+              type: object
+              properties:
+                QB:
+                  type: integer
+                  example: 1
+                RB:
+                  type: integer
+                  example: 2
+                WR:
+                  type: integer
+                  example: 2
+                TE:
+                  type: integer
+                  example: 1
+                FLEX:
+                  type: integer
+                  example: 1
+                K:
+                  type: integer
+                  example: 1
+                DEF:
+                  type: integer
+                  example: 1
+            bench_slots:
+              type: integer
+              example: 6
+            taxi_slots:
+              type: integer
+              example: 0
+            reserve_slots:
+              type: integer
+              example: 0
+        positions:
+          type: object
+          properties:
+            QB:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            RB:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            WR:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            TE:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            K:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            DEF:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+            BENCH:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+        position_counts:
+          type: object
+          properties:
+            QB:
+              type: integer
+              example: 1
+            RB:
+              type: integer
+              example: 2
+            WR:
+              type: integer
+              example: 3
+            TE:
+              type: integer
+              example: 1
+            K:
+              type: integer
+              example: 1
+            DEF:
+              type: integer
+              example: 1
+            BENCH:
+              type: integer
+              example: 7
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "healthy"
+        message:
+          type: string
+          example: "Fantasy Football Draft API is running"
+        services:
+          type: object
+          properties:
+            sleeper_api:
+              type: string
+              example: "active"
+            league_service:
+              type: string
+              example: "active"
+            rankings_service:
+              type: string
+              example: "active"
+            draft_service:
+              type: string
+              example: "active"
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Error message description"

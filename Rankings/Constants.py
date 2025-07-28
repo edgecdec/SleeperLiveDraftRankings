@@ -3,6 +3,7 @@ POS_RB = 'RB'
 POS_WR = 'WR'
 POS_TE = 'TE'
 POS_K = 'K'
+POS_DST = 'DST'
 
 STANDARD = "standard"
 HALF_PPR = "half"

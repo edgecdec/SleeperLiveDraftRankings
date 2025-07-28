@@ -1,9 +1,11 @@
 import React from 'react';
-import { X, Moon, Sun, Monitor } from 'lucide-react';
+import { X, Moon, Sun, Monitor, Sparkles, Bug } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import { useSettings } from '../contexts/SettingsContext';
 
 const SettingsModal = ({ isOpen, onClose }) => {
   const { isDarkMode, toggleTheme, theme } = useTheme();
+  const { rainbowEffectsEnabled, toggleRainbowEffects, debugModeEnabled, toggleDebugMode } = useSettings();
 
   if (!isOpen) return null;
 
@@ -67,13 +69,65 @@ const SettingsModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Additional Settings Section (placeholder for future features) */}
+          {/* Draft Settings Section */}
           <div>
             <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">
               Draft Settings
             </h3>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              Additional draft settings will be available here in future updates.
+            <div className="space-y-2">
+              {/* Rainbow Effects Toggle */}
+              <div className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-600">
+                <div className="flex items-center space-x-3">
+                  <Sparkles className="w-5 h-5 text-purple-500" />
+                  <div>
+                    <span className="font-medium text-gray-900 dark:text-white">Rainbow Effects</span>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                      Animated rainbow borders for top-tier players
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={toggleRainbowEffects}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
+                    rainbowEffectsEnabled
+                      ? 'bg-primary-600'
+                      : 'bg-gray-200 dark:bg-gray-700'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${
+                      rainbowEffectsEnabled ? 'translate-x-6' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+              </div>
+              
+              {/* Debug Mode Toggle */}
+              <div className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-600">
+                <div className="flex items-center space-x-3">
+                  <Bug className="w-5 h-5 text-orange-500" />
+                  <div>
+                    <span className="font-medium text-gray-900 dark:text-white">Debug Mode</span>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                      Show debug information panel
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={toggleDebugMode}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
+                    debugModeEnabled
+                      ? 'bg-primary-600'
+                      : 'bg-gray-200 dark:bg-gray-700'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${
+                      debugModeEnabled ? 'translate-x-6' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Rankings.ParseRankings import parseCSV
 from Rankings.RankingsUtil import getPlayersDrafted, printTopXPlayersForPositions
-from Rankings.Constants import POS_QB, POS_RB, POS_WR, POS_TE, POS_K, RANKINGS_OUTPUT_DIRECTORY
+from Rankings.Constants import POS_QB, POS_RB, POS_WR, POS_TE, POS_K, POS_DST, RANKINGS_OUTPUT_DIRECTORY
 from Rankings.PlayerRankings import Player
 from Rankings.RankingsManager import RankingsManager
 # Legacy EditMe.py removed - using RankingsManager for file selection
@@ -589,6 +589,9 @@ class DraftAPI:
             # Get current rankings using clean helper service
             rankings_result = rankings_service.get_current_rankings(league_info)
             player_rankings = rankings_result['rankings_list']
+            scoring_format = rankings_result['scoring_format']
+            league_type = rankings_result['league_type']
+            source = rankings_result.get('source', 'Unknown')
             
             # Check if this is a dynasty/keeper league
             is_dynasty_keeper = SleeperAPI.is_dynasty_or_keeper_league(league_info)
@@ -629,9 +632,15 @@ class DraftAPI:
                 # Check if already rostered (dynasty/keeper only)
                 if is_dynasty_keeper and not is_drafted:
                     is_rostered = self._is_player_rostered(player, rostered_players, SleeperAPI.get_all_players())
+                    # Debug logging for kickers
+                    if player.pos == 'K' and player.name == 'Wil Lutz':
+                        print(f"DEBUG: Wil Lutz - is_rostered: {is_rostered}")
                 
                 if not is_drafted and not is_rostered:
                     available_players.append(player)
+                    # Debug logging for kickers
+                    if player.pos == 'K':
+                        print(f"DEBUG: Available kicker: {player.name}")
                 elif is_rostered:
                     filtered_count += 1
             
@@ -642,8 +651,11 @@ class DraftAPI:
                 'WR': self._get_top_players_by_position([POS_WR], available_players, 5),
                 'TE': self._get_top_players_by_position([POS_TE], available_players, 5),
                 'K': self._get_top_players_by_position([POS_K], available_players, 5),
+                'DST': self._get_top_players_by_position([POS_DST], available_players, 5),
                 'FLEX': self._get_top_players_by_position([POS_RB, POS_WR, POS_TE], available_players, 10),
-                'ALL': self._get_top_players_by_position([POS_QB, POS_RB, POS_WR, POS_TE, POS_K], available_players, 10)
+                'SUPER_FLEX': self._get_top_players_by_position([POS_QB, POS_RB, POS_WR, POS_TE], available_players, 10),
+                'REC_FLEX': self._get_top_players_by_position([POS_WR, POS_TE], available_players, 10),
+                'ALL': self._get_top_players_by_position([POS_QB, POS_RB, POS_WR, POS_TE, POS_K, POS_DST], available_players, 10)
             }
             
             # Convert available_players to dictionaries for JSON serialization
@@ -667,6 +679,7 @@ class DraftAPI:
                 'is_dynasty_keeper': is_dynasty_keeper,
                 'league_name': league_info.get('name') if league_info else 'Unknown',
                 'last_updated': datetime.now().isoformat(),
+                'rankings_version': f"{scoring_format}_{league_type}_{source}_{int(current_time)}", # Add version for change detection
                 'draft_id': self.current_draft_id,
                 'draft_info': SleeperAPI.get_draft_info(self.current_draft_id)  # Get draft info for completeness
             }
@@ -691,12 +704,29 @@ class DraftAPI:
             if not sleeper_player:
                 continue
             
-            sleeper_name = sleeper_player.get('full_name', '').strip()
             sleeper_pos = sleeper_player.get('position', '').strip().upper()
+            
+            # Handle DST position mapping
+            if sleeper_pos == 'DEF':
+                sleeper_pos = 'DST'
             
             # Only check players with matching positions
             if sleeper_pos != player_pos:
                 continue
+            
+            # Get sleeper player name with special handling for DST
+            if sleeper_player.get('position') == 'DEF':
+                # For DST, construct name from first_name + last_name (e.g., "Cincinnati Bengals")
+                first_name = sleeper_player.get('first_name', '')
+                last_name = sleeper_player.get('last_name', '')
+                if first_name and last_name:
+                    sleeper_name = f"{first_name} {last_name}".strip()
+                else:
+                    # Fallback to team abbreviation if names not available
+                    team = sleeper_player.get('team', player_id)
+                    sleeper_name = f"{team} Defense".strip()
+            else:
+                sleeper_name = sleeper_player.get('full_name', '').strip()
             
             # Direct name match (case insensitive)
             if player_name.lower() == sleeper_name.lower():
@@ -968,25 +998,23 @@ def get_my_roster(league_id):
         # Get all players data
         all_players = SleeperAPI.get_all_players()
         
-        # Get rankings data using clean helper services
+        # Get rankings data using the shared draft_api instance to ensure consistency
         try:
-            # Get league context using helper service
-            league_info = league_service.get_league_context(league_id=league_id)
-            if not league_info:
-                return jsonify({'error': 'League information not found'}), 404
-            
-            # Get current rankings using clean helper service
+            # Use the shared draft_api instance to get current rankings format and data
+            # This ensures we use the same manual override and cached data as the main draft view
+            scoring_format, league_type, is_manual = draft_api.get_current_rankings_format(league_info)
             rankings_result = rankings_service.get_current_rankings(league_info)
             rankings_data = rankings_result['rankings_dict']  # Use dictionary format for My Roster
+            source = rankings_result.get('source', 'Unknown')
             
-            print(f"📊 My Roster using: {rankings_result['scoring_format']} {rankings_result['league_type']} ({rankings_result['source']})")
+            print(f"📊 My Roster using: {scoring_format} {league_type} ({source}) - same as main draft view")
             
         except Exception as e:
             print(f"Error loading rankings for My Roster: {e}")
             rankings_data = {}
         
-        # Create a temporary DraftAPI instance for name matching
-        temp_draft_api = DraftAPI()
+        # Use the shared draft_api instance for name matching (not a temporary one)
+        # This ensures consistency with the main draft view
         
         # Get current draft picks if draft_id provided
         drafted_players = []
@@ -1000,8 +1028,21 @@ def get_my_roster(league_id):
                         if pick.get('picked_by') == user_id and pick.get('player_id'):
                             player_data = all_players.get(pick['player_id'], {})
                             if player_data:
-                                player_name = player_data.get('full_name', 'Unknown')
-                                rank_info = temp_draft_api._get_player_ranking(player_name, rankings_data)
+                                # Special handling for DST players
+                                if player_data.get('position') == 'DEF':
+                                    # For DST, construct name from first_name + last_name (e.g., "Cincinnati Bengals")
+                                    first_name = player_data.get('first_name', '')
+                                    last_name = player_data.get('last_name', '')
+                                    if first_name and last_name:
+                                        player_name = f"{first_name} {last_name}"
+                                    else:
+                                        # Fallback to team abbreviation if names not available
+                                        team = player_data.get('team', pick['player_id'])
+                                        player_name = f"{team} Defense"
+                                else:
+                                    player_name = player_data.get('full_name', 'Unknown')
+                                
+                                rank_info = draft_api._get_player_ranking(player_name, rankings_data)
                                 
                                 drafted_players.append({
                                     'player_id': pick['player_id'],
@@ -1026,8 +1067,21 @@ def get_my_roster(league_id):
         for player_id in player_ids:
             player_data = all_players.get(player_id, {})
             if player_data:
-                player_name = player_data.get('full_name', 'Unknown')
-                rank_info = temp_draft_api._get_player_ranking(player_name, rankings_data)
+                # Special handling for DST players
+                if player_data.get('position') == 'DEF':
+                    # For DST, construct name from first_name + last_name (e.g., "Cincinnati Bengals")
+                    first_name = player_data.get('first_name', '')
+                    last_name = player_data.get('last_name', '')
+                    if first_name and last_name:
+                        player_name = f"{first_name} {last_name}"
+                    else:
+                        # Fallback to team abbreviation if names not available
+                        team = player_data.get('team', player_id)
+                        player_name = f"{team} Defense"
+                else:
+                    player_name = player_data.get('full_name', 'Unknown')
+                
+                rank_info = draft_api._get_player_ranking(player_name, rankings_data)
                 
                 # Determine status based on which arrays the player appears in
                 if player_id in reserve_player_ids:

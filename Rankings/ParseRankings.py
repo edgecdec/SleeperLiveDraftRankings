@@ -14,6 +14,6 @@ def parseCSV(fileName):
         team = player[FIELD_TEAM]
         rank = player[FIELD_OVERALL_RANK]
         tier = player.get(FIELD_TIER, 999)  # Get tier from CSV, default to 999 if not present
-        if pos not in ['DST', 'D/ST']:
-            playersList.append(Player(name, team, pos, rank, tier))
+        # Include all positions including DST and D/ST
+        playersList.append(Player(name, team, pos, rank, tier))
     return playersList

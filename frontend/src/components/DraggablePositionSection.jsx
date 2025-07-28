@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, GripVertical } from 'lucide-react';
 import PlayerCard from './PlayerCard';
 import clsx from 'clsx';
+import { calculateMinTiersByPosition, isPlayerTopTier } from '../utils/tierUtils';
 
 const DraggablePositionSection = ({ 
   title, 
@@ -14,9 +15,13 @@ const DraggablePositionSection = ({
   onDrop,
   isDragging,
   dragIndex,
-  index
+  index,
+  allPositions = {} // Add this to get all positions data for tier calculation
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Calculate minimum tiers for top-tier highlighting
+  const minTiers = calculateMinTiersByPosition(allPositions);
 
   const getColorClasses = (color) => {
     const colorMap = {
@@ -106,6 +111,7 @@ const DraggablePositionSection = ({
                   <PlayerCard 
                     player={player} 
                     rank={playerIndex + 1}
+                    isTopTier={isPlayerTopTier(player, minTiers)}
                   />
                 </div>
               ))}

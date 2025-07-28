@@ -31,6 +31,67 @@
   animation: draft-pulse 2s ease-in-out infinite;
 }
 
+/* Custom animations for top-tier players */
+@keyframes tier-pulse {
+  0% {
+    border-color: rgb(239 68 68); /* red-500 */
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  16.66% {
+    border-color: rgb(249 115 22); /* orange-500 */
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3);
+  }
+  33.33% {
+    border-color: rgb(234 179 8); /* yellow-500 */
+    box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.2);
+  }
+  50% {
+    border-color: rgb(34 197 94); /* green-500 */
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.1);
+  }
+  66.66% {
+    border-color: rgb(59 130 246); /* blue-500 */
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+  }
+  83.33% {
+    border-color: rgb(147 51 234); /* purple-500 */
+    box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.3);
+  }
+  100% {
+    border-color: rgb(239 68 68); /* red-500 */
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+}
+
+@keyframes tier-glow {
+  0% {
+    box-shadow: 0 0 3px rgba(239, 68, 68, 0.4), 0 0 6px rgba(239, 68, 68, 0.2), 0 0 9px rgba(239, 68, 68, 0.1);
+  }
+  16.66% {
+    box-shadow: 0 0 4px rgba(249, 115, 22, 0.4), 0 0 8px rgba(249, 115, 22, 0.2), 0 0 12px rgba(249, 115, 22, 0.1);
+  }
+  33.33% {
+    box-shadow: 0 0 5px rgba(234, 179, 8, 0.4), 0 0 10px rgba(234, 179, 8, 0.2), 0 0 15px rgba(234, 179, 8, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.6), 0 0 12px rgba(34, 197, 94, 0.4), 0 0 18px rgba(34, 197, 94, 0.2);
+  }
+  66.66% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.4), 0 0 10px rgba(59, 130, 246, 0.2), 0 0 15px rgba(59, 130, 246, 0.1);
+  }
+  83.33% {
+    box-shadow: 0 0 4px rgba(147, 51, 234, 0.4), 0 0 8px rgba(147, 51, 234, 0.2), 0 0 12px rgba(147, 51, 234, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 3px rgba(239, 68, 68, 0.4), 0 0 6px rgba(239, 68, 68, 0.2), 0 0 9px rgba(239, 68, 68, 0.1);
+  }
+}
+
+.top-tier-player {
+  animation: tier-pulse 3s ease-in-out infinite, tier-glow 4s ease-in-out infinite;
+  border-width: 5px !important;
+}
+
 @layer base {
   html {
     scroll-behavior: auto; /* Disable smooth scrolling that might cause jumps */

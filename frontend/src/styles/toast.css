@@ -1,0 +1,324 @@
+/**
+ * Toast Notification Styles
+ * 
+ * Styles for the toast notification system that integrates with the backend error service.
+ * Provides consistent styling for different toast types and interactive elements.
+ */
+
+/* Import react-toastify base styles */
+@import 'react-toastify/dist/ReactToastify.css';
+
+/* Toast Container */
+.Toastify__toast-container {
+  width: 400px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Base Toast Styles */
+.Toastify__toast {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid transparent;
+  min-height: auto;
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+/* Toast Types */
+.toast-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #059669;
+  color: white;
+}
+
+.toast-error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-color: #dc2626;
+  color: white;
+}
+
+.toast-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-color: #d97706;
+  color: white;
+}
+
+.toast-info {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-color: #2563eb;
+  color: white;
+}
+
+.toast-loading {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  border-color: #4b5563;
+  color: white;
+}
+
+/* Progress Bar Colors */
+.toast-progress-success {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.toast-progress-error {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.toast-progress-warning {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.toast-progress-info {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* Toast Content */
+.toast-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+  opacity: 0.95;
+}
+
+.toast-message {
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+.toast-retry-info {
+  margin-top: 4px;
+}
+
+.toast-retry-info small {
+  font-size: 11px;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+/* Toast Actions */
+.toast-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.toast-action-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.toast-action-primary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.toast-action-primary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.toast-action-secondary {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.toast-action-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Toast Suggestions */
+.toast-suggestions {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.toast-suggestions details {
+  cursor: pointer;
+}
+
+.toast-suggestions summary {
+  font-weight: 500;
+  opacity: 0.9;
+  padding: 4px 0;
+  outline: none;
+  user-select: none;
+}
+
+.toast-suggestions summary:hover {
+  opacity: 1;
+}
+
+.toast-suggestions ul {
+  margin: 8px 0 0 0;
+  padding-left: 16px;
+  opacity: 0.85;
+}
+
+.toast-suggestions li {
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+/* Close Button */
+.Toastify__close-button {
+  color: rgba(255, 255, 255, 0.8);
+  opacity: 0.8;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .Toastify__toast-container {
+    /* Dark mode adjustments if needed */
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .Toastify__toast-container {
+    width: calc(100vw - 32px);
+    left: 16px;
+    right: 16px;
+  }
+  
+  .toast-actions {
+    flex-direction: column;
+  }
+  
+  .toast-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Animation Enhancements */
+.Toastify__toast--success {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.Toastify__toast--error {
+  animation: slideInRight 0.3s ease-out, shake 0.5s ease-in-out 0.3s;
+}
+
+.Toastify__toast--warning {
+  animation: slideInRight 0.3s ease-out, pulse 1s ease-in-out 0.3s;
+}
+
+.Toastify__toast--info {
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Loading Spinner for Loading Toasts */
+.toast-loading .Toastify__toast-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Custom Icons for Different Toast Types */
+.toast-success::before {
+  content: '✓';
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.toast-error::before {
+  content: '✕';
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.toast-warning::before {
+  content: '⚠';
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.toast-info::before {
+  content: 'ℹ';
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .Toastify__toast {
+    border-width: 2px;
+  }
+  
+  .toast-action-btn {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .Toastify__toast--success,
+  .Toastify__toast--error,
+  .Toastify__toast--warning,
+  .Toastify__toast--info {
+    animation: none;
+  }
+  
+  .toast-loading .Toastify__toast-icon {
+    animation: none;
+  }
+  
+  .toast-action-btn {
+    transition: none;
+  }
+}

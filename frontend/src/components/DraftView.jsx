@@ -12,10 +12,21 @@ import ErrorState from './ErrorState';
 import useDraftData from '../hooks/useDraftData';
 import useUserLeagues from '../hooks/useUserLeagues';
 import useUrlParams from '../hooks/useUrlParams';
+import { useSettings } from '../contexts/SettingsContext';
 
 const DraftView = () => {
   const navigate = useNavigate();
   const { platform, leagueId, draftId, user, season } = useUrlParams();
+  
+  // Use try-catch to handle cases where SettingsContext might not be available
+  let debugModeEnabled = false; // Default to disabled
+  try {
+    const settings = useSettings();
+    debugModeEnabled = settings.debugModeEnabled;
+  } catch (e) {
+    // Fallback if context is not available
+    console.warn('Settings context not available, using default debug mode setting');
+  }
   
   // Initialize roster sidebar state from localStorage
   const [isRosterOpen, setIsRosterOpen] = useState(() => {
@@ -104,9 +115,9 @@ const DraftView = () => {
   const currentDraft = {
     draftId,
     leagueId,
-    leagueName: data?.league_name || 'Unknown League',
-    draftType: 'snake', // Default, could be enhanced
-    status: data?.status || 'unknown',
+    leagueName: data?.league_name || (loading ? 'Loading...' : 'Unknown League'),
+    draftType: data?.draft_info?.type || 'snake', // Get actual draft type from API
+    status: data?.draft_info?.status || 'unknown',
     username: user,
     user: userInfo,
     leagues: leagues
@@ -165,6 +176,7 @@ const DraftView = () => {
         draftId={currentDraft?.draftId}
         username={user}
         lastUpdated={lastUpdated}
+        data={data}
       />
 
       {/* Roster Toggle Button in Header */}
@@ -187,18 +199,20 @@ const DraftView = () => {
 
       <main className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-all duration-300 ${isRosterOpen ? 'lg:ml-80 xl:ml-96' : ''}`}>
         {/* Draggable Position sections */}
-        <DraggablePositionGrid positions={positions} />
+        <DraggablePositionGrid positions={positions} draftInfo={data?.draft_info} />
 
         {/* Draft info footer */}
         <DraftFooter data={data} currentDraft={currentDraft} />
       </main>
       
       {/* Debug Info */}
-      <DebugInfo 
-        leagues={leagues}
-        currentDraft={currentDraft}
-        username={user}
-      />
+      {debugModeEnabled && (
+        <DebugInfo 
+          leagues={leagues}
+          currentDraft={currentDraft}
+          username={user}
+        />
+      )}
     </div>
   );
 };

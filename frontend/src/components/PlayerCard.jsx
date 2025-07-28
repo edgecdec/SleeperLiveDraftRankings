@@ -2,8 +2,18 @@ import React from 'react';
 import { User, Trophy, Target, Hash } from 'lucide-react';
 import clsx from 'clsx';
 import { getPositionBadgeClass, getPositionBorderClass } from '../constants/positions';
+import { useSettings } from '../contexts/SettingsContext';
 
-const PlayerCard = ({ player, rank, showRank = true }) => {
+const PlayerCard = ({ player, rank, showRank = true, isTopTier = false }) => {
+  // Use try-catch to handle cases where SettingsContext might not be available
+  let rainbowEffectsEnabled = true; // Default to enabled
+  try {
+    const settings = useSettings();
+    rainbowEffectsEnabled = settings.rainbowEffectsEnabled;
+  } catch (e) {
+    // Fallback if context is not available
+    console.warn('Settings context not available, using default rainbow effects setting');
+  }
   const getTierClass = (tier) => {
     return `tier-${tier}`;
   };
@@ -12,7 +22,8 @@ const PlayerCard = ({ player, rank, showRank = true }) => {
     <div className={clsx(
       'bg-white dark:bg-gray-800 rounded-lg shadow-sm border-2 hover:shadow-md transition-all duration-200 p-3',
       getPositionBorderClass(player.position),
-      getTierClass(player.tier)
+      getTierClass(player.tier),
+      isTopTier && rainbowEffectsEnabled && 'top-tier-player'
     )}>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">

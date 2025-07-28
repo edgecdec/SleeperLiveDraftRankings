@@ -5,7 +5,10 @@ import {
   Shield,   // TE
   Crosshair, // K
   Layers,   // FLEX
-  LayoutGrid // ALL
+  LayoutGrid, // ALL
+  ShieldCheck, // DST
+  Shuffle,  // SUPER_FLEX
+  Repeat    // REC_FLEX
 } from 'lucide-react';
 
 // Position color constants - single source of truth
@@ -64,6 +67,15 @@ export const POSITION_COLORS = {
     textClass: 'text-gray-800',
     bgClass: 'bg-gray-100'
   },
+  DST: {
+    name: 'Defense/Special Teams',
+    color: 'slate',
+    icon: ShieldCheck,
+    badgeClass: 'position-dst',
+    borderClass: 'border-slate-400 hover:border-slate-500 hover:bg-slate-50',
+    textClass: 'text-slate-800',
+    bgClass: 'bg-slate-100'
+  },
   FLEX: {
     name: 'Flex Options (RB/WR/TE)',
     color: 'purple',
@@ -72,6 +84,24 @@ export const POSITION_COLORS = {
     borderClass: 'border-purple-300 hover:border-purple-400 hover:bg-purple-50',
     textClass: 'text-purple-800',
     bgClass: 'bg-purple-100'
+  },
+  SUPER_FLEX: {
+    name: 'Super Flex (QB/RB/WR/TE)',
+    color: 'indigo',
+    icon: Shuffle,
+    badgeClass: 'bg-indigo-100 text-indigo-800',
+    borderClass: 'border-indigo-300 hover:border-indigo-400 hover:bg-indigo-50',
+    textClass: 'text-indigo-800',
+    bgClass: 'bg-indigo-100'
+  },
+  REC_FLEX: {
+    name: 'Receiver Flex (WR/TE)',
+    color: 'cyan',
+    icon: Repeat,
+    badgeClass: 'bg-cyan-100 text-cyan-800',
+    borderClass: 'border-cyan-300 hover:border-cyan-400 hover:bg-cyan-50',
+    textClass: 'text-cyan-800',
+    bgClass: 'bg-cyan-100'
   },
   ALL: {
     name: 'Best Available (All Positions)',
