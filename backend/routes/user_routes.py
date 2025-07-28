@@ -7,6 +7,7 @@ integrated error handling and toast notification support.
 
 from flask import Blueprint, jsonify, request
 from services.sleeper_api import SleeperAPI
+from services.league_service import LeagueService
 from services.error_middleware import (
     handle_api_errors, validate_required_params, generate_request_context,
     validate_sleeper_id, validate_username
@@ -328,33 +329,81 @@ def get_my_roster(league_id):
             # Get all players data from Sleeper
             all_players = SleeperAPI.get_all_players()
             
+            # Get current rankings for rank lookup
+            from services.rankings_service import RankingsService
+            from services.draft_service import DraftService
+            
+            # We need to get the rankings to look up player ranks
+            # This is a bit of a hack, but we need access to the rankings service
+            # In a better architecture, this would be injected
+            try:
+                # Get league info for rankings context
+                league_service = LeagueService()
+                rankings_service = RankingsService(None, None)  # Will be initialized properly
+                
+                # Get current rankings
+                rankings_result = rankings_service.get_current_rankings(league_info)
+                rankings_dict = rankings_result.get('rankings_dict', {})
+                
+            except Exception as e:
+                print(f"Warning: Could not load rankings for roster: {e}")
+                rankings_dict = {}
+            
             # Organize roster players by position
             for player_id in user_roster['players']:
                 if player_id in all_players:
                     player = all_players[player_id]
                     position = player.get('position', 'UNKNOWN')
                     
-                    # Handle DST position mapping
+                    # Handle DST/DEF position mapping - treat both as DST
                     if position == 'DEF':
                         position = 'DST'
                     
-                    # Create player data structure
-                    player_data = {
-                        'name': player.get('full_name', 'Unknown Player'),
-                        'position': position,
-                        'team': player.get('team', ''),
-                        'player_id': player_id
-                    }
-                    
-                    # Handle DST name formatting
+                    # Get player name with special handling for DST/DEF
                     if player.get('position') == 'DEF':
+                        # For DST, construct name from first_name + last_name (e.g., "Cincinnati Bengals")
                         first_name = player.get('first_name', '')
                         last_name = player.get('last_name', '')
                         if first_name and last_name:
-                            player_data['name'] = f"{first_name} {last_name}"
+                            player_name = f"{first_name} {last_name}"
                         else:
                             team = player.get('team', player_id)
-                            player_data['name'] = f"{team} Defense"
+                            player_name = f"{team} Defense"
+                    else:
+                        player_name = player.get('full_name', 'Unknown Player')
+                    
+                    # Look up ranking information
+                    rank_info = None
+                    if rankings_dict:
+                        # Try to find player in rankings
+                        name_key = player_name.lower().strip()
+                        if name_key in rankings_dict:
+                            rank_info = rankings_dict[name_key]
+                        else:
+                            # Try variations for DST names
+                            if position == 'DST':
+                                team = player.get('team', '')
+                                if team:
+                                    # Try "Team Defense" format
+                                    dst_name = f"{team} Defense".lower()
+                                    if dst_name in rankings_dict:
+                                        rank_info = rankings_dict[dst_name]
+                                    else:
+                                        # Try team name variations
+                                        for key in rankings_dict:
+                                            if team.lower() in key and 'defense' in key:
+                                                rank_info = rankings_dict[key]
+                                                break
+                    
+                    # Create player data structure
+                    player_data = {
+                        'name': player_name,
+                        'position': position,
+                        'team': player.get('team', ''),
+                        'player_id': player_id,
+                        'rank': rank_info.get('rank', 999) if rank_info else 999,
+                        'tier': rank_info.get('tier', 10) if rank_info else 10
+                    }
                     
                     # Add to positions data
                     if position not in positions_data:
