@@ -85,7 +85,7 @@ def start_backend():
     print("🚀 Starting backend server...")
     
     backend_path = os.path.join(os.path.dirname(__file__), 'backend')
-    app_file = os.path.join(backend_path, 'app_integrated.py')
+    app_file = os.path.join(backend_path, 'app.py')
     
     if not os.path.exists(app_file):
         print(f"❌ Backend app not found: {app_file}")

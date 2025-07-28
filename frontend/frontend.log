@@ -294,3 +294,324 @@ See https://nodejs.org/api/errors.html#errors_common_system_errors for more info
 Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
 See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
 
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664423787 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664423788 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=[object+Object] from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664425671 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664425671 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=[object+Object] from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664426561 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664426561 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=[object+Object] from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664427359 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664427360 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664440831 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664440834 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664447737 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664447740 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664450660 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664450659 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664451809 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664451810 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664452777 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664452778 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/set from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/user/edgecdec/leagues?season=2025 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/status?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664453803 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664453804 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664483785 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664483784 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664513787 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664513787 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664543806 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664543804 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664573796 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664573797 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=1225507080341827584 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664603779 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664603779 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/draft/refresh?draft_id=[object+Object] from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664627473 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /api/league/1225507080325042176/my-roster?username=edgecdec&draft_id=1225507080341827584&_t=1753664627473 from localhost:3000 to http://localhost:5001.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
