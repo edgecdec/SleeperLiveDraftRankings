@@ -97,7 +97,6 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
 
   // Event handlers
   const handleSelectRankings = async (type, id) => {
-    console.log('Selecting rankings:', { type, id });
     try {
       const response = await fetch('/api/rankings/select', {
         method: 'POST',
@@ -161,10 +160,7 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
       const result = await response.json();
 
       if (response.ok) {
-        console.log('Upload successful, refreshing data...');
-        console.log('Upload response:', result);
         await fetchAllData();
-        console.log('Data refreshed, customRankings:', customRankings);
         setUploadName('');
         setUploadDescription('');
         event.target.value = '';

@@ -49,16 +49,11 @@ export const useRankingsData = (currentDraft) => {
   }, [currentDraft]);
 
   const fetchCustomRankings = useCallback(async () => {
-    console.log('Fetching custom rankings...');
     try {
       const response = await fetch('/api/rankings/custom');
-      console.log('Custom rankings response status:', response.status);
       const data = await response.json();
-      console.log('Custom rankings raw response:', data);
       // Ensure data is an array
       const rankings = Array.isArray(data) ? data : [];
-      console.log('Setting custom rankings:', rankings);
-      console.log('Rankings count:', rankings.length);
       setCustomRankings(rankings);
     } catch (error) {
       console.error('Error fetching custom rankings:', error);
