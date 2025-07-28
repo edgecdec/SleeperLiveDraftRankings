@@ -548,7 +548,7 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
                               ? 'border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/30 ring-2 ring-green-200 dark:ring-green-400/50'
                               : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700'
                           )}
-                          onClick={() => handleFormatSelect('custom', null, ranking.id)}
+                          onClick={() => handleSelectRankings('custom', ranking.id)}
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex-1">
