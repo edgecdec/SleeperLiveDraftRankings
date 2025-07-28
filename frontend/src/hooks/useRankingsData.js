@@ -30,7 +30,7 @@ export const useRankingsData = (currentDraft) => {
     } finally {
       setLoading(false);
     }
-  }, [currentDraft]);
+  }, [fetchRankingsStatus, fetchAvailableFormats, fetchCurrentFormat, fetchCustomRankings, fetchCurrentRankings]);
 
   // Individual fetch functions
   const fetchRankingsStatus = useCallback(async () => {
@@ -67,11 +67,15 @@ export const useRankingsData = (currentDraft) => {
   }, [currentDraft]);
 
   const fetchCustomRankings = useCallback(async () => {
+    console.log('Fetching custom rankings...');
     try {
       const response = await fetch('/api/rankings/custom');
       const data = await response.json();
+      console.log('Custom rankings response:', data);
       // Ensure data is an array
-      setCustomRankings(Array.isArray(data) ? data : []);
+      const rankings = Array.isArray(data) ? data : [];
+      console.log('Setting custom rankings:', rankings);
+      setCustomRankings(rankings);
     } catch (error) {
       console.error('Error fetching custom rankings:', error);
       // Set to empty array on error

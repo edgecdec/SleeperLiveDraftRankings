@@ -45,6 +45,11 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
     }
   }, [isOpen, fetchAllData]);
 
+  // Debug log
+  useEffect(() => {
+    console.log('RankingsManager - customRankings updated:', customRankings);
+  }, [customRankings]);
+
   // Update selected format when current format changes
   useEffect(() => {
     if (currentFormat?.format_key) {
@@ -68,6 +73,7 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
 
   // Event handlers
   const handleSelectRankings = async (type, id) => {
+    console.log('Selecting rankings:', { type, id });
     try {
       const response = await fetch('/api/rankings/select', {
         method: 'POST',
@@ -132,7 +138,9 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
       const result = await response.json();
 
       if (response.ok) {
+        console.log('Upload successful, refreshing data...');
         await fetchAllData();
+        console.log('Data refreshed, customRankings:', customRankings);
         setUploadName('');
         setUploadDescription('');
         event.target.value = '';
@@ -210,7 +218,7 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-40">
+    <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] mx-4 flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-600">
