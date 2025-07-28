@@ -70,9 +70,12 @@ export const useRankingsData = (currentDraft) => {
     try {
       const response = await fetch('/api/rankings/custom');
       const data = await response.json();
-      setCustomRankings(data);
+      // Ensure data is an array
+      setCustomRankings(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error fetching custom rankings:', error);
+      // Set to empty array on error
+      setCustomRankings([]);
     }
   }, []);
 
@@ -80,9 +83,12 @@ export const useRankingsData = (currentDraft) => {
     try {
       const response = await fetch('/api/rankings/current');
       const data = await response.json();
-      setCurrentRankings(data);
+      // Ensure data is an array
+      setCurrentRankings(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error fetching current rankings:', error);
+      // Set to empty array on error
+      setCurrentRankings([]);
     }
   }, []);
 

@@ -13,7 +13,8 @@ const CustomRankingsList = ({
   onSelectRankings,
   onDeleteRankings
 }) => {
-  if (!customRankings || customRankings.length === 0) {
+  // Ensure customRankings is an array and has items
+  if (!Array.isArray(customRankings) || customRankings.length === 0) {
     return null;
   }
 
