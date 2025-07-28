@@ -17,7 +17,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import DEFAULT_DRAFT_ID, FLASK_HOST, FLASK_PORT, FLASK_DEBUG
 
 # Import updated services with error handling
-from services.sleeper_api_updated import SleeperAPI
+from services.sleeper_api import SleeperAPI
 from services.league_service import LeagueService
 from services.rankings_service import RankingsService
 from services.draft_service import DraftService
@@ -32,9 +32,9 @@ from services.error_service import (
 )
 
 # Import updated route blueprints
-from routes.user_routes_updated import user_bp
-from routes.draft_routes_updated import draft_bp, init_draft_routes
-from routes.rankings_routes_updated import rankings_bp, init_rankings_routes
+from routes.user_routes import user_bp
+from routes.draft_routes import draft_bp, init_draft_routes
+from routes.rankings_routes import rankings_bp, init_rankings_routes
 
 # Import existing modules
 from Rankings.RankingsManager import RankingsManager
