@@ -18,7 +18,7 @@ from datetime import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from Rankings.RankingsUtil import getPlayersDrafted
-from Rankings.Constants import POS_QB, POS_RB, POS_WR, POS_TE, POS_K
+from Rankings.Constants import POS_QB, POS_RB, POS_WR, POS_TE, POS_K, POS_DST
 from .sleeper_api import SleeperAPI
 from .league_service import LeagueService
 
@@ -173,8 +173,9 @@ class DraftService:
                 'WR': self._get_top_players_by_position([POS_WR], available_players, 5),
                 'TE': self._get_top_players_by_position([POS_TE], available_players, 5),
                 'K': self._get_top_players_by_position([POS_K], available_players, 5),
+                'DST': self._get_top_players_by_position([POS_DST], available_players, 5),
                 'FLEX': self._get_top_players_by_position([POS_RB, POS_WR, POS_TE], available_players, 10),
-                'ALL': self._get_top_players_by_position([POS_QB, POS_RB, POS_WR, POS_TE, POS_K], available_players, 10)
+                'ALL': self._get_top_players_by_position([POS_QB, POS_RB, POS_WR, POS_TE, POS_K, POS_DST], available_players, 10)
             }
             
             # Convert available_players to dictionaries for JSON serialization

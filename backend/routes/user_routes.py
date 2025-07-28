@@ -320,12 +320,56 @@ def get_my_roster(league_id):
             else:
                 starter_counts[pos] = starter_counts.get(pos, 0) + 1
         
+        # Process roster players into positions format expected by frontend
+        positions_data = {}
+        total_players = 0
+        
+        if user_roster.get('players'):
+            # Get all players data from Sleeper
+            all_players = SleeperAPI.get_all_players()
+            
+            # Organize roster players by position
+            for player_id in user_roster['players']:
+                if player_id in all_players:
+                    player = all_players[player_id]
+                    position = player.get('position', 'UNKNOWN')
+                    
+                    # Handle DST position mapping
+                    if position == 'DEF':
+                        position = 'DST'
+                    
+                    # Create player data structure
+                    player_data = {
+                        'name': player.get('full_name', 'Unknown Player'),
+                        'position': position,
+                        'team': player.get('team', ''),
+                        'player_id': player_id
+                    }
+                    
+                    # Handle DST name formatting
+                    if player.get('position') == 'DEF':
+                        first_name = player.get('first_name', '')
+                        last_name = player.get('last_name', '')
+                        if first_name and last_name:
+                            player_data['name'] = f"{first_name} {last_name}"
+                        else:
+                            team = player.get('team', player_id)
+                            player_data['name'] = f"{team} Defense"
+                    
+                    # Add to positions data
+                    if position not in positions_data:
+                        positions_data[position] = []
+                    positions_data[position].append(player_data)
+                    total_players += 1
+        
         return jsonify({
             'league_id': league_id,
             'username': username,
             'user_id': user_id,
             'roster_id': user_roster.get('roster_id'),
             'roster': user_roster,
+            'positions': positions_data,  # Add positions data for frontend
+            'total_players': total_players,  # Add total players count
             'roster_settings': {
                 'starter_counts': starter_counts,
                 'bench_slots': bench_slots,
