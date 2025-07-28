@@ -123,6 +123,12 @@ class RankingsManager:
             Dict with success status and details
         """
         try:
+            # Generate unique filename and paths first
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            safe_name = secure_filename(display_name.replace(' ', '_'))
+            filename = f"custom_{safe_name}_{timestamp}.csv"
+            destination_path = os.path.join(CUSTOM_RANKINGS_DIRECTORY, filename)
+            
             # Handle both FileStorage objects and file paths
             if hasattr(file_obj, 'filename'):
                 # It's a FileStorage object from Flask
@@ -138,12 +144,6 @@ class RankingsManager:
                     validation_result = self._validate_rankings_file(temp_path)
                     if not validation_result['valid']:
                         return {'success': False, 'error': validation_result['error']}
-                    
-                    # Generate unique filename
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    safe_name = secure_filename(display_name.replace(' ', '_'))
-                    filename = f"custom_{safe_name}_{timestamp}.csv"
-                    destination_path = os.path.join(CUSTOM_RANKINGS_DIRECTORY, filename)
                     
                     # Copy validated file to custom directory
                     shutil.copy2(temp_path, destination_path)
@@ -165,12 +165,6 @@ class RankingsManager:
                 validation_result = self._validate_rankings_file(file_path)
                 if not validation_result['valid']:
                     return {'success': False, 'error': validation_result['error']}
-                
-                # Generate unique filename
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                safe_name = secure_filename(display_name.replace(' ', '_'))
-                filename = f"custom_{safe_name}_{timestamp}.csv"
-                destination_path = os.path.join(CUSTOM_RANKINGS_DIRECTORY, filename)
                 
                 # Copy file to custom directory
                 shutil.copy2(file_path, destination_path)
