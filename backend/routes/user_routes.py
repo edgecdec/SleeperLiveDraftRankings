@@ -325,6 +325,10 @@ def get_my_roster(league_id):
         positions_data = {}
         total_players = 0
         
+        # Check if league uses DEF or DST in roster positions
+        uses_def_position = 'DEF' in roster_positions
+        defense_position = 'DEF' if uses_def_position else 'DST'
+        
         if user_roster.get('players'):
             # Get all players data from Sleeper
             all_players = SleeperAPI.get_all_players()
@@ -359,9 +363,9 @@ def get_my_roster(league_id):
                     player = all_players[player_id]
                     position = player.get('position', 'UNKNOWN')
                     
-                    # Handle DST/DEF position mapping - treat both as DST
+                    # Handle DST/DEF position mapping - use league's preferred format
                     if position == 'DEF':
-                        position = 'DST'
+                        position = defense_position  # Use DEF if league uses DEF, otherwise DST
                     
                     # Get player name with special handling for DST/DEF
                     if player.get('position') == 'DEF':
@@ -385,7 +389,7 @@ def get_my_roster(league_id):
                             rank_info = rankings_dict[name_key]
                         else:
                             # Try variations for DST names
-                            if position == 'DST':
+                            if position == defense_position:  # Check against the position we're actually using
                                 team = player.get('team', '')
                                 if team:
                                     # Try "Team Defense" format
@@ -398,6 +402,19 @@ def get_my_roster(league_id):
                                             if team.lower() in key and 'defense' in key:
                                                 rank_info = rankings_dict[key]
                                                 break
+                            
+                            # If still not found, try some common name variations
+                            if not rank_info:
+                                # Try without suffixes (Jr., Sr., etc.)
+                                base_name = player_name.split(' Jr.')[0].split(' Sr.')[0].split(' III')[0].split(' II')[0].split(' IV')[0]
+                                base_key = base_name.lower().strip()
+                                if base_key in rankings_dict:
+                                    rank_info = rankings_dict[base_key]
+                                else:
+                                    # Try the reverse - add Jr. to the name if not found
+                                    jr_name = f"{player_name} Jr.".lower().strip()
+                                    if jr_name in rankings_dict:
+                                        rank_info = rankings_dict[jr_name]
                     
                     # Create player data structure
                     player_data = {
