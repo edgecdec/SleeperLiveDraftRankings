@@ -14,24 +14,6 @@ export const useRankingsData = (currentDraft) => {
   const [loading, setLoading] = useState(false);
   const [updateInProgress, setUpdateInProgress] = useState(false);
 
-  // Fetch all data
-  const fetchAllData = useCallback(async () => {
-    setLoading(true);
-    try {
-      await Promise.all([
-        fetchRankingsStatus(),
-        fetchAvailableFormats(),
-        fetchCurrentFormat(),
-        fetchCustomRankings(),
-        fetchCurrentRankings()
-      ]);
-    } catch (error) {
-      console.error('Error fetching rankings data:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [fetchRankingsStatus, fetchAvailableFormats, fetchCurrentFormat, fetchCustomRankings, fetchCurrentRankings]);
-
   // Individual fetch functions
   const fetchRankingsStatus = useCallback(async () => {
     try {
@@ -95,6 +77,24 @@ export const useRankingsData = (currentDraft) => {
       setCurrentRankings([]);
     }
   }, []);
+
+  // Fetch all data
+  const fetchAllData = useCallback(async () => {
+    setLoading(true);
+    try {
+      await Promise.all([
+        fetchRankingsStatus(),
+        fetchAvailableFormats(),
+        fetchCurrentFormat(),
+        fetchCustomRankings(),
+        fetchCurrentRankings()
+      ]);
+    } catch (error) {
+      console.error('Error fetching rankings data:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchRankingsStatus, fetchAvailableFormats, fetchCurrentFormat, fetchCustomRankings, fetchCurrentRankings]);
 
   // Update rankings
   const handleUpdateRankings = useCallback(async () => {
