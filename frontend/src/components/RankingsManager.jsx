@@ -163,6 +163,7 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
 
       if (response.ok) {
         console.log('Upload successful, refreshing data...');
+        console.log('Upload response:', result);
         await fetchAllData();
         console.log('Data refreshed, customRankings:', customRankings);
         setUploadName('');
