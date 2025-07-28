@@ -106,8 +106,7 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
         },
         body: JSON.stringify({
           type: type,
-          format_key: type === 'fantasypros' ? id : null,
-          custom_id: type === 'custom' ? id : null,
+          id: id,
           draft_id: currentDraft?.draft_id
         }),
       });
