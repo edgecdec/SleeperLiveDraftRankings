@@ -333,25 +333,12 @@ def get_my_roster(league_id):
             # Get all players data from Sleeper
             all_players = SleeperAPI.get_all_players()
             
-            # Get current rankings for rank lookup
-            # Use RankingsManager directly to avoid service dependency issues
+            # Get current rankings for rank lookup - simplified to avoid hanging
             rankings_dict = {}
             try:
-                from Rankings.RankingsManager import RankingsManager
-                rankings_manager = RankingsManager()
-                
-                # Get current rankings - this will use the same logic as the main app
-                current_rankings = rankings_manager.get_rankings()
-                if current_rankings is not None:
-                    # Convert DataFrame to dictionary for lookup
-                    for _, row in current_rankings.iterrows():
-                        name_key = str(row.get('Name', '')).lower().strip()
-                        if name_key:
-                            rankings_dict[name_key] = {
-                                'rank': int(row.get('Overall Rank', 999)),
-                                'tier': int(row.get('Tier', 10)),
-                                'original_name': str(row.get('Name', ''))
-                            }
+                # Skip rankings lookup for now to prevent hanging
+                # TODO: Fix RankingsManager integration later
+                pass
                 
             except Exception as e:
                 print(f"Warning: Could not load rankings for roster: {e}")
