@@ -407,9 +407,9 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
                     <p>Overall Rank, Name, Position, Team, Bye, Position Rank, Tier</p>
                   </div>
                 </div>
-              </div>
 
-              {/* Custom Rankings List - Show First */}
+                {/* Custom Rankings List */}
+                {customRankings.length > 0 && (
                   <div className="mt-6">
                     <h4 className="text-md font-medium text-gray-900 dark:text-white mb-3">Your Custom Rankings</h4>
                     <div className="space-y-2">
@@ -525,7 +525,7 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
                 )}
               </div>
 
-              {/* Custom Rankings List - Show First */}
+              {/* Your Custom Rankings - Show First */}
               {customRankings.length > 0 && (
                 <div className="mb-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
@@ -554,7 +554,7 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
                             <div className="flex-1">
                               <div className="flex items-center space-x-2">
                                 <h4 className="font-medium text-gray-900 dark:text-white">
-                                  {ranking.display_name}
+                                  {ranking.display_name || ranking.name}
                                   {isCurrentFormat && (
                                     <span className="ml-2 text-xs text-green-600 dark:text-green-400 font-medium">
                                       (Active)
@@ -566,12 +566,14 @@ const RankingsManager = ({ isOpen, onClose, currentDraft }) => {
                                 </span>
                               </div>
                               <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                                {ranking.description}
+                                {ranking.description || 'Custom uploaded rankings'}
                               </p>
                               <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500 dark:text-gray-400">
-                                <span>{ranking.player_count} players</span>
-                                <span>Uploaded: {new Date(ranking.upload_time).toLocaleDateString()}</span>
-                                <span>{ranking.scoring_format} • {ranking.league_type}</span>
+                                <span>{ranking.player_count || 'Unknown'} players</span>
+                                <span>Uploaded: {ranking.upload_time ? new Date(ranking.upload_time).toLocaleDateString() : 'Unknown'}</span>
+                                {ranking.scoring_format && ranking.league_type && (
+                                  <span>{ranking.scoring_format} • {ranking.league_type}</span>
+                                )}
                               </div>
                             </div>
                             
