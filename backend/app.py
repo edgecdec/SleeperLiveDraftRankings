@@ -388,6 +388,16 @@ def upload_custom_rankings():
         )), 500
 
 
+def validate_rankings_format(format_id):
+    """Validate rankings format combination"""
+    valid_formats = [
+        'ppr_standard', 'ppr_superflex',
+        'half_ppr_standard', 'half_ppr_superflex',
+        'standard_standard', 'standard_superflex'
+    ]
+    return format_id in valid_formats
+
+
 if __name__ == '__main__':
     print("🚀 Starting Fantasy Football Draft API with Full Error Handling...")
     print(f"📊 Default Draft ID: {DEFAULT_DRAFT_ID}")
