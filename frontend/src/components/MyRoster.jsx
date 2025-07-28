@@ -101,11 +101,13 @@ const MyRoster = ({ leagueId, username, draftId, isVisible = true, lastUpdated, 
 
       setRosterData(data);
       
-      // Auto-expand positions with players
+      // Auto-expand positions with players - add defensive check
       const newExpanded = {};
-      Object.keys(data.positions).forEach(pos => {
-        newExpanded[pos] = true;
-      });
+      if (data.positions && typeof data.positions === 'object') {
+        Object.keys(data.positions).forEach(pos => {
+          newExpanded[pos] = true;
+        });
+      }
       setExpandedPositions(newExpanded);
       
     } catch (err) {

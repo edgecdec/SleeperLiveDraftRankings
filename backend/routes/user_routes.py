@@ -330,20 +330,24 @@ def get_my_roster(league_id):
             all_players = SleeperAPI.get_all_players()
             
             # Get current rankings for rank lookup
-            from services.rankings_service import RankingsService
-            from services.draft_service import DraftService
-            
-            # We need to get the rankings to look up player ranks
-            # This is a bit of a hack, but we need access to the rankings service
-            # In a better architecture, this would be injected
+            # Use RankingsManager directly to avoid service dependency issues
+            rankings_dict = {}
             try:
-                # Get league info for rankings context
-                league_service = LeagueService()
-                rankings_service = RankingsService(None, None)  # Will be initialized properly
+                from Rankings.RankingsManager import RankingsManager
+                rankings_manager = RankingsManager()
                 
-                # Get current rankings
-                rankings_result = rankings_service.get_current_rankings(league_info)
-                rankings_dict = rankings_result.get('rankings_dict', {})
+                # Get current rankings - this will use the same logic as the main app
+                current_rankings = rankings_manager.get_rankings()
+                if current_rankings is not None:
+                    # Convert DataFrame to dictionary for lookup
+                    for _, row in current_rankings.iterrows():
+                        name_key = str(row.get('Name', '')).lower().strip()
+                        if name_key:
+                            rankings_dict[name_key] = {
+                                'rank': int(row.get('Overall Rank', 999)),
+                                'tier': int(row.get('Tier', 10)),
+                                'original_name': str(row.get('Name', ''))
+                            }
                 
             except Exception as e:
                 print(f"Warning: Could not load rankings for roster: {e}")
@@ -417,7 +421,7 @@ def get_my_roster(league_id):
             'user_id': user_id,
             'roster_id': user_roster.get('roster_id'),
             'roster': user_roster,
-            'positions': positions_data,  # Add positions data for frontend
+            'positions': positions_data if positions_data else {},  # Ensure positions is never None
             'total_players': total_players,  # Add total players count
             'roster_settings': {
                 'starter_counts': starter_counts,
