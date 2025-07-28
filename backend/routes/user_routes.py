@@ -333,55 +333,19 @@ def get_my_roster(league_id):
             # Get all players data from Sleeper
             all_players = SleeperAPI.get_all_players()
             
-            # Get current rankings for rank lookup - use direct CSV approach
+            # Get current rankings using the proper service integration
             rankings_dict = {}
             try:
-                import pandas as pd
-                import os
+                # Access the global rankings service that's already initialized in app.py
+                # This ensures we use the same format detection as the main draft endpoint
+                from app import rankings_service
                 
-                # Use the same logic as the main app to find the right rankings file
-                # Check for manual override first
-                override_file = 'manual_rankings_override.json'
-                manual_override = None
-                if os.path.exists(override_file):
-                    import json
-                    try:
-                        with open(override_file, 'r') as f:
-                            data = json.load(f)
-                            if data and isinstance(data, list) and len(data) == 2:
-                                manual_override = tuple(data)
-                    except:
-                        pass
+                # Get current rankings with proper format detection
+                rankings_result = rankings_service.get_current_rankings(league_info)
+                rankings_dict = rankings_result.get('rankings_dict', {})
                 
-                # Determine format to use
-                if manual_override:
-                    scoring_format, league_type = manual_override
-                else:
-                    # Auto-detect from league info (simplified)
-                    scoring_format = 'half_ppr'  # Default fallback
-                    league_type = 'standard'     # Default fallback
-                
-                # Build rankings filename
-                rankings_filename = f"FantasyPros_Rankings_{scoring_format}_{league_type}.csv"
-                rankings_path = os.path.join('PopulatedFromSites', rankings_filename)
-                
-                # Load rankings CSV directly
-                if os.path.exists(rankings_path):
-                    df = pd.read_csv(rankings_path)
-                    
-                    # Convert to dictionary for lookup
-                    for _, row in df.iterrows():
-                        name_key = str(row.get('Name', '')).lower().strip()
-                        if name_key:
-                            rankings_dict[name_key] = {
-                                'rank': int(row.get('Overall Rank', 999)),
-                                'tier': int(row.get('Tier', 10)),
-                                'original_name': str(row.get('Name', ''))
-                            }
-                    
-                    print(f"✅ Loaded {len(rankings_dict)} players from {rankings_filename}")
-                else:
-                    print(f"⚠️ Rankings file not found: {rankings_path}")
+                print(f"✅ Loaded rankings via service: {len(rankings_dict)} players")
+                print(f"📊 Using format: {rankings_result.get('scoring_format')} {rankings_result.get('league_type')}")
                 
             except Exception as e:
                 print(f"Warning: Could not load rankings for roster: {e}")
