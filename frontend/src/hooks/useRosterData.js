@@ -1,16 +1,43 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 export const useRosterData = (leagueId, username, draftId, isVisible, lastUpdated, data) => {
   const [rosterData, setRosterData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [lastRankingsVersion, setLastRankingsVersion] = useState(null);
+  
+  // Use refs to avoid recreating fetchRosterData on every render
+  const paramsRef = useRef({ leagueId, username, draftId });
+  const lastFetchRef = useRef(0);
+  const fetchInProgressRef = useRef(false);
+  const FETCH_DEBOUNCE_MS = 1000; // Prevent rapid successive calls
+  
+  paramsRef.current = { leagueId, username, draftId };
 
-  const fetchRosterData = async () => {
-    console.log('MyRoster: Fetching roster data for league:', leagueId, 'username:', username);
+  const fetchRosterData = useCallback(async () => {
+    const now = Date.now();
+    const timeSinceLastFetch = now - lastFetchRef.current;
+    
+    // Prevent overlapping calls
+    if (fetchInProgressRef.current) {
+      console.log('MyRoster: Fetch already in progress, skipping');
+      return;
+    }
+    
+    // Debounce rapid calls
+    if (timeSinceLastFetch < FETCH_DEBOUNCE_MS) {
+      console.log('MyRoster: Debouncing fetch call, too soon since last fetch');
+      return;
+    }
+    
+    fetchInProgressRef.current = true;
+    lastFetchRef.current = now;
+    const { leagueId: currentLeagueId, username: currentUsername, draftId: currentDraftId } = paramsRef.current;
+    
+    console.log('MyRoster: Fetching roster data for league:', currentLeagueId, 'username:', currentUsername);
     
     // Ensure we have the required parameters
-    if (!leagueId || !username) {
+    if (!currentLeagueId || !currentUsername) {
       console.log('MyRoster: Missing required parameters, skipping fetch');
       return;
     }
@@ -19,16 +46,16 @@ export const useRosterData = (leagueId, username, draftId, isVisible, lastUpdate
     setError(null);
     
     try {
-      const params = new URLSearchParams({ username });
-      if (draftId) {
-        params.append('draft_id', draftId);
+      const params = new URLSearchParams({ username: currentUsername });
+      if (currentDraftId) {
+        params.append('draft_id', currentDraftId);
       }
       // Add timestamp to prevent caching
       params.append('_t', Date.now().toString());
       
-      const apiUrl = `/api/league/${leagueId}/my-roster?${params}`;
+      const apiUrl = `/api/league/${currentLeagueId}/my-roster?${params}`;
       console.log('MyRoster: Making API call to:', apiUrl);
-      console.log('MyRoster: Full URL breakdown - leagueId:', leagueId, 'params:', params.toString());
+      console.log('MyRoster: Full URL breakdown - leagueId:', currentLeagueId, 'params:', params.toString());
       
       const response = await fetch(apiUrl, {
         // Add cache-busting headers
@@ -38,22 +65,23 @@ export const useRosterData = (leagueId, username, draftId, isVisible, lastUpdate
           'Expires': '0'
         }
       });
-      const data = await response.json();
+      const responseData = await response.json();
       
-      console.log('MyRoster: Received roster data for league:', leagueId, 'Total players:', data.total_players, 'First QB:', data.positions?.QB?.[0]?.name);
+      console.log('MyRoster: Received roster data for league:', currentLeagueId, 'Total players:', responseData.total_players, 'First QB:', responseData.positions?.QB?.[0]?.name);
       
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to fetch roster');
+        throw new Error(responseData.error || 'Failed to fetch roster');
       }
 
-      setRosterData(data);
+      setRosterData(responseData);
       
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
+      fetchInProgressRef.current = false; // Reset the flag
     }
-  };
+  }, []); // Empty dependency array since we use refs
 
   useEffect(() => {
     if (leagueId && username && isVisible) {
@@ -63,12 +91,12 @@ export const useRosterData = (leagueId, username, draftId, isVisible, lastUpdate
       setLoading(true); // Ensure loading state is shown during transition
       fetchRosterData();
     }
-  }, [leagueId, username, draftId, isVisible, lastUpdated]);
+  }, [leagueId, username, draftId, isVisible, lastUpdated]); // Removed fetchRosterData dependency
 
   // Listen for rankings changes from RankingsManager
   useEffect(() => {
     const handleRankingsChange = () => {
-      if (leagueId && username && isVisible) {
+      if (paramsRef.current.leagueId && paramsRef.current.username && isVisible) {
         console.log('MyRoster: Rankings changed, refreshing roster data');
         fetchRosterData();
       }
@@ -76,13 +104,13 @@ export const useRosterData = (leagueId, username, draftId, isVisible, lastUpdate
 
     window.addEventListener('rankingsChanged', handleRankingsChange);
     return () => window.removeEventListener('rankingsChanged', handleRankingsChange);
-  }, [leagueId, username, isVisible]);
+  }, [isVisible]); // Removed fetchRosterData dependency since it's stable
 
   // Detect rankings changes from main draft data and refresh immediately
   useEffect(() => {
     if (data && data.rankings_version && lastRankingsVersion && 
         data.rankings_version !== lastRankingsVersion && 
-        leagueId && username && isVisible) {
+        paramsRef.current.leagueId && paramsRef.current.username && isVisible) {
       console.log('MyRoster: Rankings version changed, refreshing roster immediately', {
         old: lastRankingsVersion,
         new: data.rankings_version
@@ -92,13 +120,16 @@ export const useRosterData = (leagueId, username, draftId, isVisible, lastUpdate
     if (data && data.rankings_version) {
       setLastRankingsVersion(data.rankings_version);
     }
-  }, [data?.rankings_version, leagueId, username, isVisible]);
+  }, [data?.rankings_version, isVisible, lastRankingsVersion]); // Removed fetchRosterData dependency
 
   // Clear data immediately when league changes
   useEffect(() => {
     console.log('MyRoster: League changed to:', leagueId);
     setRosterData(null);
     setError(null);
+    // Reset fetch tracking when league changes
+    lastFetchRef.current = 0;
+    fetchInProgressRef.current = false;
   }, [leagueId]);
 
   return {

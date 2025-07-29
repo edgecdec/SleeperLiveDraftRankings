@@ -33,4 +33,4 @@ MONTH_December = "December"
 
 CURRENT_YEAR = YEAR_2024
 
-RANKINGS_OUTPUT_DIRECTORY = "PopulatedFromSites/"
+RANKINGS_OUTPUT_DIRECTORY = "backend/rankings/"

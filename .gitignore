@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 frontend/node_modules/
+backend/node_modules/
+*/node_modules/
+**/node_modules/
 
 # Build outputs
 frontend/build/
@@ -10,8 +13,13 @@ __pycache__/
 
 # Logs
 logs/
+frontend/logs/
+backend/logs/
+*/logs/
+**/logs/
 *.log
 backend.log
+frontend.log
 
 # Environment files
 .env
@@ -28,6 +36,7 @@ backend.log
 Thumbs.db
 
 # Rankings data (generated files)
+backend/rankings/
 PopulatedFromSites/
 Rankings/PopulatedFromSites/
 Rankings_backup.csv

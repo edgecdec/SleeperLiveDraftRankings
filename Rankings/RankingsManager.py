@@ -22,8 +22,8 @@ from PopulateFromSites.FantasyProsSeleniumV3 import FantasyProsSeleniumV3
 from Constants import RANKINGS_OUTPUT_DIRECTORY
 
 # Custom rankings directory
-CUSTOM_RANKINGS_DIRECTORY = "PopulatedFromSites/Custom/"
-CUSTOM_RANKINGS_METADATA_FILE = "PopulatedFromSites/custom_rankings_metadata.json"
+CUSTOM_RANKINGS_DIRECTORY = "backend/rankings/Custom/"
+CUSTOM_RANKINGS_METADATA_FILE = "backend/rankings/custom_rankings_metadata.json"
 
 class RankingsManager:
     """

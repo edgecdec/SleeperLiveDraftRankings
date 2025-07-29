@@ -48,9 +48,18 @@ class RankingsService:
         """
         rankings_filename = self.rankings_manager.get_rankings_filename(scoring_format, league_type)
         
+        # Get the absolute path to the backend directory
+        backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        
         # Try multiple possible locations for the rankings file
         possible_paths = [
+            # New structure: backend/rankings/
+            os.path.join(backend_dir, 'rankings', rankings_filename),
+            # Legacy structure: backend/PopulatedFromSites/
+            os.path.join(backend_dir, 'PopulatedFromSites', rankings_filename),
+            # From Constants.py (should now point to backend/rankings/)
             os.path.join(RANKINGS_OUTPUT_DIRECTORY, rankings_filename),
+            # Relative paths for backward compatibility
             os.path.join('..', 'Rankings', RANKINGS_OUTPUT_DIRECTORY, rankings_filename),
             os.path.join('..', RANKINGS_OUTPUT_DIRECTORY, rankings_filename)
         ]
@@ -59,10 +68,14 @@ class RankingsService:
         for path in possible_paths:
             if os.path.exists(path):
                 rankings_file = path
+                print(f"📁 Found rankings file at: {path}")
                 break
         
         if not rankings_file:
             print(f"⚠️ Rankings file not found: {rankings_filename}")
+            print(f"   Searched paths:")
+            for path in possible_paths:
+                print(f"   - {path}")
             return [], {}, rankings_filename
         
         try:
