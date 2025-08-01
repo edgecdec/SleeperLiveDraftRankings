@@ -49,6 +49,19 @@ chmod +x "$RELEASE_DIR/check_dependencies.command"
 
 # Documentation
 cp doc/RELEASE_README.md "$RELEASE_DIR/README.md"
+cp INSTALLATION_OPTIONS.md "$RELEASE_DIR/"
+
+# Docker files
+cp Dockerfile "$RELEASE_DIR/"
+cp docker-compose.yml "$RELEASE_DIR/"
+cp docker-install.sh "$RELEASE_DIR/"
+chmod +x "$RELEASE_DIR/docker-install.sh"
+
+# Build tools
+cp build_executables.py "$RELEASE_DIR/"
+cp create_electron_app.py "$RELEASE_DIR/"
+chmod +x "$RELEASE_DIR/build_executables.py"
+chmod +x "$RELEASE_DIR/create_electron_app.py"
 
 # Create additional helpful files
 echo "📝 Creating additional files..."
