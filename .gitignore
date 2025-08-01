@@ -8,8 +8,26 @@ backend/node_modules/
 # Build outputs
 frontend/build/
 frontend/dist/
+src/frontend/build/
+src/frontend/dist/
 *.pyc
 __pycache__/
+
+# Electron app build artifacts
+electron-app/node_modules/
+electron-app/dist/
+electron-app/frontend/
+electron-app/backend/
+electron-app/package-lock.json
+
+# Release packages
+FantasyFootballDraftAssistant-*.zip
+FantasyFootballDraftAssistant-*-Desktop-Apps/
+*.exe
+*.dmg
+*.AppImage
+*.deb
+*.rpm
 
 # Logs
 logs/
@@ -20,6 +38,7 @@ backend/logs/
 *.log
 backend.log
 frontend.log
+server.log
 
 # Environment files
 .env
@@ -41,11 +60,17 @@ PopulatedFromSites/
 Rankings/PopulatedFromSites/
 Rankings_backup.csv
 
+# Runtime configuration files
+backend/current_rankings_selection.json
+backend/manual_rankings_override.json
+src/backend/current_rankings_selection.json
+src/backend/manual_rankings_override.json
+
 # Documentation (keep main README)
 ADVANCED_RANKINGS.md
 BUILD_EXE.bat
 DISTRIBUTION_GUIDE.md
-FANTASYPROS_SCRAPER.md
+FANTASYPROSPROS_SCRAPER.md
 HOW_TO_BUILD_EXE.md
 INTEGRATED_SYSTEM_README.md
 REACT_FRONTEND.md
@@ -54,3 +79,11 @@ FantasyDraftAssistant.spec
 # Temporary files
 *.tmp
 *.temp
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/
+
+# Package lock files (keep main ones, ignore copies)
+electron-app/package-lock.json

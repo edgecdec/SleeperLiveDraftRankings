@@ -4,15 +4,17 @@ A real-time draft tool that helps you make better picks during your fantasy foot
 
 ## 🚀 Installation Options - Choose What Works for You!
 
-### **🖥️ Option 1: Desktop App (Coming Soon - Recommended)**
+### **🖥️ Option 1: Desktop App (Recommended)**
 
 **Best for**: Most users who want the easiest experience
 
-- **Windows**: Download `.exe` installer → Run → Launch from desktop
-- **macOS**: Download `.dmg` → Drag to Applications → Launch
-- **Linux**: Download `.AppImage` → Make executable → Run
+**[📥 Download Desktop Apps](https://github.com/edgecdec/SleeperLiveDraftRankings/releases/latest)**
 
-**Features**: ✅ No dependencies ✅ Desktop shortcuts ✅ Auto-updates ✅ Native feel
+- **Windows**: Download `Fantasy Football Draft Assistant Setup 1.0.0.exe` → Run installer → Launch from desktop
+- **macOS**: Download `Fantasy Football Draft Assistant-1.0.0.dmg` → Open → Drag to Applications → Launch
+- **Linux**: Download `Fantasy Football Draft Assistant-1.0.0.AppImage` → Make executable → Run
+
+**Features**: ✅ No dependencies ✅ Desktop shortcuts ✅ One-click install ✅ Native feel
 
 ---
 

@@ -2,7 +2,6 @@ const { app, BrowserWindow, shell } = require('electron');
 const path = require('path');
 const { spawn } = require('child_process');
 const express = require('express');
-const cors = require('cors');
 
 let mainWindow;
 let backendProcess;
@@ -12,16 +11,30 @@ let frontendServer;
 function startBackendServer() {
   console.log('Starting backend server...');
   
-  // In development, use Python directly
-  // In production, this would use the bundled executable
   const backendPath = path.join(__dirname, 'backend');
-  backendProcess = spawn('python', ['app.py'], {
+  
+  // Try python3 first, then python
+  const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+  
+  backendProcess = spawn(pythonCmd, ['app.py'], {
     cwd: backendPath,
-    stdio: 'inherit'
+    stdio: ['pipe', 'pipe', 'pipe']
+  });
+  
+  backendProcess.stdout.on('data', (data) => {
+    console.log(`Backend: ${data}`);
+  });
+  
+  backendProcess.stderr.on('data', (data) => {
+    console.error(`Backend Error: ${data}`);
   });
   
   backendProcess.on('error', (err) => {
     console.error('Backend process error:', err);
+  });
+  
+  backendProcess.on('close', (code) => {
+    console.log(`Backend process exited with code ${code}`);
   });
 }
 
@@ -30,18 +43,22 @@ function startFrontendServer() {
   console.log('Starting frontend server...');
   
   const app = express();
-  app.use(cors());
   
   // Serve built React app
   const buildPath = path.join(__dirname, 'frontend', 'build');
   app.use(express.static(buildPath));
   
+  // Handle React Router - serve index.html for all routes
   app.get('*', (req, res) => {
     res.sendFile(path.join(buildPath, 'index.html'));
   });
   
   frontendServer = app.listen(3000, () => {
     console.log('Frontend server running on http://localhost:3000');
+  });
+  
+  frontendServer.on('error', (err) => {
+    console.error('Frontend server error:', err);
   });
 }
 
@@ -55,14 +72,20 @@ function createWindow() {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     },
-    icon: path.join(__dirname, 'assets', 'icon.png'),
-    title: 'Fantasy Football Draft Assistant'
+    // icon: path.join(__dirname, 'assets', 'icon.png'), // TODO: Add icon
+    title: 'Fantasy Football Draft Assistant',
+    show: false // Don't show until ready
+  });
+
+  // Show window when ready
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
   });
 
   // Start servers
   startBackendServer();
   
-  // Wait a bit for backend to start, then start frontend
+  // Wait for backend to start, then start frontend
   setTimeout(() => {
     startFrontendServer();
     
@@ -82,10 +105,28 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+  
+  // Handle navigation
+  mainWindow.webContents.on('will-navigate', (event, navigationUrl) => {
+    const parsedUrl = new URL(navigationUrl);
+    
+    if (parsedUrl.origin !== 'http://localhost:3000') {
+      event.preventDefault();
+      shell.openExternal(navigationUrl);
+    }
+  });
 }
 
 // App event handlers
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+  
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
+});
 
 app.on('window-all-closed', () => {
   // Clean up processes
@@ -101,12 +142,6 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
-
 // Handle app quit
 app.on('before-quit', () => {
   if (backendProcess) {
@@ -114,5 +149,16 @@ app.on('before-quit', () => {
   }
   if (frontendServer) {
     frontendServer.close();
+  }
+});
+
+// Handle certificate errors (for development)
+app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+  if (url.startsWith('http://localhost')) {
+    // Ignore certificate errors for localhost
+    event.preventDefault();
+    callback(true);
+  } else {
+    callback(false);
   }
 });
