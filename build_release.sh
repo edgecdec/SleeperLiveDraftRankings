@@ -37,11 +37,15 @@ cp -r src/Rankings "$RELEASE_DIR/Rankings"
 # Start scripts
 cp start.sh "$RELEASE_DIR/"
 cp start.bat "$RELEASE_DIR/"
+cp start.command "$RELEASE_DIR/"
+chmod +x "$RELEASE_DIR/start.command"
 
 # Dependency checkers
 cp check_dependencies.sh "$RELEASE_DIR/"
 cp check_dependencies.bat "$RELEASE_DIR/"
+cp check_dependencies.command "$RELEASE_DIR/"
 chmod +x "$RELEASE_DIR/check_dependencies.sh"
+chmod +x "$RELEASE_DIR/check_dependencies.command"
 
 # Documentation
 cp doc/RELEASE_README.md "$RELEASE_DIR/README.md"

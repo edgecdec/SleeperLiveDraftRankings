@@ -145,8 +145,9 @@ if [ $FAILED -eq 0 ]; then
     echo -e "${GREEN}🎉 All dependencies are ready!${NC}"
     echo ""
     echo "You can now run the application with:"
-    echo "  • Mac/Linux: ./start.sh"
     echo "  • Windows: start.bat"
+    echo "  • Mac: start.command (or ./start.sh)"
+    echo "  • Linux: ./start.sh"
 else
     echo -e "${RED}⚠️ $FAILED dependencies need attention${NC}"
     echo -e "${GREEN}✅ $PASSED dependencies are ready${NC}"

@@ -138,7 +138,8 @@ if !FAILED! equ 0 (
     echo.
     echo You can now run the application with:
     echo   • Windows: start.bat
-    echo   • Mac/Linux: ./start.sh
+    echo   • Mac: start.command (or ./start.sh)
+    echo   • Linux: ./start.sh
 ) else (
     echo ⚠️ !FAILED! dependencies need attention
     echo ✅ !PASSED! dependencies are ready

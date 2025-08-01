@@ -11,8 +11,9 @@ A real-time draft tool that helps you make better picks during your fantasy foot
 1. Download the ZIP file
 2. Extract to your desired location
 3. **Windows**: Double-click `start.bat`
-4. **Mac/Linux**: Double-click `start.sh`
-5. Open http://localhost:3000 in your browser
+4. **Mac**: Double-click `start.command` (or run `./start.sh` in Terminal)
+5. **Linux**: Run `./start.sh` in Terminal
+6. Open http://localhost:3000 in your browser
 
 ### Option 2: Try Online (No Download Required)
 
@@ -36,7 +37,8 @@ start.bat   # Windows
 
 **Not sure if you have these?** Run the enhanced dependency checker:
 - **Windows**: Double-click `check_dependencies.bat`
-- **Mac/Linux**: Run `./check_dependencies.sh`
+- **Mac**: Double-click `check_dependencies.command` (or run `./check_dependencies.sh` in Terminal)
+- **Linux**: Run `./check_dependencies.sh` in Terminal
 
 The dependency checker will:
 - ✅ Verify all required software is installed
