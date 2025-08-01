@@ -1,10 +1,23 @@
 import React from 'react';
-import { User, Trophy, Target, Hash } from 'lucide-react';
+import { User, Trophy, Target, Hash, DollarSign } from 'lucide-react';
 import clsx from 'clsx';
 import { getPositionBadgeClass, getPositionBorderClass } from '../constants/positions';
 import { useSettings } from '../contexts/SettingsContext';
 
 const PlayerCard = ({ player, rank, showRank = true, isTopTier = false }) => {
+  // Debug logging to see what data we're getting
+  if (player.name === 'Josh Allen' || player.name === 'Christian McCaffrey') {
+    console.log('🔍 PlayerCard Debug:', {
+      name: player.name,
+      position: player.position,
+      team: player.team,
+      tier: player.tier,
+      value: player.value,
+      hasValue: 'value' in player,
+      allKeys: Object.keys(player)
+    });
+  }
+
   // Use try-catch to handle cases where SettingsContext might not be available
   let rainbowEffectsEnabled = true; // Default to enabled
   try {
@@ -49,6 +62,12 @@ const PlayerCard = ({ player, rank, showRank = true, isTopTier = false }) => {
                 <div className="flex items-center space-x-1">
                   <Trophy className="w-3 h-3 text-gray-400 dark:text-gray-500" />
                   <span className="text-xs text-gray-500 dark:text-gray-400">Tier {player.tier}</span>
+                </div>
+              )}
+              {player.value && (
+                <div className="flex items-center space-x-1">
+                  <DollarSign className="w-3 h-3 text-green-500" />
+                  <span className="text-xs text-green-600 dark:text-green-400 font-medium">{player.value}</span>
                 </div>
               )}
             </div>

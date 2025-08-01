@@ -1,5 +1,5 @@
 class Player:
-    def __init__(self, name, team, pos, rank, tier=1):
+    def __init__(self, name, team, pos, rank, tier=1, value=None):
         if team == '':
             team = 'FA'
         if str(team).lower() == 'nan':
@@ -9,6 +9,7 @@ class Player:
         self.pos = pos
         self.rank = rank
         self.tier = tier if tier and str(tier).lower() != 'nan' else 999
+        self.value = value if value and str(value).lower() != 'nan' else None
         self.changeTeamName()
 
     def __str__(self):

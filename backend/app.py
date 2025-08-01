@@ -35,6 +35,7 @@ from services.error_service import (
 from routes.user_routes import user_bp
 from routes.draft_routes import draft_bp, init_draft_routes
 from routes.rankings_routes import rankings_bp, init_rankings_routes
+from routes.upload_routes import upload_bp  # Keep for mock draft functionality
 
 # Import existing modules
 from Rankings.RankingsManager import RankingsManager
@@ -60,12 +61,13 @@ draft_service.rankings_service = rankings_service
 
 # Initialize route blueprints with service dependencies
 init_draft_routes(draft_service)
-init_rankings_routes(draft_service, rankings_service, rankings_manager)
+init_rankings_routes(rankings_manager, draft_service)
 
 # Register blueprints
 app.register_blueprint(user_bp)
 app.register_blueprint(draft_bp)
 app.register_blueprint(rankings_bp)
+app.register_blueprint(upload_bp)  # Keep for mock draft functionality
 
 # Health check endpoint with comprehensive service testing
 @app.route('/api/health')

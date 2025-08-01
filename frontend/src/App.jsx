@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
-import UserSetup from './components/UserSetup';
+import EnhancedUserSetup from './components/EnhancedUserSetup';
 import DraftView from './components/DraftView';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { SettingsProvider } from './contexts/SettingsContext';
@@ -18,10 +18,10 @@ const App = () => {
         <Router>
           <Routes>
             {/* Home/Setup Page */}
-            <Route path="/" element={<UserSetup />} />
+            <Route path="/" element={<EnhancedUserSetup />} />
             
             {/* User Profile Page */}
-            <Route path="/user/:username" element={<UserSetup />} />
+            <Route path="/user/:username" element={<EnhancedUserSetup />} />
             
             {/* Draft View - Main Feature */}
             <Route path="/:platform/league/:leagueId/draft/:draftId" element={<DraftView />} />

@@ -245,5 +245,5 @@ curl http://localhost:5001/api/draft/settings
 ---
 
 **API Version**: 1.0.0  
-**Last Updated**: January 27, 2025  
+**Last Updated**: August 1, 2025  
 **Maintainer**: Fantasy Football Draft API Team

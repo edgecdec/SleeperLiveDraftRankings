@@ -25,7 +25,7 @@ def generate_request_context() -> ErrorContext:
         # These would be populated from authentication/session data
         user_id=request.headers.get('X-User-ID'),
         draft_id=request.args.get('draft_id'),
-        league_id=request.args.get('league_id') or request.view_args.get('league_id')
+        league_id=request.args.get('league_id') or (request.view_args.get('league_id') if request.view_args else None)
     )
 
 

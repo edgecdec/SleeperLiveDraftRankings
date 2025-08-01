@@ -114,28 +114,45 @@ class DraftService:
             print(f"🔍 DEBUG: Getting league context for draft {self.current_draft_id}")
             
             league_info = LeagueService.get_league_context(draft_id=self.current_draft_id)
+            
+            # For mock drafts, league_info might be None - use default settings
             if not league_info:
-                return {'error': 'League information not found'}
+                print(f"🎭 No league context found for draft {self.current_draft_id} - assuming mock draft")
+                # Create default league info for mock drafts
+                league_info = {
+                    'name': f'Mock Draft {self.current_draft_id}',
+                    'league_id': None,
+                    'scoring_settings': {'rec': 1.0},  # Default PPR
+                    'roster_positions': ['QB', 'RB', 'RB', 'WR', 'WR', 'TE', 'FLEX', 'K', 'DEF'],
+                    'total_rosters': 12,
+                    'draft_id': self.current_draft_id,
+                    'is_mock_draft': True
+                }
             
             # Get current rankings using rankings service
             rankings_result = self.rankings_service.get_current_rankings(league_info)
             player_rankings = rankings_result['rankings_list']
             
-            # Check if this is a dynasty/keeper league
-            is_dynasty_keeper = SleeperAPI.is_dynasty_or_keeper_league(league_info)
+            # Check if this is a dynasty/keeper league (skip for mock drafts)
+            is_dynasty_keeper = False
             rostered_players = set()
             
-            if is_dynasty_keeper and league_info.get('league_id'):
-                # Get all rostered players to exclude from rankings
-                rosters = SleeperAPI.get_league_rosters(league_info.get('league_id'))
-                all_players = SleeperAPI.get_all_players()
+            if league_info.get('league_id') and not league_info.get('is_mock_draft'):
+                is_dynasty_keeper = SleeperAPI.is_dynasty_or_keeper_league(league_info)
                 
-                # Collect all rostered player IDs
-                for roster in rosters:
-                    if roster.get('players'):
-                        rostered_players.update(roster['players'])
-                
-                print(f"Dynasty/Keeper league detected: {len(rostered_players)} players already rostered")
+                if is_dynasty_keeper:
+                    # Get all rostered players to exclude from rankings
+                    rosters = SleeperAPI.get_league_rosters(league_info.get('league_id'))
+                    all_players = SleeperAPI.get_all_players()
+                    
+                    # Collect all rostered player IDs
+                    for roster in rosters:
+                        if roster.get('players'):
+                            rostered_players.update(roster['players'])
+                    
+                    print(f"Dynasty/Keeper league detected: {len(rostered_players)} players already rostered")
+            else:
+                print(f"Mock draft or no league ID - skipping dynasty/keeper check")
             
             # Get drafted players (from current draft)
             players_drafted = getPlayersDrafted(self.current_draft_id)
@@ -181,13 +198,24 @@ class DraftService:
             # Convert available_players to dictionaries for JSON serialization
             available_players_dict = []
             for player in available_players:
-                available_players_dict.append({
+                player_dict = {
                     'name': player.name,
                     'position': player.pos,
                     'team': player.team,
                     'rank': player.rank,
-                    'tier': getattr(player, 'tier', 1)
-                })
+                    'tier': getattr(player, 'tier', 1),
+                    'value': getattr(player, 'value', None)
+                }
+                
+                # Debug logging for first few players
+                if len(available_players_dict) < 3:
+                    print(f"🔍 DraftService Player Debug: {player.name}")
+                    print(f"   Has value attr: {hasattr(player, 'value')}")
+                    print(f"   Value attr: {getattr(player, 'value', 'NOT_SET')}")
+                    print(f"   Value type: {type(getattr(player, 'value', None))}")
+                    print(f"   Final dict value: {player_dict['value']}")
+                
+                available_players_dict.append(player_dict)
             
             self.cached_data = {
                 'positions': positions_data,
@@ -197,6 +225,7 @@ class DraftService:
                 'total_rostered': len(rostered_players) if is_dynasty_keeper else 0,
                 'filtered_count': filtered_count,
                 'is_dynasty_keeper': is_dynasty_keeper,
+                'is_mock_draft': league_info.get('is_mock_draft', False),
                 'league_name': league_info.get('name') if league_info else 'Unknown',
                 'last_updated': datetime.now().isoformat(),
                 'draft_id': self.current_draft_id,
@@ -383,7 +412,8 @@ class DraftService:
                     'team': player.team,
                     'rank': player.rank,  # Original absolute rank from CSV
                     'target_rank': pos_count + 1,  # Position among remaining players in this section
-                    'tier': getattr(player, 'tier', 1)
+                    'tier': getattr(player, 'tier', 1),
+                    'value': getattr(player, 'value', None)
                 })
                 pos_count += 1
             i += 1

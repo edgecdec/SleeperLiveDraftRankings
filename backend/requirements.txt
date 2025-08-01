@@ -1,5 +1,24 @@
-Flask==2.3.2
+# Fantasy Football Draft Assistant - Python Dependencies
+# Core web framework
+Flask==2.3.3
 Flask-CORS==4.0.0
-requests==2.31.0
+
+# Data processing
 pandas==2.0.3
-beautifulsoup4==4.12.2
+numpy==1.24.3
+
+# HTTP requests
+requests==2.31.0
+
+# File handling
+Werkzeug==2.3.7
+
+# Date/time handling
+python-dateutil==2.8.2
+
+# CSV processing (included with pandas)
+# Additional utilities that might be needed
+six==1.16.0
+
+# Optional: For better performance
+# gunicorn==21.2.0  # Uncomment for production deployment

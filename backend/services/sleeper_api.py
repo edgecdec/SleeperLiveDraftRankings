@@ -79,6 +79,62 @@ class SleeperAPI:
     
     @staticmethod
     @handle_service_errors("SleeperAPI")
+    def get_draft_info(draft_id):
+        """Get draft information by draft ID with error handling"""
+        if not draft_id:
+            raise ValueError("Draft ID is required")
+        
+        try:
+            response = requests.get(
+                f"{SleeperAPI.BASE_URL}/draft/{draft_id}",
+                timeout=10
+            )
+            
+            if response.status_code == 404:
+                return None  # Draft not found
+            
+            response.raise_for_status()
+            return response.json()
+            
+        except requests.exceptions.Timeout:
+            raise TimeoutError(f"Timeout while fetching draft {draft_id}")
+        except requests.exceptions.ConnectionError:
+            raise ConnectionError("Unable to connect to Sleeper API")
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 429:
+                raise ConnectionError("Rate limited by Sleeper API")
+            raise ConnectionError(f"Sleeper API error: {e.response.status_code}")
+    
+    @staticmethod
+    @handle_service_errors("SleeperAPI")
+    def get_draft_picks(draft_id):
+        """Get all draft picks for a draft with error handling"""
+        if not draft_id:
+            raise ValueError("Draft ID is required")
+        
+        try:
+            response = requests.get(
+                f"{SleeperAPI.BASE_URL}/draft/{draft_id}/picks",
+                timeout=15
+            )
+            
+            if response.status_code == 404:
+                return []  # No picks found
+            
+            response.raise_for_status()
+            return response.json() or []
+            
+        except requests.exceptions.Timeout:
+            raise TimeoutError(f"Timeout while fetching draft picks for {draft_id}")
+        except requests.exceptions.ConnectionError:
+            raise ConnectionError("Unable to connect to Sleeper API")
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 429:
+                raise ConnectionError("Rate limited by Sleeper API")
+            raise ConnectionError(f"Sleeper API error: {e.response.status_code}")
+    
+    @staticmethod
+    @handle_service_errors("SleeperAPI")
     def get_league_drafts(league_id):
         """Get all drafts for a league with error handling"""
         if not league_id:

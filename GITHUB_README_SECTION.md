@@ -1,10 +1,6 @@
-# 🏈 Fantasy Football Draft Assistant
+# 🚀 Quick Start - Download & Run
 
-A real-time draft tool that helps you make better picks during your fantasy football draft by providing live player rankings, tier analysis, and custom rankings support.
-
-## 🚀 Quick Start - Download & Run
-
-### Option 1: One-Click Download (Recommended)
+## Option 1: One-Click Download (Recommended)
 
 **📥 [Download Latest Release](https://github.com/YOUR_USERNAME/YOUR_REPO/releases/latest)**
 
@@ -14,11 +10,11 @@ A real-time draft tool that helps you make better picks during your fantasy foot
 4. **Mac/Linux**: Double-click `start.sh`
 5. Open http://localhost:3000 in your browser
 
-### Option 2: Try Online (No Download Required)
+## Option 2: Try Online (No Download Required)
 
 [![Open in Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/YOUR_USERNAME/YOUR_REPO)
 
-### Option 3: Clone & Build
+## Option 3: Clone & Build
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
@@ -27,6 +23,8 @@ cd YOUR_REPO
 # or
 start.bat   # Windows
 ```
+
+---
 
 ## 📋 System Requirements
 
@@ -38,6 +36,8 @@ start.bat   # Windows
 - **Windows**: Double-click `check_dependencies.bat`
 - **Mac/Linux**: Run `./check_dependencies.sh`
 
+---
+
 ## ✨ What's Included in the Download
 
 - ✅ **Complete application** - Backend + Frontend
@@ -45,6 +45,8 @@ start.bat   # Windows
 - ✅ **Dependency checker** - Verify your system is ready
 - ✅ **Sample rankings** - Example CSV files to get started
 - ✅ **Full documentation** - Setup guide and troubleshooting
+
+---
 
 ## 🎯 Features
 
@@ -65,11 +67,7 @@ start.bat   # Windows
 - **Dark/Light Mode** - Comfortable viewing
 - **Responsive Design** - Works on all devices
 
-### 🔧 **Customization**
-- **Multiple Scoring Formats** - PPR, Half-PPR, Standard
-- **League Types** - Standard, Superflex, Dynasty
-- **Custom Rankings Manager** - Upload and manage your own rankings
-- **Flexible CSV Support** - Multiple column name formats
+---
 
 ## 🔧 Quick Setup Guide
 
@@ -82,6 +80,8 @@ start.bat   # Windows
 
 That's it! The tool will guide you through selecting your league and draft.
 
+---
+
 ## 📁 Custom Rankings Format
 
 Upload CSV files with player rankings:
@@ -91,49 +91,12 @@ name,position,rank,tier,team,value
 Josh Allen,QB,1,1,BUF,25.5
 Christian McCaffrey,RB,2,1,SF,24.8
 Cooper Kupp,WR,3,1,LAR,23.2
-Travis Kelce,TE,4,1,KC,18.7
 ```
 
 **Required columns:** `name`, `position`  
 **Optional columns:** `rank`, `tier`, `team`, `value`
 
-## 🏗️ Architecture
-
-- **Backend**: Python Flask server (port 5001)
-- **Frontend**: React application (port 3000)
-- **Data**: Sleeper API integration + FantasyPros rankings
-- **Storage**: Local file system for custom rankings
-
-## 🛠️ Development Setup
-
-### Manual Installation
-
-**Backend (Terminal 1):**
-```bash
-cd backend
-pip install -r requirements.txt
-python app.py
-```
-
-**Frontend (Terminal 2):**
-```bash
-cd frontend
-npm install
-npm start
-```
-
-### Testing
-```bash
-cd backend
-python test_integration.py
-```
-
-## 📚 Documentation
-
-- **[RELEASE_README.md](./RELEASE_README.md)** - Complete user guide for the release package
-- **[TECHNICAL_DOCUMENTATION.md](./INTEGRATED_SYSTEM_README.md)** - Detailed technical documentation
-- **[backend/API_README.md](./backend/API_README.md)** - API documentation and reference
-- **[backend/UPLOAD_FEATURES_README.md](./backend/UPLOAD_FEATURES_README.md)** - Custom rankings and mock draft features
+---
 
 ## 🆘 Need Help?
 
@@ -142,28 +105,8 @@ python test_integration.py
 - **"Python not found"** → Install Python 3.7+ from python.org
 - **"Node not found"** → Install Node.js 16+ from nodejs.org
 
-**Still stuck?** Check the included documentation for detailed troubleshooting.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
-
-- **Sleeper API** - For providing excellent fantasy football data
-- **FantasyPros** - For expert consensus rankings
-- **React & Flask** - For the excellent development frameworks
+**Still stuck?** Check the included README.md in the download for detailed troubleshooting.
 
 ---
 
 *Built for Sleeper fantasy football leagues. Works with standard, PPR, superflex, and dynasty formats.*
-
-**🎯 Ready to dominate your draft with real-time rankings and smart analysis!**

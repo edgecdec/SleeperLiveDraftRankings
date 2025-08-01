@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { RefreshCw, Clock, Users, Trophy, Settings, Zap, User, TrendingUp } from 'lucide-react';
 import clsx from 'clsx';
 import LeagueSelector from './LeagueSelector';
-import RankingsManager from './RankingsManager';
+import RankingsManagerModal from './RankingsManagerModal';
 import SettingsModal from './SettingsModal';
 
 const DraftHeader = ({ 
@@ -175,10 +175,16 @@ const DraftHeader = ({
         </div>
 
         {/* Rankings Manager Modal */}
-        <RankingsManager
+        <RankingsManagerModal
           isOpen={showRankingsManager}
           onClose={() => setShowRankingsManager(false)}
-          currentDraft={currentDraft}
+          onRankingSelected={(ranking) => {
+            console.log('Selected ranking:', ranking);
+            // Optionally refresh data after selection
+            if (onRefresh) {
+              setTimeout(() => onRefresh(), 1000);
+            }
+          }}
         />
 
         {/* Settings Modal */}

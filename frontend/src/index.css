@@ -92,9 +92,20 @@
   border-width: 5px !important;
 }
 
+/* Upload and Management Panel Styles */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
 @layer base {
   html {
-    scroll-behavior: auto; /* Disable smooth scrolling that might cause jumps */
+    scroll-behavior: auto;
   }
   
   body {
@@ -105,7 +116,6 @@
     @apply border-gray-200 dark:border-gray-700;
   }
   
-  /* Prevent auto-scrolling on focus changes */
   *:focus {
     scroll-margin: 0;
   }
@@ -113,7 +123,7 @@
 
 @layer components {
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm border p-6;
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6;
   }
   
   .btn-primary {
@@ -175,6 +185,127 @@
   .tier-999 {
     @apply border-l-4 border-gray-400;
   }
+
+  /* File upload drag and drop styles */
+  .file-drop-zone {
+    transition: all 0.3s ease;
+  }
+
+  .file-drop-zone:hover {
+    @apply border-primary-500 bg-primary-50 dark:bg-primary-900/20;
+  }
+
+  .file-drop-zone.drag-active {
+    @apply border-primary-500 bg-primary-100 dark:bg-primary-900/30 scale-105;
+  }
+
+  .file-drop-zone.has-file {
+    @apply border-green-500 bg-green-50 dark:bg-green-900/20;
+  }
+
+  /* Management panel specific styles */
+  .management-panel .card {
+    @apply transition-all duration-200;
+  }
+
+  .management-panel .card:hover {
+    @apply shadow-md;
+  }
+
+  /* Custom rankings card styles */
+  .ranking-card {
+    @apply transition-all duration-200;
+  }
+
+  .ranking-card:hover {
+    @apply shadow-lg transform -translate-y-1;
+  }
+
+  /* Mock draft status styles */
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .status-badge.success {
+    @apply bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300;
+  }
+
+  .status-badge.error {
+    @apply bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300;
+  }
+
+  .status-badge.warning {
+    @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300;
+  }
+
+  .status-badge.info {
+    @apply bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300;
+  }
+
+  /* Message styles */
+  .message {
+    @apply flex items-center justify-between p-4 rounded-lg font-medium;
+  }
+
+  .message.success {
+    @apply bg-green-50 text-green-800 border border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800;
+  }
+
+  .message.error {
+    @apply bg-red-50 text-red-800 border border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800;
+  }
+
+  .message.info {
+    @apply bg-blue-50 text-blue-800 border border-blue-200 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800;
+  }
+
+  /* Form styles */
+  .form-group {
+    @apply space-y-2;
+  }
+
+  .form-group label {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-300;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
+  }
+
+  .form-group input:disabled,
+  .form-group textarea:disabled,
+  .form-group select:disabled {
+    @apply bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed;
+  }
+
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200;
+  }
+
+  .btn-danger {
+    @apply text-white bg-red-600 hover:bg-red-700 focus:ring-red-500;
+  }
+
+  .btn:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  /* Loading states */
+  .loading-state {
+    @apply flex flex-col items-center justify-center py-12 space-y-4;
+  }
+
+  .empty-state {
+    @apply text-center py-12 text-gray-500 dark:text-gray-400;
+  }
+
+  /* Tab styles for consistency */
+  .tab-content {
+    @apply min-h-[400px];
+  }
 }
 
 /* Custom scrollbar */
@@ -199,7 +330,6 @@
   color-scheme: dark;
 }
 
-/* Form elements dark mode */
 .dark input,
 .dark select,
 .dark textarea {
@@ -212,7 +342,6 @@
   @apply border-primary-500 ring-primary-500;
 }
 
-/* Modal backdrop */
 .dark .modal-backdrop {
   @apply bg-gray-900 bg-opacity-75;
 }

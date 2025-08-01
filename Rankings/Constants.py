@@ -15,6 +15,7 @@ FIELD_NAME = 'Name'
 FIELD_TEAM = 'Team'
 FIELD_POSITION = 'Position'
 FIELD_TIER = 'Tier'
+FIELD_VALUE = 'Value'
 
 YEAR_2024 = "2024"
 

@@ -301,7 +301,12 @@ class RankingsManager:
                 'exists': exists,
                 'last_modified': last_modified,
                 'current_file_size': file_size,
-                'upload_time_formatted': self._format_timestamp(metadata['upload_time'])
+                'upload_time_formatted': self._format_timestamp(metadata['upload_time']),
+                # Ensure these fields exist for frontend compatibility
+                'name': metadata.get('display_name', 'Unknown'),  # Fallback for 'name' field
+                'title': metadata.get('display_name', 'Unknown'), # Alternative name field
+                'status': 'active' if exists else 'missing',
+                'type': 'custom'
             })
         
         # Sort by upload time (newest first)
