@@ -39,7 +39,7 @@ cp start.sh "$RELEASE_DIR/"
 cp start.bat "$RELEASE_DIR/"
 
 # Documentation
-cp RELEASE_README.md "$RELEASE_DIR/README.md"
+cp docs/RELEASE_README.md "$RELEASE_DIR/README.md"
 
 # Create additional helpful files
 echo "📝 Creating additional files..."

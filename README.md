@@ -130,8 +130,9 @@ python test_integration.py
 
 ## 📚 Documentation
 
-- **[RELEASE_README.md](./RELEASE_README.md)** - Complete user guide for the release package
-- **[TECHNICAL_DOCUMENTATION.md](./INTEGRATED_SYSTEM_README.md)** - Detailed technical documentation
+- **[docs/RELEASE_README.md](./docs/RELEASE_README.md)** - Complete user guide for the release package
+- **[docs/TECHNICAL_DOCUMENTATION.md](./docs/TECHNICAL_DOCUMENTATION.md)** - Detailed technical documentation
+- **[docs/DOCUMENTATION_INDEX.md](./docs/DOCUMENTATION_INDEX.md)** - Navigation guide for all documentation
 - **[backend/API_README.md](./backend/API_README.md)** - API documentation and reference
 - **[backend/UPLOAD_FEATURES_README.md](./backend/UPLOAD_FEATURES_README.md)** - Custom rankings and mock draft features
 

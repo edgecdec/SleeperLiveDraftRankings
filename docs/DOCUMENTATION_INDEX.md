@@ -4,7 +4,7 @@ This document provides a comprehensive guide to all documentation available in t
 
 ## 🏠 Main Documentation
 
-### [README.md](./README.md)
+### [../README.md](../README.md)
 **Primary repository documentation** - Start here for overview, quick start, and basic setup instructions.
 - Project overview and features
 - Quick start guide with download options
@@ -28,7 +28,7 @@ This document provides a comprehensive guide to all documentation available in t
 - Advanced configuration options
 - Testing procedures
 
-### [backend/API_README.md](./backend/API_README.md)
+### [../backend/API_README.md](../backend/API_README.md)
 **Backend API documentation** - Complete API reference and development guide.
 - All API endpoints with examples
 - Service architecture documentation
@@ -37,14 +37,14 @@ This document provides a comprehensive guide to all documentation available in t
 
 ## 🚀 Feature-Specific Documentation
 
-### [backend/UPLOAD_FEATURES_README.md](./backend/UPLOAD_FEATURES_README.md)
+### [../backend/UPLOAD_FEATURES_README.md](../backend/UPLOAD_FEATURES_README.md)
 **Custom rankings and mock draft features** - Documentation for advanced features.
 - Custom rankings upload system
 - Mock draft connection setup
 - API endpoints for file management
 - Integration examples
 
-### [backend/rankings/README.md](./backend/rankings/README.md)
+### [../backend/rankings/README.md](../backend/rankings/README.md)
 **Rankings system documentation** - Technical details about the rankings directory.
 - File structure and naming conventions
 - Rankings format specifications
@@ -54,24 +54,24 @@ This document provides a comprehensive guide to all documentation available in t
 ## 🎯 Quick Reference by Use Case
 
 ### 👤 **End Users (Just want to use the tool)**
-1. Start with [README.md](./README.md) for overview
+1. Start with [../README.md](../README.md) for overview
 2. Download the release package
 3. Follow [RELEASE_README.md](./RELEASE_README.md) for setup
 
 ### 👨‍💻 **Developers (Want to contribute or modify)**
-1. Read [README.md](./README.md) for project overview
+1. Read [../README.md](../README.md) for project overview
 2. Review [TECHNICAL_DOCUMENTATION.md](./TECHNICAL_DOCUMENTATION.md) for architecture
-3. Check [backend/API_README.md](./backend/API_README.md) for API details
+3. Check [../backend/API_README.md](../backend/API_README.md) for API details
 4. See feature-specific docs as needed
 
 ### 🔧 **System Administrators (Want to deploy or configure)**
 1. Start with [TECHNICAL_DOCUMENTATION.md](./TECHNICAL_DOCUMENTATION.md)
-2. Review [backend/API_README.md](./backend/API_README.md) for configuration
+2. Review [../backend/API_README.md](../backend/API_README.md) for configuration
 3. Check security and performance sections
 
 ### 📊 **Data Analysts (Want to understand rankings)**
-1. Read [backend/rankings/README.md](./backend/rankings/README.md)
-2. Review custom rankings sections in [backend/UPLOAD_FEATURES_README.md](./backend/UPLOAD_FEATURES_README.md)
+1. Read [../backend/rankings/README.md](../backend/rankings/README.md)
+2. Review custom rankings sections in [../backend/UPLOAD_FEATURES_README.md](../backend/UPLOAD_FEATURES_README.md)
 3. Check [TECHNICAL_DOCUMENTATION.md](./TECHNICAL_DOCUMENTATION.md) for data flow
 
 ## 📋 Documentation Standards
@@ -129,7 +129,7 @@ For questions about specific features:
 
 ### General Support
 For general support:
-1. Start with [README.md](./README.md) troubleshooting
+1. Start with [../README.md](../README.md) troubleshooting
 2. Check [RELEASE_README.md](./RELEASE_README.md) for user issues
 3. Review [TECHNICAL_DOCUMENTATION.md](./TECHNICAL_DOCUMENTATION.md) for technical problems
 4. Submit GitHub issues for unresolved problems
