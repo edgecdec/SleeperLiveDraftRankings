@@ -13,7 +13,6 @@ function checkBackendReady(callback, attempts = 0) {
   const maxAttempts = 60; // 60 seconds max
   
   if (attempts >= maxAttempts) {
-    console.error('Backend failed to start after 60 seconds');
     callback(false);
     return;
   }
@@ -22,14 +21,10 @@ function checkBackendReady(callback, attempts = 0) {
   const testUrl = attempts < 10 ? 'http://localhost:5001/' : 'http://localhost:5001/api/health';
   
   const req = http.get(testUrl, (res) => {
-    console.log(`Backend is responding! (status: ${res.statusCode})`);
     callback(true);
   });
   
   req.on('error', (err) => {
-    if (attempts % 5 === 0) { // Log every 5th attempt to reduce noise
-      console.log(`Backend not ready yet (attempt ${attempts + 1}/${maxAttempts})...`);
-    }
     setTimeout(() => checkBackendReady(callback, attempts + 1), 1000);
   });
   
@@ -41,8 +36,6 @@ function checkBackendReady(callback, attempts = 0) {
 
 // Backend server setup
 function startBackendServer() {
-  console.log('Starting backend server...');
-  
   // In packaged app, backend is in app.asar.unpacked
   // In development, it's in the regular backend directory
   let backendPath;
@@ -52,73 +45,48 @@ function startBackendServer() {
     backendPath = path.join(__dirname, 'backend');
   }
   
-  console.log('Backend path:', backendPath);
-  console.log('App is packaged:', app.isPackaged);
-  console.log('Process resources path:', process.resourcesPath);
-  
   // Check if backend directory exists
   const fs = require('fs');
   if (!fs.existsSync(backendPath)) {
-    console.error('Backend directory does not exist:', backendPath);
     return;
   }
   
   // Check if app.py exists
   const appPyPath = path.join(backendPath, 'app.py');
   if (!fs.existsSync(appPyPath)) {
-    console.error('app.py does not exist:', appPyPath);
     return;
   }
   
-  console.log('Backend files verified, starting Python process...');
-  
   // Try python3 first, then python
   const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
-  console.log('Using Python command:', pythonCmd);
   
   backendProcess = spawn(pythonCmd, ['app.py'], {
     cwd: backendPath,
     stdio: ['pipe', 'pipe', 'pipe'],
-    env: { ...process.env, FLASK_ENV: 'production' }
+    env: { ...process.env, FLASK_ENV: 'production', FLASK_DEBUG: '0' }
   });
   
+  // Silently handle output to prevent EPIPE errors
   backendProcess.stdout.on('data', (data) => {
-    try {
-      console.log(`Backend: ${data.toString().trim()}`);
-    } catch (err) {
-      // Ignore write errors to prevent EPIPE
-    }
+    // Backend output - silently handled
   });
   
   backendProcess.stderr.on('data', (data) => {
-    try {
-      console.error(`Backend Error: ${data.toString().trim()}`);
-    } catch (err) {
-      // Ignore write errors to prevent EPIPE
-    }
+    // Backend errors - silently handled
   });
   
   backendProcess.on('error', (err) => {
-    console.error('Backend process error:', err);
     // Try alternative Python command
     if (pythonCmd === 'python3') {
-      console.log('Trying with python command...');
       setTimeout(() => startBackendServerWithPython(), 1000);
     }
   });
   
   backendProcess.on('close', (code) => {
-    console.log(`Backend process exited with code ${code}`);
     if (code !== 0 && code !== null) {
-      console.log('Backend crashed, attempting restart...');
       setTimeout(() => startBackendServer(), 2000);
     }
   });
-  
-  // Give backend time to start
-  setTimeout(() => {
-    console.log('Backend should be ready now');
-  }, 3000);
 }
 
 // Fallback function to try with 'python' command
@@ -130,38 +98,27 @@ function startBackendServerWithPython() {
     backendPath = path.join(__dirname, 'backend');
   }
   
-  console.log('Starting backend with python fallback...');
-  
   backendProcess = spawn('python', ['app.py'], {
     cwd: backendPath,
     stdio: ['pipe', 'pipe', 'pipe'],
-    env: { ...process.env, FLASK_ENV: 'production' }
+    env: { ...process.env, FLASK_ENV: 'production', FLASK_DEBUG: '0' }
   });
   
+  // Silently handle output to prevent EPIPE errors
   backendProcess.stdout.on('data', (data) => {
-    try {
-      console.log(`Backend: ${data.toString().trim()}`);
-    } catch (err) {
-      // Ignore write errors to prevent EPIPE
-    }
+    // Backend output - silently handled
   });
   
   backendProcess.stderr.on('data', (data) => {
-    try {
-      console.error(`Backend Error: ${data.toString().trim()}`);
-    } catch (err) {
-      // Ignore write errors to prevent EPIPE
-    }
+    // Backend errors - silently handled
   });
   
   backendProcess.on('error', (err) => {
-    console.error('Backend process error (python fallback):', err);
+    // Silent error handling
   });
   
   backendProcess.on('close', (code) => {
-    console.log(`Backend process exited with code ${code}`);
     if (code !== 0 && code !== null) {
-      console.log('Backend fallback crashed, attempting restart...');
       setTimeout(() => startBackendServerWithPython(), 2000);
     }
   });
@@ -169,8 +126,6 @@ function startBackendServerWithPython() {
 
 // Frontend server setup
 function startFrontendServer() {
-  console.log('Starting frontend server...');
-  
   const expressApp = express();
   
   // Serve built React app
@@ -181,8 +136,6 @@ function startFrontendServer() {
     buildPath = path.join(__dirname, 'frontend', 'build');
   }
   
-  console.log('Frontend build path:', buildPath);
-  
   expressApp.use(express.static(buildPath));
   
   // Handle React Router - serve index.html for all routes
@@ -191,11 +144,11 @@ function startFrontendServer() {
   });
   
   frontendServer = expressApp.listen(3000, () => {
-    console.log('Frontend server running on http://localhost:3000');
+    // Frontend server started
   });
   
   frontendServer.on('error', (err) => {
-    console.error('Frontend server error:', err);
+    // Frontend server error - silently handled
   });
 }
 
@@ -230,12 +183,10 @@ function createWindow() {
         
         // Wait a bit for frontend to start, then load the app
         setTimeout(() => {
-          console.log('Loading application in browser window...');
           mainWindow.loadURL('http://localhost:3000');
         }, 2000);
       } else {
-        console.error('Backend failed to start, showing error page');
-        mainWindow.loadURL('data:text/html,<h1>Backend Failed to Start</h1><p>Please check the console for errors.</p>');
+        mainWindow.loadURL('data:text/html,<h1>Backend Failed to Start</h1><p>Please check if Python is installed.</p>');
       }
     });
   }, 2000);
