@@ -6,7 +6,7 @@ A real-time draft tool that helps you make better picks during your fantasy foot
 
 ### Option 1: One-Click Download (Recommended)
 
-**📥 [Download Latest Release](https://github.com/YOUR_USERNAME/YOUR_REPO/releases/latest)**
+**📥 [Download Latest Release](https://github.com/edgecdec/SleeperLiveDraftRankings/releases/latest)**
 
 1. Download the ZIP file
 2. Extract to your desired location
@@ -16,13 +16,13 @@ A real-time draft tool that helps you make better picks during your fantasy foot
 
 ### Option 2: Try Online (No Download Required)
 
-[![Open in Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/YOUR_USERNAME/YOUR_REPO)
+[![Open in Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/edgecdec/SleeperLiveDraftRankings)
 
 ### Option 3: Clone & Build
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
+git clone https://github.com/edgecdec/SleeperLiveDraftRankings.git
+cd SleeperLiveDraftRankings
 ./start.sh  # Mac/Linux
 # or
 start.bat   # Windows
