@@ -34,15 +34,21 @@ start.bat   # Windows
 - **Node.js 16+** - [Download](https://nodejs.org)
 - **Internet connection** - For live draft data
 
-**Not sure if you have these?** Run the dependency checker:
+**Not sure if you have these?** Run the enhanced dependency checker:
 - **Windows**: Double-click `check_dependencies.bat`
 - **Mac/Linux**: Run `./check_dependencies.sh`
+
+The dependency checker will:
+- ✅ Verify all required software is installed
+- ⚠️ Show version warnings if updates are recommended
+- 🔧 Provide installation instructions for missing dependencies
+- 📊 Give you a clear summary of what's ready
 
 ## ✨ What's Included in the Download
 
 - ✅ **Complete application** - Backend + Frontend
-- ✅ **Start scripts** - One-click setup for Windows/Mac/Linux
-- ✅ **Dependency checker** - Verify your system is ready
+- ✅ **Smart start scripts** - One-click setup with automatic dependency installation
+- ✅ **Enhanced dependency checker** - Verify your system is ready with detailed feedback
 - ✅ **Sample rankings** - Example CSV files to get started
 - ✅ **Full documentation** - Setup guide and troubleshooting
 
@@ -110,31 +116,31 @@ Travis Kelce,TE,4,1,KC,18.7
 
 **Backend (Terminal 1):**
 ```bash
-cd backend
+cd src/backend
 pip install -r requirements.txt
 python app.py
 ```
 
 **Frontend (Terminal 2):**
 ```bash
-cd frontend
+cd src/frontend
 npm install
 npm start
 ```
 
 ### Testing
 ```bash
-cd backend
-python test_integration.py
+cd test
+python test_dst_roster.py
 ```
 
 ## 📚 Documentation
 
-- **[docs/RELEASE_README.md](./docs/RELEASE_README.md)** - Complete user guide for the release package
-- **[docs/TECHNICAL_DOCUMENTATION.md](./docs/TECHNICAL_DOCUMENTATION.md)** - Detailed technical documentation
-- **[docs/DOCUMENTATION_INDEX.md](./docs/DOCUMENTATION_INDEX.md)** - Navigation guide for all documentation
-- **[backend/API_README.md](./backend/API_README.md)** - API documentation and reference
-- **[backend/UPLOAD_FEATURES_README.md](./backend/UPLOAD_FEATURES_README.md)** - Custom rankings and mock draft features
+- **[doc/RELEASE_README.md](./doc/RELEASE_README.md)** - Complete user guide for the release package
+- **[doc/TECHNICAL_DOCUMENTATION.md](./doc/TECHNICAL_DOCUMENTATION.md)** - Detailed technical documentation
+- **[doc/DOCUMENTATION_INDEX.md](./doc/DOCUMENTATION_INDEX.md)** - Navigation guide for all documentation
+- **[src/backend/API_README.md](./src/backend/API_README.md)** - API documentation and reference
+- **[src/backend/UPLOAD_FEATURES_README.md](./src/backend/UPLOAD_FEATURES_README.md)** - Custom rankings and mock draft features
 
 ## 🆘 Need Help?
 
