@@ -20,6 +20,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "serve": "node serve-local.js",
+    "build-and-serve": "npm run build && npm run serve",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -47,6 +49,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
+    "express": "^5.1.0",
     "postcss": "^8.4.24"
   },
   "proxy": "http://localhost:5001"
