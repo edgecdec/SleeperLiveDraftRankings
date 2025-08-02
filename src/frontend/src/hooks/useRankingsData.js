@@ -1,5 +1,8 @@
 import { useState, useCallback } from 'react';
 
+// Use the same API base URL configuration as other hooks
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+
 /**
  * Custom hook for managing rankings data and API calls
  * Handles fetching and updating all rankings-related data
@@ -17,7 +20,7 @@ export const useRankingsData = (currentDraft) => {
   // Individual fetch functions
   const fetchRankingsStatus = useCallback(async () => {
     try {
-      const response = await fetch('/api/rankings/status');
+      const response = await fetch(`${API_BASE_URL}/api/rankings/status`);
       const data = await response.json();
       setRankingsStatus(data);
       setUpdateInProgress(data.update_in_progress);
@@ -28,7 +31,7 @@ export const useRankingsData = (currentDraft) => {
 
   const fetchAvailableFormats = useCallback(async () => {
     try {
-      const response = await fetch('/api/rankings/formats');
+      const response = await fetch(`${API_BASE_URL}/api/rankings/formats`);
       const data = await response.json();
       setAvailableFormats(data);
     } catch (error) {
@@ -39,7 +42,7 @@ export const useRankingsData = (currentDraft) => {
   const fetchCurrentFormat = useCallback(async () => {
     try {
       const draftId = currentDraft?.draft_id;
-      const url = draftId ? `/api/rankings/current-format?draft_id=${draftId}` : '/api/rankings/current-format';
+      const url = draftId ? `${API_BASE_URL}/api/rankings/current-format?draft_id=${draftId}` : `${API_BASE_URL}/api/rankings/current-format`;
       const response = await fetch(url);
       const data = await response.json();
       setCurrentFormat(data);
@@ -50,7 +53,7 @@ export const useRankingsData = (currentDraft) => {
 
   const fetchCustomRankings = useCallback(async () => {
     try {
-      const response = await fetch('/api/rankings/custom');
+      const response = await fetch(`${API_BASE_URL}/api/rankings/custom`);
       const data = await response.json();
       // Ensure data is an array
       const rankings = Array.isArray(data) ? data : [];
@@ -64,7 +67,7 @@ export const useRankingsData = (currentDraft) => {
 
   const fetchCurrentRankings = useCallback(async () => {
     try {
-      const response = await fetch('/api/rankings/current');
+      const response = await fetch(`${API_BASE_URL}/api/rankings/current`);
       const data = await response.json();
       // Ensure data is an array
       setCurrentRankings(Array.isArray(data) ? data : []);
@@ -97,7 +100,7 @@ export const useRankingsData = (currentDraft) => {
   const handleUpdateRankings = useCallback(async () => {
     setUpdateInProgress(true);
     try {
-      const response = await fetch('/api/rankings/update', {
+      const response = await fetch(`${API_BASE_URL}/api/rankings/update`, {
         method: 'POST',
       });
       const result = await response.json();

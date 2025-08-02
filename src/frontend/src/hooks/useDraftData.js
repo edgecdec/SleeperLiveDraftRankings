@@ -2,6 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+// Use the same API base URL configuration as other hooks
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+
 const useDraftData = (initialDraftId = null) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,11 +32,11 @@ const useDraftData = (initialDraftId = null) => {
       let response;
       if (isMockDraft) {
         // For mock drafts, use the mock draft status endpoint
-        response = await axios.get('/api/mock-draft/status');
+        response = await axios.get(`${API_BASE_URL}/api/mock-draft/status`);
       } else {
         // For regular drafts, use the regular draft status endpoint
         const params = draftId ? { draft_id: draftId } : {};
-        response = await axios.get('/api/draft/status', { params });
+        response = await axios.get(`${API_BASE_URL}/api/draft/status`, { params });
       }
       
       setData(response.data);
@@ -64,11 +67,11 @@ const useDraftData = (initialDraftId = null) => {
       let response;
       if (isMockDraft) {
         // For mock drafts, use the mock draft status endpoint
-        response = await axios.get('/api/mock-draft/status');
+        response = await axios.get(`${API_BASE_URL}/api/mock-draft/status`);
       } else {
         // For regular drafts, use the regular draft refresh endpoint
         const params = draftId ? { draft_id: draftId } : {};
-        response = await axios.get('/api/draft/refresh', { params });
+        response = await axios.get(`${API_BASE_URL}/api/draft/refresh`, { params });
       }
       
       setData(response.data);
@@ -95,7 +98,7 @@ const useDraftData = (initialDraftId = null) => {
     try {
       if (isMockDraft) {
         // For mock drafts, ensure the mock draft configuration is set
-        await axios.post('/api/mock-draft/config', {
+        await axios.post(`${API_BASE_URL}/api/mock-draft/config`, {
           draft_id: draftId,
           description: `Mock Draft ${draftId}`,
           auto_refresh: true,
@@ -104,7 +107,7 @@ const useDraftData = (initialDraftId = null) => {
         });
       } else {
         // For regular drafts, use the regular draft set endpoint
-        await axios.post('/api/draft/set', { draft_id: draftId });
+        await axios.post(`${API_BASE_URL}/api/draft/set`, { draft_id: draftId });
       }
     } catch (err) {
       console.warn('Failed to set draft ID on backend:', err);

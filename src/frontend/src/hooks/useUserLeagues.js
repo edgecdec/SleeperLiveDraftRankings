@@ -1,6 +1,9 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 
+// Use the same API base URL configuration as other hooks
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+
 const useUserLeagues = () => {
   const [user, setUser] = useState(null);
   const [leagues, setLeagues] = useState([]);
@@ -17,7 +20,8 @@ const useUserLeagues = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`/api/user/${username}/leagues?season=${season}`);
+      // Use absolute URL with API_BASE_URL
+      const response = await axios.get(`${API_BASE_URL}/api/user/${username}/leagues?season=${season}`);
       setUser(response.data.user);
       setLeagues(response.data.leagues);
       setError(null);

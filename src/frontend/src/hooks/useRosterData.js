@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
+// Use the same API base URL configuration as other hooks
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+
 export const useRosterData = (leagueId, username, draftId, isVisible, lastUpdated, data) => {
   const [rosterData, setRosterData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -53,7 +56,7 @@ export const useRosterData = (leagueId, username, draftId, isVisible, lastUpdate
       // Add timestamp to prevent caching
       params.append('_t', Date.now().toString());
       
-      const apiUrl = `/api/league/${currentLeagueId}/my-roster?${params}`;
+      const apiUrl = `${API_BASE_URL}/api/league/${currentLeagueId}/my-roster?${params}`;
       console.log('MyRoster: Making API call to:', apiUrl);
       console.log('MyRoster: Full URL breakdown - leagueId:', currentLeagueId, 'params:', params.toString());
       
