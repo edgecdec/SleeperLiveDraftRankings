@@ -42,7 +42,14 @@ from Rankings.RankingsManager import RankingsManager
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for frontend integration
+
+# Enable CORS for all origins, methods, and headers
+CORS(app, 
+     origins="*",  # Allow all origins
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],  # Allow all common methods
+     allow_headers="*",  # Allow all headers
+     supports_credentials=True  # Allow credentials if needed
+)
 
 # Initialize error handling middleware
 error_middleware = ErrorHandlingMiddleware(app)
