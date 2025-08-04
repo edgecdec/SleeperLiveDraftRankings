@@ -1,4 +1,20 @@
 # SleeperLiveDraftRankings
+
+## 🚀 **UPGRADED TO V2!** 🚀
+
+**We've released a major upgrade with a robust UI interface that's very easy to install!**
+
+**[📥 Download the latest V2 release here](https://github.com/edgecdec/SleeperLiveDraftRankingsV2/releases)**
+
+The new V2 system features:
+- **Easy Installation** - No more manual setup required
+- **Robust UI Interface** - User-friendly graphical interface
+- **Enhanced Features** - Improved functionality and performance
+
+*Note: This command line interface will continue to work as expected for those who prefer it.*
+
+---
+
 ### See what players you have ranked highest remaining in your draft.
 
 ## Build Your Rankings
